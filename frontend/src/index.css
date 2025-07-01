@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* Use this class in your HTML element */
+body {
+
+    font-family: "DM Sans", sans-serif;
+    font-weight:lighter;
+    font-style: normal;
+    background-color: #FBFAE8;
+}
+
+:root {
+    --color-background: #FBFAE8;
+    --color-button: #5A271E;
+    --color-text: #22223B;
+}
+
+
+
