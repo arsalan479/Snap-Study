@@ -10,6 +10,7 @@ const Googleinput = () => {
   const [email, setEmail] = useState("");
   const [displayName, setdisplayName] = useState("");
   const [password, setpassword] = useState("");
+  const [comparepassword, setcomparepassword] = useState('')
   const [eyepassword, seteyepassword] = useState(false)
   const [validationerrors, setvalidationerrors] = useState([]);
   // const recaptchaRef = useRef(null);

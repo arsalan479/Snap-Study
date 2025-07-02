@@ -3,6 +3,8 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from 'react-hot-toast';
 import Dashboard from './Dashboard.jsx';
+import googlepng from '../assets/LoginImages/googlepng.png'
+import githublogo from '../assets/LoginImages/github-seeklogo.png'
 
 const GooglegithubloginV3Captcha = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -60,23 +62,23 @@ const GooglegithubloginV3Captcha = () => {
 
   return (
     <div>
-      <div style={{ padding: 20 }}>
-        <h1 className="text-black">Google Auth</h1>
+      <div>
         <button
-          className="cursor-pointer bg-blue-500 px-6 py-3 rounded-sm text-white font-semibold"
+          className="flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
           onClick={loginWithGoogle}
         >
-          Login with Google
+          <img src={googlepng} className="w-5 h-5 object-cover" alt="Google" />
+          Continue With Google
         </button>
       </div>
 
-      <div style={{ padding: 20 }}>
-        <h1 className="text-black">Github Auth</h1>
+      <div>
         <button
-          className="cursor-pointer bg-black px-6 py-3 rounded-sm text-white font-semibold"
+          className="flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
           onClick={loginWithGithub}
         >
-          Login with GitHub
+          <img src={githublogo} className='w-6 h-6 object-cover' alt="" />
+          Continue With GitHub
         </button>
       </div>
     </div>

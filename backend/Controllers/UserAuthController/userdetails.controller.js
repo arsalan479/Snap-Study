@@ -1,10 +1,9 @@
 import { validationResult } from "express-validator";
-import UserOne from "../../Models/UserOneScehma/UserOne.model.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
-import { comparepasssword, hashedpassword } from "../../Utils/hashpassword.js";
+import {comparepasssword,hashedpassword} from '../../Utils/hashpassword.js'
+import Userone from '../../Models/UserOneScehma/UserOne.model.js'
 
 export const passwordUpdate = async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -12,7 +11,7 @@ export const passwordUpdate = async (req, res) => {
 
     try {
         const UserId = decodedToken(req);
-        const { oldPassword, newPassword } = req.body;
+        const { oldPassword, newPassword, comparePassword } = req.body;
 
         if (!UserId || !oldPassword || !newPassword) {
             return res.status(400).json({
@@ -20,7 +19,14 @@ export const passwordUpdate = async (req, res) => {
             });
         }
 
-        const user = await UserOne.findOne({ _id: UserId }).select(
+        // Compare newPassword and comparePassword if comparePassword is provided
+        if (comparePassword !== undefined && newPassword !== comparePassword) {
+            return res.status(400).json({
+                message: "New password and compare password do not match",
+            });
+        }
+
+        const user = await Userone.findOne({ _id: UserId }).select(
             "authMethods.googleuserbyemail.password"
         );
 
@@ -34,8 +40,8 @@ export const passwordUpdate = async (req, res) => {
 
         const isMatch = await comparepasssword(oldPassword, storedPassword);
         if (!isMatch) {
-            return res.status(401).json({
-                message: "old password is incorrect",
+            return res.status(400).json({
+                message: "Old Password Is Incorrect",
             });
         }
 

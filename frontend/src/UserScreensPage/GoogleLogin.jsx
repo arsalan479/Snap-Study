@@ -2,6 +2,7 @@ import {React,useState,useRef} from 'react'
 import { axiosinstance } from '../AxiosInstance/axios.js';
 import toast from 'react-hot-toast';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 
 // import ReCAPTCHA from 'react-google-recaptcha';
@@ -136,42 +137,40 @@ const tooglepassword = ()=>{
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-  <form
-    onSubmit={submithandler}
-    className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm space-y-6"
-  >
-    <h2 className="text-2xl font-bold text-center text-gray-800">Login to Your Account</h2>
-
+   <div>
+  <form onSubmit={submithandler}>
+    
     <input
       type="email"
       name="email"
       value={email}
       onChange={(e) => setemail(e.target.value)}
       placeholder="Enter your email"
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="w-full px-4 py-2 border border-white text-[var(--text)] rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300"
     />
 
-    <input
-      type={eyepassword ? 'text' : 'password'}
-      name="password"
-      value={password}
-      onChange={(e) => setpassword(e.target.value)}
-      placeholder="Enter your password"
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <span
+    <div className="relative w-full mt-4">
+  <input
+    type={eyepassword ? 'text' : 'password'}
+    name="password"
+    value={password}
+    onChange={(e) => setpassword(e.target.value)}
+    placeholder="Enter your password"
+    className="w-full px-4 py-2 border text-[var(--text)] border-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 pr-10"
+  />
+  
+  {/* Toggle eye icon */}
+  <span
     onClick={tooglepassword}
-     style={{
-          position: 'absolute',
-          right:"36%",
-          top: '48%',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer'
-        }}
-    >
-      {eyepassword ? <EyeSlashIcon className='h-5 w-5'/> : <EyeIcon className='h-5 w-5'/>}
-    </span>
+    className="absolute right-5 top-1/2 transform -translate-y-1/2 cursor-pointer"
+  >
+    {eyepassword ? (
+      <EyeSlashIcon className="h-5 w-5 text-white" />
+    ) : (
+      <EyeIcon className="h-5 w-5 text-white" />
+    )}
+  </span>
+</div>
 
         {/* Google reCAPTCHA  */}
         {/* <div className="mb-6">
@@ -179,18 +178,20 @@ const tooglepassword = ()=>{
         </div> */}
     <button
       type="submit"
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition-all duration-200"
+      className="font-semibold w-full mt-4 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] text-white font-medium py-3 rounded-[15px] transition-all duration-200"
     >
-      Login
+      Continue
     </button>
 
-<p className="text-sm text-center text-gray-500">
-      <span  onClick={forgetpasswordbyId}  className="text-blue-600 cursor-pointer hover:underline">Forget Password</span>
+<div className='flex justify-center gap-10 mt-4'>  
+  <p className=" text-sm text-center">
+      <span  onClick={forgetpasswordbyId}  className="text-[var(--Accent)] cursor-pointer hover:underline">Forget Password</span>
     </p>
 
-    <p className="text-sm text-center text-gray-500">
-      Don’t have an account? <span className="text-blue-600 cursor-pointer hover:underline">Sign up</span>
+    <p className="text-sm text-center text-gray-400">
+      Don’t have an account? <Link to='/googleregister'><span className="text-[var(--Accent)] cursor-pointer hover:underline">Sign up</span></Link>
     </p>
+</div>
   </form>
 </div>
 

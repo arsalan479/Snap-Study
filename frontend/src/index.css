@@ -5,16 +5,44 @@
 body {
 
     font-family: "DM Sans", sans-serif;
-    font-weight:lighter;
-    font-style: normal;
-    background-color: #FBFAE8;
+    /* font-weight:lighter; */
+    /* font-style: normal; */
+
 }
 
 :root {
-    --color-background: #FBFAE8;
-    --color-button: #5A271E;
-    --color-text: #22223B;
+    --background: #000;
+    --button: #222222;
+    --hover:#3d3d3d;
+    --text: #fff;
+    --primary:#6366F1;
+    --Accent:#ae92d8;
 }
 
+@media (max-width: 800px) {
+  .img {
+    display: none;
+  }
 
+  .main {
+    flex-direction: column !important;
+    width: 90vw !important;
+    height: auto !important;
+    padding: 1rem;
+    border-radius: 20px;
+  }
 
+  .main > div {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0.5rem 0;
+  }
+
+  .main2 {
+    padding: 1rem;
+  }
+
+  p {
+    font-size: 3vw !important; /* Larger text for small screens */
+  }
+}

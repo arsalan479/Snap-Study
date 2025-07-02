@@ -7,6 +7,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
+import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
 import UserProfile from '../UserDashboardComponents/UserProfile';
 import SubjectFilterQuiz from '../QuizCardsComponents/SubjectFilterQuiz';
 import { useQuizCard } from '../../Context/QuizCardCrudContext';
@@ -93,7 +94,8 @@ export default function DashboardLayoutBasic(props) {
       },
       {
         segment:'passwordupdate',
-        title:"Passwor Update"
+        title:"Passwor Update",
+        icon:<PasswordTwoToneIcon/>
       }
     ];
   }, [uniqueSubjects]);
