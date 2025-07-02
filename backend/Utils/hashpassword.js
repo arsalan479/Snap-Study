@@ -2,9 +2,9 @@ import bcrypt from 'bcrypt';
 
 
 export const hashedpassword = async(hashpassword)=>{
-    const salt = 10
-    const hashing = bcrypt.hash(hashpassword,salt);
-    return hashing
+const salt = 10
+const hashing = bcrypt.hash(hashpassword,salt);
+return hashing
 }
 
 

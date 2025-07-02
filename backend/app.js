@@ -9,6 +9,7 @@ import fileuploadroute from './Routes/FileUploadCloudRoutes/fileupload.route.js'
 import editdeletesystem from './Routes/FileUploadCloudRoutes/editdeletesystem.route.js'
 import quizcardsroutes from './Routes/QuizCardRoutes/quizcard.route.js';
 import quizcardeditdeletefetch from './Routes/QuizCardRoutes/quizcardeditdeletefetch.route.js'
+import userdetails from './Routes/UserAuthRoutes/userdetails.route.js'
 import passport from 'passport';
 import cors from 'cors';
 import './Config/googleauth/google.passport.js';
@@ -69,6 +70,11 @@ app.use('/editdelete',editdeletesystem)
 
 app.use('/api/quiz',quizcardsroutes)
 app.use('/api/quiz/crud',quizcardeditdeletefetch)
+
+
+//userdetails
+app.use('/userdetail',userdetails)
+
 
 const port = process.env.PORT || 3000
 app.listen(port,()=>{

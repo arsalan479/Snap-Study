@@ -25,7 +25,7 @@ route.get('/github/callback',
         jwtgooglemail(req.user,res,"GitHub login successful")
       
    if(req.user.role == 'admin'){
-        return res.redirect("http://localhost:5173/AdminDashboard")
+        return res.redirect(process.env.ADMIN_URI)
      }
 
         return res.redirect(`http://localhost:5173/dashboard?success=true&name=${req.user.displayName}`);

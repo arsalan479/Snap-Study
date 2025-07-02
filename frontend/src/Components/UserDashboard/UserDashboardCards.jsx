@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import UserProfile from '../UserDashboardComponents/UserProfile';
 import SubjectFilterQuiz from '../QuizCardsComponents/SubjectFilterQuiz';
 import { useQuizCard } from '../../Context/QuizCardCrudContext';
+import UserPasswordUpdate from '../../Services/UserPasswordUpdate';
 
 const demoTheme = createTheme({
   colorSchemes: { light: true, dark: true },
@@ -90,6 +91,10 @@ export default function DashboardLayoutBasic(props) {
         icon: <LibraryBooksTwoToneIcon />,
         children: subjectChildren,
       },
+      {
+        segment:'passwordupdate',
+        title:"Passwor Update"
+      }
     ];
   }, [uniqueSubjects]);
 
@@ -102,6 +107,10 @@ export default function DashboardLayoutBasic(props) {
     if (router.pathname.startsWith('/subjects/')) {
       const subject = router.pathname.split('/')[2];
       return <SubjectFilterQuiz subject={subject} />;
+    }
+
+    if(router.pathname === '/passwordupdate'){
+      return <UserPasswordUpdate/>
     }
 
     return (

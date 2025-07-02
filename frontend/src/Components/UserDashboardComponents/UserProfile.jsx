@@ -20,6 +20,9 @@ const UserProfile = () => {
     fetchUser();
   }, []);
 
+  
+
+
   if (!user) {
     return (
       <Typography variant="body1" sx={{ p: 2 }}>
@@ -64,6 +67,11 @@ const UserProfile = () => {
         </Paper>
       </Grid>
 
+    <div>
+      <button className='px-6 py-3 cursor-pointer bg-blue-500 text-white rounded-2xl'>
+        Update Password
+      </button>
+    </div>
 
      
     </Grid>
