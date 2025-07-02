@@ -1,13 +1,24 @@
 import jwt from 'jsonwebtoken';
+import blacklistToken from '../../Models/UserOneScehma/BlackListToken.js';
 
 
-export const checkAlreadyLoggedIn = (req,res)=>{
+export const checkAlreadyLoggedIn = async(req,res)=>{
 
-    const token = req.cookies.token || req.headers['authorization']?.spilt(' ')[1];
+    const token = req.cookies.token;
 
     if(!token){
         return res.status(200).json({
             isAuthenticated:false
+        })
+    }
+
+
+    const isBlackList = await blacklistToken.findOne({token})
+    if(isBlackList){
+        res.clearCookie('token')
+        return res.status(401).json({
+            isAuthenticated:false,
+            message:"Token is BlackList"
         })
     }
 

@@ -24,7 +24,14 @@ resetPasswordById)
 
 route.get('/logout',allLogoutsystem)
 
-route.get('/verifytoken',verifytoken)
+route.get('/verifytoken', verifytoken, (req, res) => {
+  return res.status(200).json({
+    message: "Token verified",
+    success: true,
+    user: req.user
+  });
+});
+
 route.get('/checkalreadyuserloggedin',checkAlreadyLoggedIn)
 
 

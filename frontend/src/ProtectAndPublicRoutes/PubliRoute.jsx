@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 
-const PublicRoute = ({ children }) => {
+ const PublicRoute = ({ children }) => {
   const [authState, setAuthState] = useState({ loading: true, isAuthenticated: false, role: null });
 
   useEffect(() => {
-      axiosinstance.get("/auth/magic/checkalreadyuserloggedin", {
-      })
+    axiosinstance.get("/auth/magic/checkalreadyuserloggedin")
       .then((res) => {
         setAuthState({
           loading: false,
@@ -30,4 +29,4 @@ const PublicRoute = ({ children }) => {
   return children;
 };
 
-export default PublicRoute;
+export default PublicRoute
