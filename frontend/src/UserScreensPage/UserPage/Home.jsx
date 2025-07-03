@@ -1,21 +1,30 @@
-import React from 'react'
-import Navbar from '../../Components/WebComponents/Navbar'
-import SideBar from '../../Components/WebComponents/SideBar'
+import React, { useState } from "react";
+import Navbar from "../../Components/WebComponents/Navbar";
+import SideBar from "../../Components/WebComponents/SideBar";
 
 const Home = () => {
+ const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
-  <div className="flex">
-      <SideBar />
-      <div className="flex-1 ml-60">
-        <Navbar />
-        <main className="bg-black text-white min-h-screen p-4 pt-16">
-          <h1 className="text-4xl font-bold text-center mt-20">Sora</h1>
-          <p className="text-center mt-10">Foundational Contributors</p>
-          {/* Add more main content here */}
-        </main>
-      </div>
+    <div>
+      <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Navbar isSidebarOpen={isSidebarOpen} />
+
+      <main
+        className={`pt-16 ${
+          isSidebarOpen ? "ml-50" : "ml-0"
+        } transition-all duration-300 p-4`}
+      >
+        {/* your page content */}
+        <h1 className="text-[var(--text)] text-center text-3xl tracking-tight">Welcome to SnapStudy Dashboard</h1>
+
+      </main>
     </div>
-)
+  )
 }
 
-export default Home
+export default Home;
