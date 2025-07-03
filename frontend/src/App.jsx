@@ -1,18 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
-import Checkauthgooglegithub from './UserScreensPage/Checkauthgooglegithub';
-import Googleinput from './UserScreensPage/Googleinput';
-import { GoogleOTP } from './UserScreensPage/GoogleOTP';
-import Dashboard from './UserScreensPage/Dashboard';
-import ProtectedRoute from "./ProtectAndPublicRoutes/ProtectedRoute";
-import PublicRoute from './ProtectAndPublicRoutes/PubliRoute';
-import AdminDashboard from './AdminScreenPages/AdminDashboard';
-import GoogleLogin from './UserScreensPage/GoogleLogin';
-import ResetPassword from './UserScreensPage/ResetPassword';
+// import { Routes, Route } from 'react-router-dom';
+// import Checkauthgooglegithub from './UserScreensPage/Checkauthgooglegithub';
+// import Googleinput from './UserScreensPage/Googleinput';
+// import { GoogleOTP } from './UserScreensPage/GoogleOTP';
+// import Dashboard from './UserScreensPage/Dashboard';
+// import ProtectedRoute from "./ProtectAndPublicRoutes/ProtectedRoute";
+// import PublicRoute from './ProtectAndPublicRoutes/PubliRoute';
+// import AdminDashboard from './AdminScreenPages/AdminDashboard';
+// import GoogleLogin from './UserScreensPage/GoogleLogin';
+// import ResetPassword from './UserScreensPage/ResetPassword';
+// import MainQuizCardFile from './UserScreensPage/QuizCardSystem/MainQuizCardFile';
+// import MainFlashCardSystem from './UserScreensPage/FlashCardSystem/MainFlashCardSystem';
+// import FetchQuizCard from './UserScreensPage/QuizCardSystem/FetchQuizCard';
+// import DashboardLayoutBasic from './Components/UserDashboard/UserDashboardCards';
+import UserRoute from './Routes/UserRoute';
 import { Toaster } from 'react-hot-toast';
-import MainQuizCardFile from './UserScreensPage/QuizCardSystem/MainQuizCardFile';
-import MainFlashCardSystem from './UserScreensPage/FlashCardSystem/MainFlashCardSystem';
-import FetchQuizCard from './UserScreensPage/QuizCardSystem/FetchQuizCard';
-import DashboardLayoutBasic from './Components/UserDashboard/UserDashboardCards';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 
     <Toaster position='top-center' reverseOrder={false} />
 
-    <Routes>
+    {/* <Routes>
 
 <Route path='/quizcard' element={<MainQuizCardFile/>} />
 <Route path='/flashcard' element={<MainFlashCardSystem/>} />              
@@ -73,9 +74,10 @@ function App() {
               
 
 
-    </Routes>
+    </Routes> */}
 
 
+<UserRoute/>
     
     </>
     

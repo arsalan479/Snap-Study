@@ -1,10 +1,9 @@
 import {React,useEffect} from 'react'
-import { Link, useLocation } from 'react-router-dom';
-import GooglegithubloginV3Captcha from './GooglegithubloginV3Captcha';
+import GooglegithubloginV3Captcha from '../../UserScreensPage/GooglegithubloginV3Captcha';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import toast from 'react-hot-toast';
-import loginimage from '../assets/LoginImages/loginimage.png'
-import GoogleLogin from './GoogleLogin';
+import loginimage from '../../assets/LoginImages/loginimage.png'
+import GoogleLogin from '../../UserScreensPage/GoogleLogin';
 
 
 
@@ -26,24 +25,7 @@ const Checkauthgooglegithub = () => {
 
 
   return (
-<>
-{/*     
-<GoogleReCaptchaProvider  reCaptchaKey="6LeSgVsrAAAAACWzWYsGB-IvtAHdtHlU3J5KAVOA" >
-
-    <GooglegithubloginV3Captcha/>
-
-</GoogleReCaptchaProvider>
-
-
-
-
-
-<div style={{padding:20}}>
-  <h1>Google Input SignUp</h1>
-  <Link to='/googleregister'>
-  <button className='cursor-pointer bg-green-300 px-6 py-3 rounded-sm'>SignUp</button>      
-</Link>
-</div> */}
+<>     
 
 
 <div className='main2 flex justify-center items-center min-h-screen px-4'>
@@ -66,7 +48,13 @@ const Checkauthgooglegithub = () => {
       </div>
 
       <div>
-        <GooglegithubloginV3Captcha />
+<GoogleReCaptchaProvider  reCaptchaKey="6LeSgVsrAAAAACWzWYsGB-IvtAHdtHlU3J5KAVOA" >
+
+    <GooglegithubloginV3Captcha/>
+
+</GoogleReCaptchaProvider>
+
+  
       </div>
 
       <p className='text-[var(--text)] text-sm md:text-[1.3vw] text-center mt-7'>

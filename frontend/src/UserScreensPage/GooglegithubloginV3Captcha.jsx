@@ -2,7 +2,6 @@ import React from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from 'react-hot-toast';
-import Dashboard from './Dashboard.jsx';
 import googlepng from '../assets/LoginImages/googlepng.png'
 import githublogo from '../assets/LoginImages/github-seeklogo.png'
 
@@ -32,17 +31,14 @@ const GooglegithubloginV3Captcha = () => {
     const isHuman = await verifyCaptcha('login_google');
 
     try {
-      
-    if (isHuman) {
-      window.open('http://localhost:3000/auth/google', '_self');
-   
-    } else {
-      toast.error('reCAPTCHA verification failed. Please try again.')
-    }
+      if (isHuman) {
+        window.open('http://localhost:3000/auth/google', '_self');
+      } else {
+        toast.error('reCAPTCHA verification failed. Please try again.')
+      }
     } catch (error) {
-     toast.error("Network Error Problem Please Try Again") 
+      toast.error("Network Error Problem Please Try Again") 
     }
-
   };
 
   const loginWithGithub = async () => {
