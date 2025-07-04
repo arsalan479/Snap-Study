@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Navbar from "../../Components/WebComponents/Navbar";
 import SideBar from "../../Components/WebComponents/SideBar";
+import picture from "../../assets//LoginImages/loginimage.png";
+import ShinyText from "../../../assets/ShinyText/ShinyText";
 
 const Home = () => {
- const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -15,16 +17,16 @@ const Home = () => {
       <Navbar isSidebarOpen={isSidebarOpen} />
 
       <main
-        className={`pt-16 ${
+        className={` ${
           isSidebarOpen ? "ml-50" : "ml-0"
-        } transition-all duration-300 p-4`}
+        } transition-all duration-300 flex justify-center items-center min-h-screen`}
       >
-        {/* your page content */}
-        <h1 className="text-[var(--text)] text-center text-3xl tracking-tight">Welcome to SnapStudy Dashboard</h1>
-
+        <div>
+          <ShinyText className="text-8xl tracking-tighter" text="SnapStudy"/>
+        </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
