@@ -20,6 +20,8 @@
     "@toolpad/core": "^0.16.0",
     "antd": "^5.26.2",
     "axios": "^1.9.0",
+    "framer-motion": "^12.23.0",
+    "gsap": "^3.13.0",
     "motion": "^12.18.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
