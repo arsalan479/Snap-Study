@@ -156,7 +156,7 @@ if (!email || !password) {
       message:"login successfully",
       success:true,
       userlogin,
-      redirectURL:`http://localhost:5173/dashboard?success=true&name=${userlogin.displayName}`
+      redirectURL:`http://localhost:5173/?success=true&name=${userlogin.displayName}`
     })
 
     } catch (error) {

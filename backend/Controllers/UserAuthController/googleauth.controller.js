@@ -42,7 +42,7 @@ export const googlecallback = async (req, res, next) => {
     }
 
     return res.redirect(
-      `http://localhost:5173/dashboard?success=true&name=${encodeURIComponent(
+      `http://localhost:5173/?success=true&name=${encodeURIComponent(
         user.displayName
       )}`
     );

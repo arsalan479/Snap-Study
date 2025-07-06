@@ -1,18 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import ArrowBackTwoToneIcon from "@mui/icons-material/ArrowBackTwoTone";
 import ArrowOutwardTwoToneIcon from "@mui/icons-material/ArrowOutwardTwoTone";
 import SyncAltTwoToneIcon from "@mui/icons-material/SyncAltTwoTone";
 
 const SideBar = ({ isOpen, toggleSidebar }) => {
-  const Links = [
-    "SnapStudy Overview",
-    "Features",
-    "Pricing",
-    "Help Center",
-    "SnapStudy Log in",
-  ];
-
   return (
     <>
       {/* Logo and menu toggle - Fixed outside sidebar */}
@@ -34,13 +27,12 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
 
       {/* Sidebar content */}
       <div
-        className={`fixed top-0  h-screen bg-[var(--background)]  ${
+        className={`fixed top-0 h-screen bg-[var(--background)] ${
           isOpen ? "w-50" : "w- "
-        } bg-[var(--background)]  flex flex-col  py-3 pt-16 transition-all duration-300`}
+        } flex flex-col py-3 pt-16 transition-all duration-300`}
       >
-        {/* Links */}
         {isOpen && (
-          <div className="flex-1 flex flex-col pl-3 justify-center space-y-1 ">
+          <div className="flex-1 flex flex-col pl-3 justify-center space-y-1">
             <h4 className="home text-[var(--text2)] text-[1.5vw] flex items-center cursor-pointer">
               <ArrowBackTwoToneIcon
                 style={{ fontSize: 17 }}
@@ -49,23 +41,34 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
               Home
             </h4>
 
-            {Links.map((value, index) => (
-              <div
-                key={index}
-                className={`group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer
-      ${index === 0 ? "bg-[var(--bg2)]" : "hover:bg-[var(--bg2)]"}
-    `}
-              >
-                <span>{value}</span>
+            {/* Buttons individually written */}
+            <div className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer bg-[var(--bg2)]">
+              <span>SnapStudy Overview</span>
+            </div>
 
-                {(index === 3 || index === 4) && (
-                  <ArrowOutwardTwoToneIcon
-                    style={{ fontSize: 17 }}
-                    className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-px transition"
-                  />
-                )}
-              </div>
-            ))}
+            <div className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
+              <span>Features</span>
+            </div>
+
+            <div className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
+              <span>Pricing</span>
+            </div>
+
+            <div className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
+              <span>Help Center</span>
+              <ArrowOutwardTwoToneIcon
+                style={{ fontSize: 17 }}
+                className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-px transition"
+              />
+            </div>
+
+            <Link to="/snapstudylogin" className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
+              <span>SnapStudy Log in</span>
+              <ArrowOutwardTwoToneIcon
+                style={{ fontSize: 17 }}
+                className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-px transition"
+              />
+            </Link>
           </div>
         )}
       </div>

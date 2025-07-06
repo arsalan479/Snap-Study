@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import {  useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { axiosinstance } from "../AxiosInstance/axios";
 import SubjectSelect from "../Components/SubjectSelect";
@@ -8,27 +8,7 @@ import PopupSureUpdate from "../Utils/PopupSureUpdate";
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const success = params.get("success");
-    const name = params.get("name");
-
-    if (success === "true" && name) {
-      toast.success(`Welcome back ${name}`, { id: "welcome-toast" });
-      localStorage.setItem("userName", name);
-      setUserName(name);
-
-      window.history.replaceState({}, document.title, location.pathname);
-    } else {
-      const savedName = localStorage.getItem("userName");
-      if (savedName) {
-        setUserName(savedName);
-      }
-    }
-  }, [location]);
 
   const logouthandle = async () => {
     try {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/WebComponents/Navbar";
 import SideBar from "../../Components/WebComponents/SideBar";
 import ShinyText from "../../../ReactBits/ShinyText/ShinyText";
@@ -12,16 +12,42 @@ import ShareTwoToneIcon from "@mui/icons-material/ShareTwoTone";
 import Ballpit from "../../../ReactBits/Ballpit/Ballpit";
 import classImage from "../../assets/WebsiteLogo/class.png";
 import TextPressure from "../../../ReactBits/TextPressure/TextPressure";
-import TextCursor from "../../../ReactBits/TextCursor/TextCursor";
 import ArrowOutwardTwoToneIcon from "@mui/icons-material/ArrowOutwardTwoTone";
 import studyimage from "../../assets/WebsiteLogo/audio.png";
+import FallingText from "../../../ReactBits/FallingText/FallingText";
+import price from "../../assets/WebsiteLogo/price.png";
+import DoneTwoToneIcon from "@mui/icons-material/DoneTwoTone";
+import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [userName, setUserName] = useState("");
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const success = params.get("success");
+    const name = params.get("name");
+
+    if (success === "true" && name) {
+      toast.success(`Welcome back ${name}`, { id: "welcome-toast" });
+      localStorage.setItem("userName", name);
+      setUserName(name);
+
+      window.history.replaceState({}, document.title, location.pathname);
+    } else {
+      const savedName = localStorage.getItem("userName");
+      if (savedName) {
+        setUserName(savedName);
+      }
+    }
+  }, [location]);
 
   return (
     <div>
@@ -131,10 +157,12 @@ const Home = () => {
                 </span>
                 Create or Join Groups
               </h2>
-              <p className="text-sm text-justify">
-                Start your own study group or join an existing one with just a
-                click. Stay connected with classmates and friends
-              </p>
+              <ul>
+                <li className="text-sm text-justify">
+                  Start your own study group or join an existing one with just a
+                  click. Stay connected with classmates and friends
+                </li>
+              </ul>
             </div>
 
             {/* Card 2 */}
@@ -145,10 +173,12 @@ const Home = () => {
                 </span>
                 Real-time Collaboration
               </h2>
-              <p className="text-sm text-justify">
-                Discuss topics, solve questions, and collaborate on revisions in
-                real time — from anywhere.
-              </p>
+              <ul>
+                <li className="text-sm text-justify">
+                  Discuss topics, solve questions, and collaborate on revisions
+                  in real time — from anywhere.
+                </li>
+              </ul>
             </div>
 
             {/* Card 3 */}
@@ -159,10 +189,12 @@ const Home = () => {
                 </span>
                 Share Quiz Cards
               </h2>
-              <p className="text-sm text-justify">
-                Share your AI-generated quiz cards with the group instantly.
-                Practice together and challenge each other interactively.
-              </p>
+              <ul>
+                <li className="text-sm text-justify">
+                  Share your AI-generated quiz cards with the group instantly.
+                  Practice together and challenge each other interactively.
+                </li>
+              </ul>
             </div>
           </div>
         </section>
@@ -193,11 +225,14 @@ const Home = () => {
                   <h1 className="tracking-tight text-start text-[2vw] leading-7 capitalize">
                     Interactive AI-Powered Assistance in Your Classroom
                   </h1>
-                  <p className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
-                    At SnapStudy, we don’t just connect you to your classroom —
-                    we enhance your learning. Alongside joining your classroom,
-                    you can interact with our intelligent assistant.
-                  </p>
+                  <ul>
+                    <li className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
+                      At SnapStudy, we don’t just connect you to your classroom
+                      — we enhance your learning. Alongside joining your
+                      classroom, you can interact with our intelligent
+                      assistant.
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div className="mt-3 bg-[var(--primary)] w-[27vw] h-[27vw] rounded-2xl">
@@ -205,13 +240,15 @@ const Home = () => {
                   <h1 className="tracking-tight text-start text-[2vw] leading-7 capitalize">
                     Collaborative Learning with AI Support
                   </h1>
-                  <p className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
-                    At SnapStudy, learning becomes more collaborative and
-                    effective. Our platform lets up to 4 users join and chat
-                    together in the same classroom session, making it easy to
-                    discuss ideas, solve problems as a group, and share
-                    knowledge in real-time.
-                  </p>
+                  <ul>
+                    <li className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
+                      At SnapStudy, learning becomes more collaborative and
+                      effective. Our platform lets up to 4 users join and chat
+                      together in the same classroom session, making it easy to
+                      discuss ideas, solve problems as a group, and share
+                      knowledge in real-time.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -234,23 +271,124 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="flex justify-center items-center h-screen overflow-hidden w-full relative group">
-
-          <TextCursor
-            text="🎤"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-          />
-
-          <div className="h-[35vw] w-[95vw]">
+        <section className="flex justify-center items-center h-screen w-full">
+          <div className="flex flex-col items-center">
             <h1 className="text-[3.3vw] text-center tracking-tight">
               Speak & Learn Effortlessly
             </h1>
-            <p className="text-[1.6vw] leading-6 text-center tracking-tight">
-              With Snap Study Voice Input and Audio Explanation, just say your
-              question and hear the answer. No typing, no hassle just seamless
-              hands free learning that fits your style.
-            </p>
-            <img src={studyimage} className="h-full w-full" alt="" />
+            <ul>
+              <li className="text-[1.6vw] px-15 leading-6 text-center tracking-tight">
+                With Snap Study Voice Input and Audio Explanation, just say your
+                question and hear the answer. No typing, no hassle just seamless
+                hands free learning that fits your style.
+              </li>
+            </ul>
+            <div className="w-[60vw] h-[40vw] flex justify-center">
+              <img
+                src={studyimage}
+                className="h-full w-full object-contain"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="h-auto w-full ">
+          <div>
+            <h1 className="text-[3.3vw] text-center tracking-tight">Pricing</h1>
+            <div className="flex justify-center mt-9 gap-10">
+              <div className="rounded-2xl w-90 border border-[var(--bg2)] h-auto">
+                <div className="w-full h-55">
+                  <img
+                    src={price}
+                    className="h-full w-full object-cover rounded-t-2xl"
+                    alt=""
+                  />
+                </div>
+                <div className="p-4">
+                  <h1 className="tracking-tight text-[2.5vw]">
+                    SnapStudy Free
+                  </h1>
+                  <p className="mt-3 tracking-tight leading-6 text-[1.5vw]">
+                    <span className="font-semibold">Free</span> includes the
+                    ability to explore your creativity AI Interaction
+                  </p>
+                  <ol className="mt-3">
+                    {[
+                      "Generate up to 50 QuizCards per 24 hours",
+                      " Chat with AI 100 messages per day",
+                      " Collaborate with up to 2 group study members",
+                      "Absolutely free of cost no hidden charges",
+                    ].map((value, key) => (
+                      <li
+                        key={key}
+                        className="leading-9 text-[1.5vw] tracking-tight"
+                      >
+                        <span>
+                          <DoneTwoToneIcon style={{ fontSize: 22 }} />
+                        </span>
+                        {value}
+                      </li>
+                    ))}
+                  </ol>
+                  <div>
+                    <h1 className="relative top-3 text-[1.5vw]">$0 /month</h1>
+                    <button className="px-4 py-3 text-[1.5vw] bg-white text-black rounded-full mt-5">
+                      Get Free
+                      <span>
+                        <ArrowOutwardTwoToneIcon style={{ fontSize: 17 }} />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-2xl w-90 border border-[var(--bg2) h-auto">
+                <div className="w-full h-55">
+                  <img
+                    src={price}
+                    className="h-full w-full object-cover rounded-t-2xl"
+                    alt=""
+                  />
+                </div>
+                <div className="p-4">
+                  <h1 className="tracking-tight text-[2.5vw]">
+                    SnapStudy Plus
+                  </h1>
+                  <p className="mt-3 tracking-tight leading-6 text-[1.5vw]">
+                    <span className="font-semibold">Plus</span> includes faster
+                    generations and the high exploration
+                  </p>
+                  <ol className="mt-3">
+                    {[
+                      "Generate up to 50 QuizCards per 24 hours",
+                      " Chat with AI 100 messages per day",
+                      " Collaborate with up to 2 group study members",
+                      "Absolutely free of cost no hidden charges",
+                    ].map((value, key) => (
+                      <li
+                        key={key}
+                        className="leading-9 text-[1.5vw] tracking-tight"
+                      >
+                        <span>
+                          <DoneTwoToneIcon style={{ fontSize: 22 }} />
+                        </span>
+                        {value}
+                      </li>
+                    ))}
+                  </ol>
+                  <div>
+                    <h1 className="relative top-3 text-[1.5vw]">$50 /month</h1>
+                    <button className="px-4 py-3 text-[1.5vw] bg-white text-black rounded-full mt-5">
+                      Get Plus
+                      <span>
+                        <ArrowOutwardTwoToneIcon style={{ fontSize: 17 }} />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

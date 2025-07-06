@@ -23,7 +23,7 @@ import { axiosinstance } from "../AxiosInstance/axios.js";
 
   if (authState.isAuthenticated) {
     if (authState.role === "admin") return <Navigate to="/AdminDashboard" />;
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
 
   return children;

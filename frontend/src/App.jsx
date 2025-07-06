@@ -56,12 +56,7 @@ function App() {
         </ProtectedRoute>
       } />
 
-        <Route path='/googlelogin' element={
-          <PublicRoute>
-            <GoogleLogin/>
-          </PublicRoute>
-          
-          }  />
+      
 
           <Route path='/resetpassword/:token' element={
             <PublicRoute>
