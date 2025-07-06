@@ -15,8 +15,8 @@ color: white;
     --hover:#3d3d3d;
     --text: #fff;
     --text2:#666565;
-    --bg2:rgb(34, 34, 34);
-    --primary:#6366F1;
+    --bg2:rgb(26, 24, 24);
+    --primary:#5227FF;
     --Accent:#ae92d8;
   
   }
@@ -83,4 +83,8 @@ color: white;
 
 .shiny-text.disabled {
   animation: none;
+}
+
+.text:hover .arrow2{
+  transform: translateZ(10px);
 }

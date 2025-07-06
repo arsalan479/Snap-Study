@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Navbar from "../../Components/WebComponents/Navbar";
 import SideBar from "../../Components/WebComponents/SideBar";
 import ShinyText from "../../../ReactBits/ShinyText/ShinyText";
 import RotatingText from "../../../ReactBits/RotatingText/RotatingText";
 import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.png";
-import ArrowForwardTwoToneIcon from "@mui/icons-material/ArrowForwardTwoTone";
 import groupstudyimage from "../../assets/WebsiteLogo/group study.png";
 import TrueFocus from "../../../ReactBits/TrueFocus/TrueFocus";
 import Groups3TwoToneIcon from "@mui/icons-material/Groups3TwoTone";
 import QueryBuilderTwoToneIcon from "@mui/icons-material/QueryBuilderTwoTone";
 import ShareTwoToneIcon from "@mui/icons-material/ShareTwoTone";
+import Ballpit from "../../../ReactBits/Ballpit/Ballpit";
+import classImage from "../../assets/WebsiteLogo/class.png";
+import TextPressure from "../../../ReactBits/TextPressure/TextPressure";
+import TextCursor from "../../../ReactBits/TextCursor/TextCursor";
+import ArrowOutwardTwoToneIcon from "@mui/icons-material/ArrowOutwardTwoTone";
+import studyimage from "../../assets/WebsiteLogo/audio.png";
+
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -27,8 +33,23 @@ const Home = () => {
           isSidebarOpen ? "ml-50" : "ml-0"
         } transition-all duration-300`}
       >
-        <section className="flex justify-center items-center h-screen w-full">
-          <ShinyText className="text-[9vw] tracking-tighter" text="SnapStudy" />
+        <section className="relative h-screen w-full flex justify-center items-center overflow-hidden">
+          {/* Ballpit in the background */}
+          <Ballpit
+            count={170}
+            gravity={0.5}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+            colors={[0xffffff, 0x5227ff, 0x222222]}
+            className="absolute inset-0 z-0"
+          />
+
+          {/* Text in center */}
+          <ShinyText
+            className="text-[9vw] tracking-tighter "
+            text="SnapStudy"
+          />
         </section>
 
         <section className="text-center pt-5 h-screen w-full">
@@ -38,7 +59,7 @@ const Home = () => {
               <div className="ml-2">
                 <RotatingText
                   texts={["Scoring", "Student", "Winning", "Success"]}
-                  mainClassName="px-2 sm:px-2 md:px-3 tracking-tight bg-[#5227FF] font-extrabold overflow-hidden  justify-center rounded-lg"
+                  mainClassName="px-2 sm:px-2 md:px-3 tracking-tight bg-[var(--primary)]  font-extrabold overflow-hidden  justify-center rounded-lg"
                   staggerFrom={"last"}
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
@@ -97,14 +118,14 @@ const Home = () => {
             manualMode={false}
             blurAmount={5}
             borderColor="#5227FF"
-            animationDuration={2}
+            animationDuration={0.5}
             pauseBetweenAnimations={1}
           />
 
           <div className="mt-8 flex flex-col tracking-tight md:flex-row justify-center gap-6 md:gap-8 py-10 px-4">
             {/* Card 1 */}
             <div className="bg-[var(--bg2)] rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg font-semibold mb-2">
+              <h2 className="text-lg leading-6 mb-2">
                 <span className="mr-2">
                   <Groups3TwoToneIcon />
                 </span>
@@ -117,8 +138,8 @@ const Home = () => {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-[#5227FF] rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg font-semibold mb-2">
+            <div className="bg-[var(--primary)]  rounded-2xl p-6 w-full max-w-sm text-start shadow">
+              <h2 className="text-lg leading-6 mb-2">
                 <span className="mr-2">
                   <QueryBuilderTwoToneIcon />
                 </span>
@@ -132,16 +153,104 @@ const Home = () => {
 
             {/* Card 3 */}
             <div className="bg-[var(--bg2)] rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg font-semibold mb-2">
+              <h2 className="text-lg mb-2">
                 <span className="mr-2">
-                  <ShareTwoToneIcon/>
+                  <ShareTwoToneIcon />
                 </span>
-                Share Quiz Cards</h2>
+                Share Quiz Cards
+              </h2>
               <p className="text-sm text-justify">
                 Share your AI-generated quiz cards with the group instantly.
                 Practice together and challenge each other interactively.
               </p>
             </div>
+          </div>
+        </section>
+
+        <section className="h-auto w-full overflow-hidden mt-10 flex flex-col items-center justify-center gap-10">
+          <div
+            style={{ position: "relative" }}
+            className="h-30 w-100 flex items-center justify-center"
+          >
+            <TextPressure
+              text="Explore!"
+              flex={true}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              italic={true}
+              textColor="#ffffff"
+              strokeColor="#5227FF"
+              minFontSize={10}
+            />
+          </div>
+
+          <div className="flex justify-center gap-6">
+            <div>
+              <div className="bg-[var(--bg2)] w-[27vw] h-[27vw] rounded-2xl">
+                <div className="p-5">
+                  <h1 className="tracking-tight text-start text-[2vw] leading-7 capitalize">
+                    Interactive AI-Powered Assistance in Your Classroom
+                  </h1>
+                  <p className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
+                    At SnapStudy, we don’t just connect you to your classroom —
+                    we enhance your learning. Alongside joining your classroom,
+                    you can interact with our intelligent assistant.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 bg-[var(--primary)] w-[27vw] h-[27vw] rounded-2xl">
+                <div className="p-5">
+                  <h1 className="tracking-tight text-start text-[2vw] leading-7 capitalize">
+                    Collaborative Learning with AI Support
+                  </h1>
+                  <p className="tracking-tight text-start text-[1.4vw] leading-5 mt-6">
+                    At SnapStudy, learning becomes more collaborative and
+                    effective. Our platform lets up to 4 users join and chat
+                    together in the same classroom session, making it easy to
+                    discuss ideas, solve problems as a group, and share
+                    knowledge in real-time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-[40vw] h-[55vw] rounded-2xl">
+              <img
+                src={classImage}
+                className="h-full w-full rounded-2xl"
+                alt=""
+              />
+            </div>
+          </div>
+          <div>
+            <button className="tracking-tight cursor-pointer text rounded-full text-[1.8vw] px-8 py-3 bg-[var(--primary)]">
+              Get Started
+              <span>
+                <ArrowOutwardTwoToneIcon className="arrow2" />
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <section className="flex justify-center items-center h-screen overflow-hidden w-full relative group">
+
+          <TextCursor
+            text="🎤"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+          />
+
+          <div className="h-[35vw] w-[95vw]">
+            <h1 className="text-[3.3vw] text-center tracking-tight">
+              Speak & Learn Effortlessly
+            </h1>
+            <p className="text-[1.6vw] leading-6 text-center tracking-tight">
+              With Snap Study Voice Input and Audio Explanation, just say your
+              question and hear the answer. No typing, no hassle just seamless
+              hands free learning that fits your style.
+            </p>
+            <img src={studyimage} className="h-full w-full" alt="" />
           </div>
         </section>
       </main>
