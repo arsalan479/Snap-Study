@@ -11,5 +11,4 @@ route.get('/google/callback',googlecallback)
 route.get('/userfetch',userfetch)
 
 
-
 export default route;

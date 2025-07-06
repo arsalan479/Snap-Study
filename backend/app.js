@@ -39,8 +39,6 @@ app.use(passport.initialize());
 
 
 
-
-
 //google route
 app.use('/auth',googleauthroute);
 
@@ -77,6 +75,6 @@ app.use('/userdetail',userdetails)
 
 
 const port = process.env.PORT || 3000
-app.listen(port,()=>{
+app.listen(port,'0.0.0.0',()=>{
     console.log("your server is running on port 3000")
 })
