@@ -7,6 +7,7 @@ const FlashCardsContext = ({children}) => {
     const [Fileurl, setFileurl] = useState(null)
     const [ExtractText, setExtractText] = useState(null)
     const [FlashCards, setFlashCards] = useState(null)
+    const [userfetch, setuserfetch] = useState(null)
   return (
     <>
     
@@ -17,7 +18,9 @@ const FlashCardsContext = ({children}) => {
         ExtractText,
         setExtractText,
         FlashCards,
-        setFlashCards
+        setFlashCards,
+        userfetch,
+        setuserfetch
     }}
     >
 

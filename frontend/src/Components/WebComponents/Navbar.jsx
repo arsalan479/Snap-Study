@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import { SettingOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
@@ -9,12 +9,16 @@ import ConfirmationNumberTwoToneIcon from "@mui/icons-material/ConfirmationNumbe
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Settings from "./Setting";
+import Modalrapper from "./Modalrapper";
+import { FlashContext } from "../../Context/FlashCardsContext";
 
 const Navbar = ({ isSidebarOpen }) => {
   const navigate = useNavigate();
 
   const [user, setuser] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const {setuserfetch} = useContext(FlashContext)
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,6 +26,7 @@ const Navbar = ({ isSidebarOpen }) => {
         const response = await axiosinstance.get("/auth/userfetch");
         if (response.status === 200) {
           setuser(response.data.result);
+          setuserfetch(response.data.result) // for context
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -115,8 +120,11 @@ const Navbar = ({ isSidebarOpen }) => {
           )}
         </div>
       </header>
-      {showSettings  && <Settings  onClose={() => setShowSettings(false)} />}
-    </>
+{showSettings && (
+  <Modalrapper isOpen={showSettings} onClose={() => setShowSettings(false)}>
+    <Settings />
+  </Modalrapper>
+)}    </>
   );
 };
 

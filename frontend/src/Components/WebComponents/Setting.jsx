@@ -1,31 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChevronDownIcon, PencilIcon } from '@heroicons/react/24/outline';
-
-const Toggle = ({ enabled, onChange }) => (
-  <button
-    onClick={() => onChange(!enabled)}
-    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 ${
-      enabled ? 'bg-blue-600' : 'bg-gray-600'
-    }`}
-  >
-    <span
-      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-        enabled ? 'translate-x-6' : 'translate-x-1'
-      }`}
-    />
-  </button>
-);
+import { FlashContext } from '../../Context/FlashCardsContext';
 
 const Settings = () => {
-  const [publishToExplore, setPublishToExplore] = useState(true);
-  const [improveModel, setImproveModel] = useState(true);
   const [selectedTheme, setSelectedTheme] = useState('System');
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
-
   const themes = ['System', 'Light', 'Dark'];
 
+  const {userfetch} = useContext(FlashContext)
+
   return (
-    <div className="flex mt-10 ml-6  w-[150vh] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white">
+    <div className="flex w-[150vh] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white">
       {/* Sidebar */}
       <div className="w-64 rounded-tl-2xl rounded-bl-2xl bg-[#303030] p-4">
         <h1 className="text-xl font-semibold mb-6">Settings</h1>
@@ -50,18 +35,18 @@ const Settings = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
-        <h2 className="text-2xl font-semibold mb-8">General</h2>
+        <h2 className="text-2xl font-semibold border-b border-[#444442] py-3">General</h2>
         
-        <div className="space-y-8 max-w-2xl">
+        <div className="space-y-1 max-w-2xl">
           {/* Username */}
-          <div className="flex items-center justify-between">
+          <div className="border-[#444442] flex items-center justify-between border-b py-2">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium  text-gray-300 mb-1">
                 Username
               </label>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-white">ijldsjf</span>
+              <span className="text-white">{userfetch.displayName}</span>
               <button className="p-1 hover:bg-gray-700 rounded transition-colors">
                 <PencilIcon className="w-4 h-4 text-gray-400" />
               </button>
@@ -69,19 +54,19 @@ const Settings = () => {
           </div>
 
           {/* Email */}
-          <div className="flex items-center justify-between">
+          <div className="border-[#444442] flex items-center justify-between border-b py-2">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium  text-gray-300 mb-1">
                 Email
               </label>
             </div>
             <div>
-              <span className="text-white">arsalanaikhana9@gmail.com</span>
+              <span className="text-white">{userfetch.email}</span>
             </div>
           </div>
 
           {/* Theme */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center border-b border-[#444442] py-2 justify-between">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">
                 Theme
@@ -90,7 +75,7 @@ const Settings = () => {
             <div className="relative">
               <button
                 onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                className="flex items-center space-x-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                className="flex items-center "
               >
                 <span className="text-white">{selectedTheme}</span>
                 <ChevronDownIcon className="w-4 h-4 text-gray-400" />
@@ -115,55 +100,18 @@ const Settings = () => {
             </div>
           </div>
 
-          {/* Publish to explore */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <label className="block text-sm font-medium text-gray-300">
-                  Publish to explore
-                </label>
-              </div>
-              <Toggle enabled={publishToExplore} onChange={setPublishToExplore} />
-            </div>
-            
-            <div className="space-y-2">
-              <p className="text-sm text-gray-400">
-                Images and videos you create can be seen by others in the explore feeds. Turning off this setting does not unpublish images and videos already in the feed.
-              </p>
-              <p className="text-sm text-gray-500">
-                Images and videos that are created using uploaded media will not be published.
-              </p>
-            </div>
-          </div>
-
-          {/* Improve the model for everyone */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <label className="block text-sm font-medium text-gray-300">
-                  Improve the model for everyone
-                </label>
-              </div>
-              <Toggle enabled={improveModel} onChange={setImproveModel} />
-            </div>
-            
-            <div className="space-y-2">
-              <p className="text-sm text-gray-400">
-                Allows your content to be used to train our models, which makes Sora better for you and everyone who uses it. We take steps to protect your privacy.{' '}
-                <a href="#" className="text-blue-400 hover:text-blue-300 underline">
-                  Learn more
-                </a>
-              </p>
-            </div>
-          </div>
+        
         </div>
 
         {/* Done Button */}
-        <div className="fixed bottom-8 right-8">
-          <button className="px-6 py-2 bg-white text-gray-900 font-medium rounded-lg hover:bg-gray-100 transition-colors">
-            Done
-          </button>
-        </div>
+        <div className="relative h-65  ">
+  <div className="absolute bottom-0 right-0">
+    <button className="px-6 py-2 bg-white text-gray-900 font-medium rounded-full hover:bg-gray-100 transition-colors">
+      Done
+    </button>
+  </div>
+</div>
+
       </div>
 
     </div>
