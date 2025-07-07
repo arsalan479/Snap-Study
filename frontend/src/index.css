@@ -88,3 +88,32 @@ color: white;
 .text:hover .arrow2{
   transform: translateZ(10px);
 }
+
+.custom-dropdown .ant-dropdown-menu {
+  background: #454545; /* semi-transparent black */
+  color: #fff; /* white text */
+  backdrop-filter: blur(8px) saturate(180%); /* glass effect */
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-dropdown .ant-dropdown-menu-item,
+.custom-dropdown .ant-dropdown-menu-item > span,
+.custom-dropdown .ant-dropdown-menu-item > div {
+  color: #fff !important;
+}
+
+.custom-dropdown .ant-dropdown-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.custom-dropdown .ant-dropdown-menu-item.logout-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 4px;
+  padding-top: 8px;
+}
+.custom-dropdown .ant-dropdown-menu-item.plan-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 4px;
+  padding-top: 8px;
+}

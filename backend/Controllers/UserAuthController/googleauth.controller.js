@@ -1,7 +1,7 @@
 import passport from "passport";
-import { jwtgooglemail } from "../../Utils/jsonwebtoken.nodemailgoogle.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import UserOneModel from "../../Models/UserOneScehma/UserOne.model.js";
+import { jwtgooglemail } from "../../Utils/jsonwebtoken.nodemailgoogle.js";
 
 export const google = (req, res, next) => {
   passport.authenticate("google", {
@@ -18,9 +18,11 @@ export const googlecallback = async (req, res, next) => {
       );
     }
 
+
     if (!user) {
       return res.redirect("http://localhost:5173/?error=authentication_failed");
     }
+
 
     // Handle case where email already exists
     if (user.exists) {
@@ -32,6 +34,8 @@ export const googlecallback = async (req, res, next) => {
 
     // Successful authentication
     jwtgooglemail(user, res, "Google login successful");
+
+
 
     if (user.role == "admin") {
       return res.redirect(

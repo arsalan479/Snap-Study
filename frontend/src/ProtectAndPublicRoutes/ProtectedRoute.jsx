@@ -61,7 +61,7 @@ const ProtectedRoute = ({ children }) => {
 
   // Admin route guard
   if (location.pathname === "/AdminDashboard" && authState.role !== "admin") {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;

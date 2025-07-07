@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../UserScreensPage/UserPage/Home";
 import PublicRoute from "../ProtectAndPublicRoutes/PubliRoute";
 import Checkauthgooglegithub from "../Components/WebComponents/Checkauthgooglegithub";
+import Setting from "../Components/WebComponents/Setting";
 
 const UserRoute = () => {
   return (
@@ -17,6 +18,8 @@ const UserRoute = () => {
             </PublicRoute>
           }
         />
+        <Route path="/setting" element={<Setting/>}/>
+
       </Routes>
     </>
   );

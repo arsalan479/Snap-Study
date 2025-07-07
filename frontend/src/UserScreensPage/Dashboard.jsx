@@ -1,28 +1,10 @@
 import React from "react";
-import {  useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { axiosinstance } from "../AxiosInstance/axios";
 import SubjectSelect from "../Components/SubjectSelect";
 import PopupSureUpdate from "../Utils/PopupSureUpdate";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
 
 
-
-  const logouthandle = async () => {
-    try {
-      const response = await axiosinstance.get("/auth/magic/logout");
-      if (response.status === 200) {
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-        toast.success("Logout successful!");
-      }
-    } catch (error) {
-      toast.error("Logout failed!");
-    }
-  };
 
   return (
     // <div className='bg-[whitesmoke] w-full h-[200vh]'>

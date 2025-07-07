@@ -1,28 +1,12 @@
 import {React,useEffect} from 'react'
 import GooglegithubloginV3Captcha from '../../UserScreensPage/GooglegithubloginV3Captcha';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import toast from 'react-hot-toast';
 import loginimage from '../../assets/LoginImages/loginimage.png'
 import GoogleLogin from '../../UserScreensPage/GoogleLogin';
 
 
 
 const Checkauthgooglegithub = () => {
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const error = searchParams.get('error');
-    const message = searchParams.get('message');
-
-    if (error) {
-      // Use the message if available, otherwise use the error code
-      toast.error(message || error);
-      
-      // Clean the URL
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []); 
-
 
   return (
 <>     

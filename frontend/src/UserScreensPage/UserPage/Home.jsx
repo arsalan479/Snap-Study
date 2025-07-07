@@ -49,6 +49,22 @@ const Home = () => {
     }
   }, [location]);
 
+
+   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const error = searchParams.get('error');
+    const message = searchParams.get('message');
+  
+    const msgToShow = message || error;
+  
+    if (msgToShow) {
+      toast.error(msgToShow);
+  
+      // Clean the URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+  
   return (
     <div>
       <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />

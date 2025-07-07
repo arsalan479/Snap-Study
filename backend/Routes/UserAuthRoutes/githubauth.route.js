@@ -28,7 +28,7 @@ route.get('/github/callback',
         return res.redirect(process.env.ADMIN_URI)
      }
 
-        return res.redirect(`http://localhost:5173/dashboard?success=true&name=${req.user.displayName}`);
+        return res.redirect(`http://localhost:5173/?success=true&name=${req.user.displayName}`);
     }
 
   
