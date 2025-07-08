@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { passwordUpdate } from "../../Controllers/UserAuthController/userdetails.controller.js";
+import { passwordUpdate, usernameUpdate } from "../../Controllers/UserAuthController/userdetails.controller.js";
 import { body } from "express-validator";
 
 const route = Router();
@@ -22,5 +22,8 @@ route.post(
     ],
     passwordUpdate
 );
+
+
+route.patch('/updateusername',usernameUpdate)
 
 export default route;

@@ -3,7 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../UserScreensPage/UserPage/Home";
 import PublicRoute from "../ProtectAndPublicRoutes/PubliRoute";
 import Checkauthgooglegithub from "../Components/WebComponents/Checkauthgooglegithub";
-import Setting from "../Components/WebComponents/Setting";
+import MainSystem from "../UserScreensPage/UserPage/MainSystem";
+//  import Googleinput from '../UserScreensPage/Googleinput';
+// import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
 
 const UserRoute = () => {
   return (
@@ -18,7 +20,21 @@ const UserRoute = () => {
             </PublicRoute>
           }
         />
-        <Route path="/setting" element={<Setting/>}/>
+        <Route path="/home" element={<MainSystem/>} />
+
+
+
+ {/* <Route path="/googleregister" element={
+        <PublicRoute>
+          <Googleinput/>
+        </PublicRoute>
+      }/>
+      <Route path="/googleOTP" element={
+        <PublicRoute>
+          <GoogleOTP/>
+        </PublicRoute>
+      }/> */}
+
 
       </Routes>
     </>

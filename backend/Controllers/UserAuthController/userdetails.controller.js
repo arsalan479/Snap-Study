@@ -59,3 +59,31 @@ export const passwordUpdate = async (req, res) => {
         });
     }
 };
+
+
+export const usernameUpdate = async(req,res)=>{
+
+try {
+    const UserId = decodedToken(req)
+const {username} = req.body
+
+if(!UserId){
+    return res.status(400).json("id is not found")
+}
+
+const result = await Userone.findOneAndUpdate({_id:UserId},{$set:{displayName:username}})
+
+
+if(!result){
+    return res.status(401).json("something wrong")
+}
+
+return res.status(200).json({
+    message:"username update successfully",
+    result
+})
+} catch (error) {
+  res.status(500).json(error)  
+}
+
+}

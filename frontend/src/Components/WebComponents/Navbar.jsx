@@ -87,9 +87,7 @@ const Navbar = ({ isSidebarOpen }) => {
   return (
     <>
       <header
-        className={`fixed top-0 ${
-          isSidebarOpen ? "left-50" : "left-0"
-        } right-0 bg-[var(--background)] h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
+        className={`fixed top-0 w-full right-0  h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
       >
         <div className="">
           {user ? (

@@ -38,7 +38,7 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
                 style={{ fontSize: 17 }}
                 className="arrow mr-1"
               />
-              Home
+              <Link to={"/home"}>Home</Link>
             </h4>
 
             {/* Buttons individually written */}
@@ -62,7 +62,10 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
               />
             </div>
 
-            <Link to="/snapstudylogin" className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
+            <Link
+              to="/snapstudylogin"
+              className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]"
+            >
               <span>SnapStudy Log in</span>
               <ArrowOutwardTwoToneIcon
                 style={{ fontSize: 17 }}

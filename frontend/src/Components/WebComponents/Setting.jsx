@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ChevronDownIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { FlashContext } from '../../Context/FlashCardsContext';
+import UserNameModal from './UserNameModal';
 
 const Settings = () => {
   const [selectedTheme, setSelectedTheme] = useState('System');
@@ -48,7 +49,7 @@ const Settings = () => {
             <div className="flex items-center space-x-2">
               <span className="text-white">{userfetch.displayName}</span>
               <button className="p-1 hover:bg-gray-700 rounded transition-colors">
-                <PencilIcon className="w-4 h-4 text-gray-400" />
+                <UserNameModal/>
               </button>
             </div>
           </div>

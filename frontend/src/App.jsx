@@ -1,7 +1,5 @@
 // import { Routes, Route } from 'react-router-dom';
 // import Checkauthgooglegithub from './UserScreensPage/Checkauthgooglegithub';
-// import Googleinput from './UserScreensPage/Googleinput';
-// import { GoogleOTP } from './UserScreensPage/GoogleOTP';
 // import Dashboard from './UserScreensPage/Dashboard';
 // import ProtectedRoute from "./ProtectAndPublicRoutes/ProtectedRoute";
 // import PublicRoute from './ProtectAndPublicRoutes/PubliRoute';
@@ -34,11 +32,7 @@ function App() {
           <Checkauthgooglegithub/>
         </PublicRoute>
       }/>
-      <Route path="/googleregister" element={
-        <PublicRoute>
-          <Googleinput/>
-        </PublicRoute>
-      }/>
+     
       <Route path="/googleOTP" element={
         <PublicRoute>
           <GoogleOTP/>
