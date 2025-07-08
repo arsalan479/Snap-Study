@@ -4,6 +4,7 @@ import Home from "../UserScreensPage/UserPage/Home";
 import PublicRoute from "../ProtectAndPublicRoutes/PubliRoute";
 import Checkauthgooglegithub from "../Components/WebComponents/Checkauthgooglegithub";
 import MainSystem from "../UserScreensPage/UserPage/MainSystem";
+import ProtectedRoute from "../ProtectAndPublicRoutes/ProtectedRoute";
 //  import Googleinput from '../UserScreensPage/Googleinput';
 // import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
 
@@ -20,7 +21,11 @@ const UserRoute = () => {
             </PublicRoute>
           }
         />
-        <Route path="/home" element={<MainSystem/>} />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <MainSystem/>
+          </ProtectedRoute>
+        } />
 
 
 

@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { ChevronDownIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { FlashContext } from '../../Context/FlashCardsContext';
 import UserNameModal from './UserNameModal';
+import { SettingOutlined } from "@ant-design/icons";
+import ConfirmationNumberTwoToneIcon from "@mui/icons-material/ConfirmationNumberTwoTone";
 
 const Settings = () => {
   const [selectedTheme, setSelectedTheme] = useState('System');
@@ -19,14 +21,18 @@ const Settings = () => {
         <nav className="space-y-2">
           <div className="flex items-center justify-between px-3 py-2 bg-gray-700 rounded-lg">
             <div className="flex items-center space-x-3">
-              <div className="w-5 h-5 bg-gray-500 rounded"></div>
+              <div className="h-5">
+                <SettingOutlined style={{fontSize:15}}/>
+              </div>
               <span className="text-sm font-medium">General</span>
             </div>
           </div>
           
           <div className="flex items-center justify-between px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
             <div className="flex items-center space-x-3">
-              <div className="w-5 h-5 bg-gray-600 rounded"></div>
+              <div className="h-5 ">
+                <ConfirmationNumberTwoToneIcon style={{fontSize:20}}/>
+              </div>
               <span className="text-sm font-medium">My plan</span>
             </div>
             <span className="text-xs text-gray-500">Free</span>

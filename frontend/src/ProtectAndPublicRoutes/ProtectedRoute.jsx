@@ -30,9 +30,9 @@ const ProtectedRoute = ({ children }) => {
       .catch((err) => {
         const status = err.response?.status;
 
-        if (status === 403) {
+        if (status === 401) {
           toast.error("Your session has been revoked (blacklisted token).");
-        } else if (status === 401) {
+        } else if (status === 403) {
           toast.error("Unauthorized. Please login again.");
         } else {
           toast.error("Authentication error.");

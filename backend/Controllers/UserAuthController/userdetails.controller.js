@@ -64,6 +64,14 @@ export const passwordUpdate = async (req, res) => {
 export const usernameUpdate = async(req,res)=>{
 
 try {
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({
+            errors:errors.array()
+        })
+    }
+
     const UserId = decodedToken(req)
 const {username} = req.body
 
