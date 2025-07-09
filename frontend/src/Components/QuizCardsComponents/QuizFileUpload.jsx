@@ -93,12 +93,12 @@ const QuizFileUpload = () => {
           accept="image/*"
           onChange={handleFileChange}
           id="fileInput"
-          className="hidden"
+          className="hidden "
           disabled={loading || processing}
         />
         <label
           htmlFor="fileInput"
-          className="border -z-10 border-white rounded-2xl border-dashed flex flex-col items-center justify-center cursor-pointer relative overflow-hidden"
+          className="border bg-[#202020] border-white rounded-2xl border-dashed flex flex-col items-center justify-center cursor-pointer relative overflow-hidden"
           style={{
             width: imgSize.width,
             height: imgSize.height,

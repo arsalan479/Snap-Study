@@ -65,7 +65,7 @@ const QuizCardsCreateGemini = () => {
                     await SaveQuizCard();
                     setisSavedCard(true);
                   } else {
-                    console.log("function not available");
+                    toast.error("function not available");
                   }
                 }}
                 className={`px-7 cursor-pointer py-3 rounded-2xl text-white ${

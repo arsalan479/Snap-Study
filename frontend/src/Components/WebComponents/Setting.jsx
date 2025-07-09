@@ -13,7 +13,7 @@ const Settings = () => {
   const {userfetch} = useContext(FlashContext)
 
   return (
-    <div className="flex z-80 w-[150vh] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white">
+    <div className="flex  w-[150vh] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white">
       {/* Sidebar */}
       <div className="w-64 rounded-tl-2xl rounded-bl-2xl bg-[#303030] p-4">
         <h1 className="text-xl font-semibold mb-6">Settings</h1>

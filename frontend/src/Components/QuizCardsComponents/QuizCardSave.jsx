@@ -47,7 +47,7 @@ const QuizCardSave = () => {
 
   return (
     <div>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4 ">
         <input
           type="text"
           value={title}

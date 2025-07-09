@@ -2,26 +2,40 @@ import React, { useState } from "react";
 import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import Navbar from "./Navbar";
 import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
+import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
+  const [activeSubject, setActiveSubject] = useState(null);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
-  // Sidebar navigation items
+  const { uniqueSubjects, content: quizCardContent } = QuizCardHistory({
+    subject: activeSubject,
+  });
+
   const navItems = ["Quiz Generate", "Images", "Videos", "Top", "Likes"];
+  const libraryItems = ["Favorites", "Uploads", "Trash", "New folder"];
 
-  const libraryItems = [
-    "My media",
-    "Favorites",
-    "Uploads",
-    "Trash",
-    "New folder",
-  ];
+  const renderSection = () => {
+    if (activeLink === "Quiz Generate") {
+      return <MainQuizCardFile />;
+    }
+
+    if (activeLink === "QuizCard History" && activeSubject) {
+      return quizCardContent;
+    }
+
+    return (
+      <div className="text-white text-xl text-center mt-10">
+        🚧 <strong>{activeLink}</strong> section is under construction.
+      </div>
+    );
+  };
 
   return (
     <div className="flex justify-center">
       {/* Sidebar */}
-      <div className="w-64 h-screen bg-[#000] text-white flex flex-col">
-        {/* Logo */}
+      <div className="w-64 h-screen bg-black text-white flex flex-col">
         <div className="p-4">
           <div className="w-10 h-10">
             <img
@@ -32,15 +46,20 @@ const SideBar2 = () => {
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 px-4 mt-10">
-          {/* Main links */}
+          {/* Main Nav */}
           <div>
             {navItems.map((item) => (
               <div
                 key={item}
-                onClick={() => setActiveLink(item)}
-                className="py-1 px-3 text-white hover:bg-[var(--bg2)] font-semibold tracking-tight rounded-[10px] cursor-pointer"
+                onClick={() => {
+                  setActiveLink(item);
+                  setActiveSubject(null);
+                  setIsHistoryOpen(false);
+                }}
+                className={`py-1 px-3 ${
+                  activeLink === item ? "bg-[var(--bg2)]" : ""
+                } text-white hover:bg-[var(--bg2)] font-semibold tracking-tight rounded-[10px] cursor-pointer`}
               >
                 {item}
               </div>
@@ -52,12 +71,60 @@ const SideBar2 = () => {
             <h3 className="text-gray-400 text-[1.6vw] tracking-tight font-semibold mb-3 px-3">
               Library
             </h3>
+
             <div>
+              {/* QuizCard History */}
+              <div
+                onClick={() => {
+                  setIsHistoryOpen(!isHistoryOpen);
+                  setActiveLink("QuizCard History");
+                  setActiveSubject(null);
+                }}
+                className={`py-1 px-3 ${
+                  activeLink === "QuizCard History" ? "bg-[var(--bg2)]" : ""
+                } text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer`}
+              >
+                QuizCard History
+              </div>
+
+              {/* Dropdown */}
+              {isHistoryOpen && (
+                <div className="ml-3 mt-2">
+                  {uniqueSubjects?.length > 0 ? (
+                    uniqueSubjects.map((subject) => (
+                      <div
+                        key={subject}
+                        onClick={() => {
+                          setActiveLink("QuizCard History");
+                          setActiveSubject(subject);
+                        }}
+                        className={`py-1 px-3 ${
+                          activeSubject === subject ? "bg-[var(--bg2)]" : ""
+                        } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-sm`}
+                      >
+                        {subject.charAt(0).toUpperCase() + subject.slice(1)}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-xs text-gray-400 px-3">
+                      No subjects found.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Other Library Items */}
               {libraryItems.map((item) => (
                 <div
                   key={item}
-                  onClick={() => setActiveLink(item)}
-                  className="py-1 px-3 text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer"
+                  onClick={() => {
+                    setActiveLink(item);
+                    setActiveSubject(null);
+                    setIsHistoryOpen(false);
+                  }}
+                  className={`py-1 px-3 ${
+                    activeLink === item ? "bg-[var(--bg2)]" : ""
+                  } text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer`}
                 >
                   {item}
                 </div>
@@ -69,31 +136,15 @@ const SideBar2 = () => {
 
       {/* Main Content */}
       <div className="w-full overflow-auto h-screen">
-        <div className="bg-green-500 fixed top-0 w-full flex justify-start px-5 items-center h-16">
-          <h1 className="text-lg font-semibold mr-4">{activeLink}</h1>
+        <div className="bg-black fixed top-0 w-full flex justify-between px-5 items-center h-16 z-20">
+          <h1 className="text-lg font-semibold text-white">
+            {activeLink}
+            {activeSubject && ` / ${activeSubject.charAt(0).toUpperCase() + activeSubject.slice(1)}`}
+          </h1>
           <Navbar />
         </div>
 
-        <div className="mt-30 flex justify-center  ">
-          <div>
-            <MainQuizCardFile />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Doloremque beatae dignissimos iure recusandae commodi cum maxime
-              aliquam ea officia tempora esse doloribus eveniet est non sapiente
-              quia illo consequuntur facere quisquam aperiam, modi rerum ipsum
-              magnam. Modi laudantium, magni delectus quidem provident incidunt,
-              alias temporibus a reprehenderit dolor sunt quae odio nesciunt
-              officia aliquam distinctio doloribus deserunt, harum perferendis
-              labore architecto! Beatae, eveniet laborum, eos dicta sint dolore
-              quo dignissimos possimus expedita exercitationem ut illo
-              perferendis, aperiam animi impedit tempora quisquam. Aspernatur
-              officia optio iusto? Eveniet fugiat dolore debitis. Numquam enim
-              assumenda molestiae pariatur temporibus animi, veniam sequi
-              quisquam non.
-            </p>
-          </div>
-        </div>
+        <div className="pt-20 px-5">{renderSection()}</div>
       </div>
     </div>
   );

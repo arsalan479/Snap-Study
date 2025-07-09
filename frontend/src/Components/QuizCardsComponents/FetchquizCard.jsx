@@ -6,6 +6,9 @@ import toast from "react-hot-toast";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import PopupSureUpdate from "../../Utils/PopupSureUpdate.jsx";
 
+// import your Carousel
+import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel.jsx";
+
 const FetchquizCard = ({ quizcards: propQuizCards }) => {
   const context = useQuizCard();
   const quizcards = propQuizCards || context.quizcards;
@@ -72,78 +75,64 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
       {localQuizCards.length === 0 ? (
         <p className="text-gray-500">No cards yet.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="flex flex-col gap-10">
           {localQuizCards.map((QuizSetGroup, groupIdx) =>
             QuizSetGroup.sets.map((QuizSet, setIdx) => (
               <React.Fragment key={QuizSet.id || `${groupIdx}-${setIdx}`}>
-                <div className="w-130 mb-10">
-                  <img
-                    src={QuizSet.imageURl}
-                    className="w-full object-cover"
-                    alt="Quiz Cover"
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap justify-between items-center">
+                    <div className="flex gap-4 items-center">
+                      <img
+                        src={QuizSet.imageURl}
+                        className="w-20 h-20 object-cover rounded"
+                        alt="Quiz Cover"
+                      />
+                      <div>
+                        <h1 className="font-bold text-2xl">
+                          Title: {QuizSet.title}
+                          <button
+                            onClick={() =>
+                              handleOpenUpdateModal(QuizSet.id, QuizSet.title)
+                            }
+                            className="bg-green-500 p-2 ml-2 rounded-full cursor-pointer text-white"
+                          >
+                            <PencilSquareIcon className="w-5 h-5" />
+                          </button>
+                        </h1>
+                        <p className="text-lg">
+                          Subject: <strong>{QuizSet.subject}</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          showAllDeleteConfirm(QuizSet.subject);
+                        }}
+                        className="px-4 py-2 flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-red-500"
+                      >
+                        All Delete
+                        <TrashIcon className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={() => DeleteCardobjeConfirm(QuizSet.id)}
+                        className="px-4 py-2 cursor-pointer text-white capitalize bg-red-400 rounded"
+                      >
+                        Delete Document
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 🧾 Carousel here */}
+                  <QuizCardsCarousel
+                    cards={QuizSet.cards}
+                    baseWidth={350}
+                    round={false}
+                    onDeleteCard={showSpecificDeleteConfirm} // 👈 pass here
                   />
                 </div>
-                <div className="mb-4">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      showAllDeleteConfirm(QuizSet.subject);
-                    }}
-                    className="px-7 py-3 flex justify-center items-center gap-2 cursor-pointer rounded-2xl text-white bg-red-500"
-                  >
-                    All Delete
-                    <TrashIcon className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <h1 className="text-center col-span-full font-bold text-3xl mb-4">
-                  Title: {QuizSet.title}
-                  <button
-                    onClick={() =>
-                      handleOpenUpdateModal(QuizSet.id, QuizSet.title)
-                    }
-                    className="bg-green-500 p-2 ml-2 rounded-full cursor-pointer text-white"
-                  >
-                    <PencilSquareIcon className="w-5 h-5" />
-                  </button>
-                  <br />
-                  <span className="text-xl font-medium">
-                    Subject: {QuizSet.subject}
-                  </span>
-                </h1>
-
-                {QuizSet.cards?.map((card, index) => (
-                  <div
-                    key={`${QuizSet.id}-${card.id || index}`}
-                    className="border rounded-lg p-4 shadow bg-white"
-                  >
-                    <button
-                      onClick={() => showSpecificDeleteConfirm(card.id)}
-                      className="cursor-pointer text-red-500 hover:text-red-700"
-                      title="Delete Card"
-                    >
-                      <TrashIcon className="h-6 w-6" />
-                    </button>
-                    <h3 className="font-semibold text-lg mb-2">
-                      Q{index + 1}: {card.question || `Question ${index + 1}`}
-                    </h3>
-                    <ul className="list-disc pl-5 text-sm text-gray-700">
-                      {card.options?.map((option, i) => (
-                        <li key={i}>{option}</li>
-                      ))}
-                    </ul>
-                    <p className="mt-2 text-green-600 text-sm">
-                      <strong>Answer:</strong> {card.answer}
-                    </p>
-                  </div>
-                ))}
-
-                <button
-                  onClick={() => DeleteCardobjeConfirm(QuizSet.id)}
-                  className="px-4 cursor-pointer text-white capitalize py-3 bg-red-400 rounded-2xl mt-4"
-                >
-                  Delete This Document
-                </button>
               </React.Fragment>
             ))
           )}
