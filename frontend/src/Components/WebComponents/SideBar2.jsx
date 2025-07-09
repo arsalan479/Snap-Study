@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import Navbar from "./Navbar";
+import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
 
 const SideBar2 = () => {
-  const [activeLink, setActiveLink] = useState("Explore");
+  const [activeLink, setActiveLink] = useState("Quiz Generate");
 
   // Sidebar navigation items
-  const navItems = [
-    "Explore",
-    "Images",
-    "Videos",
-    "Top",
-    "Likes",
-  ];
+  const navItems = ["Quiz Generate", "Images", "Videos", "Top", "Likes"];
 
   const libraryItems = [
     "My media",
@@ -73,12 +68,31 @@ const SideBar2 = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full h-screen">
-        <div className=" w-full flex justify-start px-5 items-center h-16">
-          <h1 className="text-white text-lg font-semibold mr-4">
-            {activeLink}
-          </h1>
+      <div className="w-full overflow-auto h-screen">
+        <div className="bg-green-500 fixed top-0 w-full flex justify-start px-5 items-center h-16">
+          <h1 className="text-lg font-semibold mr-4">{activeLink}</h1>
           <Navbar />
+        </div>
+
+        <div className="mt-30 flex justify-center  ">
+          <div>
+            <MainQuizCardFile />
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Doloremque beatae dignissimos iure recusandae commodi cum maxime
+              aliquam ea officia tempora esse doloribus eveniet est non sapiente
+              quia illo consequuntur facere quisquam aperiam, modi rerum ipsum
+              magnam. Modi laudantium, magni delectus quidem provident incidunt,
+              alias temporibus a reprehenderit dolor sunt quae odio nesciunt
+              officia aliquam distinctio doloribus deserunt, harum perferendis
+              labore architecto! Beatae, eveniet laborum, eos dicta sint dolore
+              quo dignissimos possimus expedita exercitationem ut illo
+              perferendis, aperiam animi impedit tempora quisquam. Aspernatur
+              officia optio iusto? Eveniet fugiat dolore debitis. Numquam enim
+              assumenda molestiae pariatur temporibus animi, veniam sequi
+              quisquam non.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/QuizCardsContext";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
+import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel";
 
 const QuizCardsCreateGemini = () => {
   const { ExtractText, setcards, setisProcessing, SaveQuizCard } =
@@ -44,31 +45,18 @@ const QuizCardsCreateGemini = () => {
   }, [ExtractText]);
 
   return (
-    <div>
+     <div>
       <div className="p-4">
         <h2 className="text-xl font-bold mb-4">Generated Quiz Cards</h2>
         {cards.length === 0 ? (
           <p className="text-gray-500">No cards generated yet.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                className="border rounded-lg p-4 shadow bg-white"
-              >
-                <h3 className="font-semibold text-lg mb-2">
-                  Q{index + 1}:{card.question || `Question ${index + 1}`}
-                </h3>
-                <ul className="list-disc pl-5 text-sm text-gray-700">
-                  {card.options?.map((option, i) => (
-                    <li key={i}>{option}</li>
-                  ))}
-                </ul>
-                <p className="mt-2 text-green-600 text-sm">
-                  <strong>Answer:</strong> {card.answer}
-                </p>
-              </div>
-            ))}
+          <div className="flex flex-col items-center">
+            <QuizCardsCarousel 
+              cards={cards} 
+              baseWidth={400} 
+              round={false} 
+            />
             <div className="flex justify-center p-5">
               <button
                 disabled={isSavedCard}
@@ -77,15 +65,14 @@ const QuizCardsCreateGemini = () => {
                     await SaveQuizCard();
                     setisSavedCard(true);
                   } else {
-                    console.log("function not avaliable");
+                    console.log("function not available");
                   }
                 }}
                 className={`px-7 cursor-pointer py-3 rounded-2xl text-white ${
                   isSavedCard ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500"
                 }`}
               >
-                  {isSavedCard ? 'Cards Saved!' : 'Save Cards?'}
-
+                {isSavedCard ? 'Cards Saved!' : 'Save Cards?'}
               </button>
             </div>
           </div>

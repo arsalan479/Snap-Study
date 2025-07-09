@@ -72,7 +72,7 @@ const FlashFileUpload = () => {
       )}
       <button
         onClick={flashfileupload}
-        className="bg-blue-500 px-8 py-3 text-white rounded-2xl mt-4"
+        className="bg-blue-500 px-8  py-3 text-white rounded-2xl mt-4"
       >
         ImageUpload
       </button>

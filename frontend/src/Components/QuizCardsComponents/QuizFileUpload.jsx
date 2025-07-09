@@ -2,17 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { AppContext } from "../../Context/QuizCardsContext.jsx";
+import imageGIF from "../../assets/WebsiteLogo/imageupload.gif";
+import loadingGIF from "../../assets/WebsiteLogo/loading.gif";
 
 const QuizFileUpload = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [imgSize, setImgSize] = useState({ width: "45vw", height: "32vw" });
 
-  // Context values
   const { setFileUrl, Cards, setcards } = useContext(AppContext);
 
-  // Handle file input
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -21,14 +22,30 @@ const QuizFileUpload = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
+
+        const img = new Image();
+        img.onload = () => {
+          const maxWidth = 600;
+          const maxHeight = 600;
+          let { width, height } = img;
+
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            width = width * ratio;
+            height = height * ratio;
+          }
+
+          setImgSize({ width: `${width}px`, height: `${height}px` });
+        };
+        img.src = reader.result;
       };
       reader.readAsDataURL(selectedFile);
     } else {
       setPreview(null);
+      setImgSize({ width: "40vw", height: "40vw" });
     }
   };
 
-  // Upload image and start processing
   const imageupload = async () => {
     if (!file) {
       toast.error("Please select a file.");
@@ -37,7 +54,7 @@ const QuizFileUpload = () => {
 
     setLoading(true);
     setProcessing(true);
-    setcards([]); // 🧠 Clear old cards before uploading new image
+    setcards([]);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -55,54 +72,77 @@ const QuizFileUpload = () => {
       setFileUrl(response.data.result.file.fileUrl);
     } catch (error) {
       console.error("Upload error:", error);
-      setProcessing(false); // ❗Stop processing on error
+      setProcessing(false);
     } finally {
       setLoading(false);
     }
   };
 
-  // Watch for card generation completion
   useEffect(() => {
     if (processing && Cards && Cards.length > 0) {
-      setProcessing(false); // ✅ Card generation complete
+      setProcessing(false);
     }
   }, [Cards, processing]);
 
   return (
-    <div>
-      <input
-        type="file"
-        name="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="border border-black px-2 py-1"
-        disabled={loading || processing}
-      />
+    <div className="flex flex-col items-center ">
+      <div className="relative inline-block ">
+        <input
+          type="file"
+          name="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          id="fileInput"
+          className="hidden"
+          disabled={loading || processing}
+        />
+        <label
+          htmlFor="fileInput"
+          className="border -z-10 border-white rounded-2xl border-dashed flex flex-col items-center justify-center cursor-pointer relative overflow-hidden"
+          style={{
+            width: imgSize.width,
+            height: imgSize.height,
+          }}
+        >
+          {preview ? (
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full h-full object-contain rounded-2xl"
+            />
+          ) : (
+            <>
+              <img src={imageGIF} alt="" />
 
-      {preview && (
-        <div className="mt-4">
-          <img
-            src={preview}
-            alt="Preview"
-            className="max-w-xs max-h-60 rounded shadow"
-          />
-        </div>
-      )}
+              <span className="font-semibold text-2xl capitalize">
+                Select an image <i class="ri-file-add-fill"></i>
+              </span>
+            </>
+          )}
+        </label>
+      </div>
 
       <button
         onClick={imageupload}
         disabled={!file || loading || processing}
-        className={`px-8 py-3 rounded-2xl mt-4 text-white ${
+        className={`px-8 py-3 rounded-2xl mt-4 ${
           !file || loading || processing
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-500 hover:bg-blue-600"
+            ? "bg-[#4B4B4B] cursor-not-allowed"
+            : "bg-white text-black cursor-pointer hover:bg-[var(--text)] duration-300"
         }`}
       >
-        {processing
-          ? "Processing..."
-          : loading
-          ? "Uploading..."
-          : "Upload Image"}
+        {processing || loading ? (
+          <span className="flex items-center gap-2">
+            Uploading
+            <img
+              src={loadingGIF}
+              alt="Loading..."
+              className="w-6 h-6 animate-spin"
+            />
+          </span>
+        ) : (
+          "Upload Image"
+        )}
       </button>
     </div>
   );

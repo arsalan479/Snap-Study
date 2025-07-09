@@ -32,7 +32,6 @@ const QuizCardSave = () => {
         {
           loading: 'Saving quiz card...',
           success: 'Quiz card saved successfully!',
-          error: 'Failed to save quiz card.',
         }
       );
     } catch (error) {
@@ -56,8 +55,8 @@ const QuizCardSave = () => {
             settitle(e.target.value);
             setHasSaved(false); // allow save again if title is changed
           }}
-          placeholder="Title"
-          className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Enter Your Image Title"
+          className="px-4 py-2 mb-7 border rounded-md focus:outline-none focus:ring-2 focus:ring-white w-full" // reduced width
         />
       </form>
     </div>
