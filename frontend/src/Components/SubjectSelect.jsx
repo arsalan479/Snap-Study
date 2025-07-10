@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";
+import { FlashContext } from "../Context/FlashCardsContext";
 
 const SubjectSelect = () => {
+
+const {userfetch} = useContext(FlashContext)
+
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [customSubject, setCustomSubject] = useState("");
@@ -38,28 +42,28 @@ setTimeout(()=>{
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white">
-      <h1 className="text-4xl text-[#5A271E] font-bold mb-10">Hello Arsalan</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6  ">
+      <h1 className="text-4xl  font-bold mb-10">{userfetch.displayName}</h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl w-full">
         {subjects.map((subject) => (
           <div
             key={subject}
-            className="rounded-2xl border border-dashed border-[#5A271E] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
+            className="rounded-2xl border border-dashed border-[white] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
             onClick={() => handleSubjectSelect(subject)}
           >
-            <PlusIcon className="w-10 h-10 text-[#5A271E]" />
-            <h1 className="uppercase text-[#5A271E] mt-2 text-center">{subject}</h1>
+            <PlusIcon className="w-10 h-10 " />
+            <h1 className="uppercase  mt-2 text-center">{subject}</h1>
           </div>
         ))}
 
         {/* Others Card */}
         <div
-          className="rounded-2xl border border-dashed border-[#5A271E] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
+          className="rounded-2xl border border-dashed border-[#fff] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
           onClick={() => setShowPopup(true)}
         >
-          <PlusIcon className="w-10 h-10 text-[#5A271E]" />
-          <h1 className="uppercase text-[#5A271E] mt-2 text-center">Others</h1>
+          <PlusIcon className="w-10 h-10 text-[#fff]" />
+          <h1 className="uppercase text-[#fff] mt-2 text-center">Others</h1>
         </div>
       </div>
 

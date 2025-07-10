@@ -5,8 +5,6 @@ import PopupSureDelete from "../../Utils/PopupSureDelete";
 import toast from "react-hot-toast";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import PopupSureUpdate from "../../Utils/PopupSureUpdate.jsx";
-
-// import your Carousel
 import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel.jsx";
 
 const FetchquizCard = ({ quizcards: propQuizCards }) => {
@@ -23,6 +21,7 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     if (Array.isArray(quizcards)) {
@@ -70,8 +69,6 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Save History Of Quiz Cards</h2>
-
       {localQuizCards.length === 0 ? (
         <p className="text-gray-500">No cards yet.</p>
       ) : (
@@ -81,11 +78,12 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
               <React.Fragment key={QuizSet.id || `${groupIdx}-${setIdx}`}>
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-wrap justify-between items-center">
-                    <div className="flex gap-4 items-center">
+                    <div className=" flex gap-4 items-center">
                       <img
                         src={QuizSet.imageURl}
-                        className="w-20 h-20 object-cover rounded"
+                        className="w-20 cursor-zoom-in h-20 object-cover rounded"
                         alt="Quiz Cover"
+                        onClick={() => setSelectedImage(QuizSet.imageURl)}
                       />
                       <div>
                         <h1 className="font-bold text-2xl">
@@ -94,7 +92,7 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
                             onClick={() =>
                               handleOpenUpdateModal(QuizSet.id, QuizSet.title)
                             }
-                            className="bg-green-500 p-2 ml-2 rounded-full cursor-pointer text-white"
+                            className="bg-[#5227FF] p-3 ml-2 rounded-full cursor-pointer text-white"
                           >
                             <PencilSquareIcon className="w-5 h-5" />
                           </button>
@@ -110,17 +108,16 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
                         onClick={() => {
                           showAllDeleteConfirm(QuizSet.subject);
                         }}
-                        className="px-4 py-2 flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-red-500"
+                        className="px-4 py-2 tracking-tight flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-[#dc3545]"
                       >
-                        All Delete
-                        <TrashIcon className="w-4 h-4" />
+                        Remove All <TrashIcon className="w-4 h-4" />
                       </button>
 
                       <button
                         onClick={() => DeleteCardobjeConfirm(QuizSet.id)}
-                        className="px-4 py-2 cursor-pointer text-white capitalize bg-red-400 rounded"
+                        className="px-4 py-2 cursor-pointer text-white capitalize bg-[#e63946] rounded"
                       >
-                        Delete Document
+                        Remove This
                       </button>
                     </div>
                   </div>
@@ -145,6 +142,28 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
         onConfirm={handleUpdateTitle}
         initialTitle={selectedTitle}
       />
+      {/* Image Modal/Lightbox */}
+      {selectedImage && (
+        <div
+          className="bg-black fixed inset-0 bg-opacity-90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="max-w-4xl max-h-full">
+            <img
+              src={selectedImage}
+              className="max-w-full  max-h-screen object-contain"
+              alt="Enlarged Quiz Cover"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
+            />
+            <button
+              className="absolute top-4 cursor-pointer right-4 text-white text-2xl bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -23,19 +23,19 @@ const GooglegithubloginV3Captcha = () => {
   };
 
   const loginWithGoogle = async () => {
-    if (!executeRecaptcha) {
-      console.log('Execute recaptcha not yet available');
-      return;
-    }
+    // if (!executeRecaptcha) {
+    //   console.log('Execute recaptcha not yet available');
+    //   return;
+    // }
 
     const isHuman = await verifyCaptcha('login_google');
 
     try {
-      if (isHuman) {
+      // if (isHuman) {
         window.open('http://localhost:3000/auth/google', '_self');
-      } else {
-        toast.error('reCAPTCHA verification failed. Please try again.')
-      }
+      // } else {
+      //   toast.error('reCAPTCHA verification failed. Please try again.')
+      // }
     } catch (error) {
       toast.error("Network Error Problem Please Try Again") 
     }

@@ -60,10 +60,10 @@ const UserNameModal = () => {
         onCancel={handleCancel}
         footer={null}
         closable={false}
-        className="!p-0 custom-modal-style"
+        className="p-0 custom-modal-style"
         centered
       >
-        <div className="bg-[#2d2d2d] p-6 rounded-xl">
+        <div className="bg-[#2d2d2d] p-1 ">
         <div className="flex justify-between">
            <label className="block text-sm text-white font-semibold mb-2">Username</label>
           <label className="block text-sm text-gray-400 font-semibold mb-2">At least 3 characters</label>

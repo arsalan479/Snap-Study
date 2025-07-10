@@ -3,6 +3,7 @@ import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import Navbar from "./Navbar";
 import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
+import SubjectSelect from '../../Components/SubjectSelect'
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -21,8 +22,19 @@ const SideBar2 = () => {
       return <MainQuizCardFile />;
     }
 
-    if (activeLink === "QuizCard History" && activeSubject) {
-      return quizCardContent;
+    if (activeLink === "Images") {
+      return <SubjectSelect/>
+    }
+
+    if (activeLink === "QuizCard History") {
+      // Show either the subject-specific content or a default view
+      return activeSubject ? (
+        quizCardContent
+      ) : (
+        <div className="text-white text-xl text-center mt-10">
+          Select a subject from the dropdown to view your quiz history.
+        </div>
+      );
     }
 
     return (
@@ -98,16 +110,16 @@ const SideBar2 = () => {
                           setActiveLink("QuizCard History");
                           setActiveSubject(subject);
                         }}
-                        className={`py-1 px-3 ${
+                        className={`py-1 px-3 duration-300  ${
                           activeSubject === subject ? "bg-[var(--bg2)]" : ""
-                        } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-sm`}
+                        } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-[1.6vw]`}
                       >
                         {subject.charAt(0).toUpperCase() + subject.slice(1)}
                       </div>
-                    ))
+                    ))  
                   ) : (
-                    <div className="text-xs text-gray-400 px-3">
-                      No subjects found.
+                    <div className="tracking-tight text-[1.6vw] duration-300 text-gray-400 px-3">
+                      No subjects found
                     </div>
                   )}
                 </div>
@@ -139,12 +151,13 @@ const SideBar2 = () => {
         <div className="bg-black fixed top-0 w-full flex justify-between px-5 items-center h-16 z-20">
           <h1 className="text-lg font-semibold text-white">
             {activeLink}
-            {activeSubject && ` / ${activeSubject.charAt(0).toUpperCase() + activeSubject.slice(1)}`}
+            {activeSubject &&
+              ` / ${activeSubject.charAt(0).toUpperCase() + activeSubject.slice(1)}`}
           </h1>
           <Navbar />
         </div>
 
-        <div className="pt-20 px-5">{renderSection()}</div>
+        <div className="pt-20 px-5 ">{renderSection()}</div>
       </div>
     </div>
   );

@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { AppContext } from "../../Context/QuizCardsContext.jsx";
-import imageGIF from "../../assets/WebsiteLogo/imageupload.gif";
 import loadingGIF from "../../assets/WebsiteLogo/loading.gif";
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+
+
 
 const QuizFileUpload = () => {
   const [file, setFile] = useState(null);
@@ -93,12 +95,12 @@ const QuizFileUpload = () => {
           accept="image/*"
           onChange={handleFileChange}
           id="fileInput"
-          className="hidden "
+          className="hidden"
           disabled={loading || processing}
         />
         <label
           htmlFor="fileInput"
-          className="border bg-[#202020] border-white rounded-2xl border-dashed flex flex-col items-center justify-center cursor-pointer relative overflow-hidden"
+          className="border bg-[#202020] border-white rounded-2xl border-dashed flex flex-col items-center justify-center  relative overflow-hidden"
           style={{
             width: imgSize.width,
             height: imgSize.height,
@@ -112,11 +114,16 @@ const QuizFileUpload = () => {
             />
           ) : (
             <>
-              <img src={imageGIF} alt="" />
-
-              <span className="font-semibold text-2xl capitalize">
-                Select an image <i class="ri-file-add-fill"></i>
+              <div className="mb-4 bg-[#33384C] rounded-full w-13 h-13 flex justify-center items-center">
+                <FileUploadOutlinedIcon style={{fontSize:34,color:"#2750f7"}}/>
+              </div>
+              <span className="font-semibold text-[1.9vw] tracking-tight capitalize">
+                Upload Source 
               </span>
+              <span className=" text-[1.5vw] text-[#808284]">Drag & drop or <span className="cursor-pointer text-[#2750f7]">choose file</span> to upload</span>
+            <span className="tracking-tight text-[#808284] relative top-15 text-[1.5vw] font-semibold">Supported file types:  .png, .jpg, .jpeg</span>
+
+
             </>
           )}
         </label>

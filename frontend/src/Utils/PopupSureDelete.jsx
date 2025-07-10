@@ -11,9 +11,9 @@ const PopupSureDelete = () => {
 
   const showAllDeleteConfirm = (subject) => {
     confirm({
-      title: "Are you sure delete All Quiz Cards",
+      title: "Are you sure Remove All Quiz Cards",
       icon: <ExclamationCircleFilled />,
-      content: "Some descriptions",
+      content: "All cards will be removed from the set.",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
@@ -21,8 +21,7 @@ const PopupSureDelete = () => {
         deleteAllQuizCards(subject);
       },
       onCancel() {
-        toast(<p>Cancel Deletetation</p>);
-      },
+      }
     });
   };
 
@@ -38,14 +37,13 @@ const PopupSureDelete = () => {
         deleteSpecificQuizCard(id);
       },
       onCancel() {
-        toast(<p>Cancel Deletetation</p>);
       },
     });
   };
 
  const DeleteCardobjeConfirm = (id) => {
     confirm({
-      title: "Delete this Object?",
+      title: "Remove this Object?",
       icon: <ExclamationCircleFilled />,
       content: "This card will be removed from the set.",
       okText: "Yes",
@@ -55,7 +53,6 @@ const PopupSureDelete = () => {
         cardDelete(id);
       },
       onCancel() {
-        toast(<p>Cancel Deletetation</p>);
       },
     });
   };
