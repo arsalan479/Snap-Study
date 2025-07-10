@@ -1,16 +1,11 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PlusIcon } from "@heroicons/react/20/solid";
-import { motion, AnimatePresence } from "framer-motion";
-import { FlashContext } from "../Context/FlashCardsContext";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const SubjectSelect = () => {
-
-const {userfetch} = useContext(FlashContext)
-
-  const navigate = useNavigate();
+const SubjectSelect = ({ onSelectSubject }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [customSubject, setCustomSubject] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState(""); // new state
+
+  const [customInput, setCustomInput] = useState("");
 
   const subjects = [
     "Mathematics",
@@ -23,93 +18,102 @@ const {userfetch} = useContext(FlashContext)
 
   const handleSubjectSelect = (subject) => {
     localStorage.setItem("subject", subject);
-    setTimeout(() => {
-      navigate("/checkscreen");
-
-    }, 1000);
+    setSelectedSubject(subject);
+    onSelectSubject?.(subject);
   };
 
   const handleCustomSubjectSubmit = () => {
-    if (customSubject.trim() !== "") {
-      localStorage.setItem("subject", customSubject.trim());
+    if (customInput.trim() !== "") {
+      handleSubjectSelect(customInput.trim());
       setShowPopup(false);
-      setCustomSubject("");
-setTimeout(()=>{
- navigate("/checkscreen");
-
-},1000)
+      setCustomInput("");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6  ">
-      <h1 className="text-4xl  font-bold mb-10">{userfetch.displayName}</h1>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl w-full">
-        {subjects.map((subject) => (
-          <div
-            key={subject}
-            className="rounded-2xl border border-dashed border-[white] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
-            onClick={() => handleSubjectSelect(subject)}
-          >
-            <PlusIcon className="w-10 h-10 " />
-            <h1 className="uppercase  mt-2 text-center">{subject}</h1>
-          </div>
-        ))}
-
-        {/* Others Card */}
-        <div
-          className="rounded-2xl border border-dashed border-[#fff] flex flex-col items-center justify-center p-6 cursor-pointer transition hover:scale-105"
-          onClick={() => setShowPopup(true)}
+    <div className="flex justify-center">
+      <div className="w-full max-w-xs">
+        <label
+          className="block mb-2 text-lg font-medium text-white"
+          htmlFor="subject-select"
         >
-          <PlusIcon className="w-10 h-10 text-[#fff]" />
-          <h1 className="uppercase text-[#fff] mt-2 text-center">Others</h1>
-        </div>
+          Select Subject
+        </label>
+        <select
+          id="subject-select"
+          className="block w-full p-3 rounded-lg border border-white bg-[#202020] text-white focus:outline-none focus:ring-2 focus:ring-white mb-4"
+          value={
+            subjects.includes(selectedSubject) || selectedSubject === ""
+              ? selectedSubject
+              : "custom"
+          }
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === "Others") {
+              setShowPopup(true);
+            } else {
+              handleSubjectSelect(value);
+            }
+          }}
+        >
+          <option value="" disabled>
+            -- Choose a subject --
+          </option>
+          {subjects.map((subject) => (
+            <option key={subject} value={subject}>
+              {subject}
+            </option>
+          ))}
+          <option value="Others">Others</option>
+          {selectedSubject && !subjects.includes(selectedSubject) && (
+            <option value="custom">{selectedSubject}</option>
+          )}
+        </select>
       </div>
 
-      {/* Popup */}
-     <AnimatePresence>
-  {showPopup && (
-    <motion.div
-      className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="bg-white p-6 rounded-xl shadow-xl w-80"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <h2 className="text-lg font-semibold mb-4 text-[#5A271E]">Enter Subject Name</h2>
-        <input
-          type="text"
-          value={customSubject}
-          onChange={(e) => setCustomSubject(e.target.value)}
-          className="w-full border border-[#5A271E] rounded-lg p-2 mb-4 outline-none"
-          placeholder="Type subject..."
-        />
-        <div className="flex justify-end gap-3">
-          <button
-            onClick={() => setShowPopup(false)}
-            className="px-4 py-2 text-sm text-gray-600 hover:text-red-500"
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            className="fixed inset-0 bg-black/75 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            Cancel
-          </button>
-          <button
-            onClick={handleCustomSubjectSubmit}
-            className="px-4 py-2 text-sm bg-[#5A271E] text-white rounded-lg"
-          >
-            Submit
-          </button>
-        </div>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
-
+            <motion.div
+              className="bg-[#2D2D2D] p-6 rounded-xl shadow-xl w-120"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h2 className="text-lg font-semibold mb-4 text-white">
+                Enter Subject Name
+              </h2>
+              <input
+                type="text"
+                value={customInput}
+                onChange={(e) => setCustomInput(e.target.value)}
+                className="w-full border text-white border-white rounded-lg p-2 mb-4 outline-none"
+                placeholder="Type subject..."
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="px-4 py-2 text-sm text-white rounded-full tracking-tight cursor-pointer bg-[#4B4B4B]"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCustomSubjectSubmit}
+                  className="px-4 py-2 text-sm bg-white text-black tracking-tight rounded-full cursor-pointer"
+                >
+                  Submit
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

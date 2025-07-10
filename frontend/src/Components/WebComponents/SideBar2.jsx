@@ -3,12 +3,14 @@ import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import Navbar from "./Navbar";
 import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
-import SubjectSelect from '../../Components/SubjectSelect'
+import SubjectSelect from "../../Components/SubjectSelect";
+import ExplainQuiz from "./ExplainQuiz";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
   const [activeSubject, setActiveSubject] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [quizGenerateSubject, setQuizGenerateSubject] = useState(null);
 
   const { uniqueSubjects, content: quizCardContent } = QuizCardHistory({
     subject: activeSubject,
@@ -19,15 +21,19 @@ const SideBar2 = () => {
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {
-      return <MainQuizCardFile />;
-    }
-
-    if (activeLink === "Images") {
-      return <SubjectSelect/>
+      return (
+        <div>
+          <SubjectSelect onSelectSubject={(subject) => setQuizGenerateSubject(subject)} />
+          {quizGenerateSubject && (
+            <div className="mt-10">
+              <MainQuizCardFile subject={quizGenerateSubject} />
+            </div>
+          )}
+        </div>
+      );
     }
 
     if (activeLink === "QuizCard History") {
-      // Show either the subject-specific content or a default view
       return activeSubject ? (
         quizCardContent
       ) : (
@@ -35,6 +41,10 @@ const SideBar2 = () => {
           Select a subject from the dropdown to view your quiz history.
         </div>
       );
+    }
+
+    if(activeLink === "Images"){
+      return <ExplainQuiz/>
     }
 
     return (
@@ -68,8 +78,9 @@ const SideBar2 = () => {
                   setActiveLink(item);
                   setActiveSubject(null);
                   setIsHistoryOpen(false);
+                  setQuizGenerateSubject(null); // reset quizGenerateSubject when switching
                 }}
-                className={`py-1 px-3 ${
+                className={`py-2 mt-1 px-3 ${
                   activeLink === item ? "bg-[var(--bg2)]" : ""
                 } text-white hover:bg-[var(--bg2)] font-semibold tracking-tight rounded-[10px] cursor-pointer`}
               >
@@ -110,13 +121,13 @@ const SideBar2 = () => {
                           setActiveLink("QuizCard History");
                           setActiveSubject(subject);
                         }}
-                        className={`py-1 px-3 duration-300  ${
+                        className={`py-1 px-3 duration-300 ${
                           activeSubject === subject ? "bg-[var(--bg2)]" : ""
                         } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-[1.6vw]`}
                       >
                         {subject.charAt(0).toUpperCase() + subject.slice(1)}
                       </div>
-                    ))  
+                    ))
                   ) : (
                     <div className="tracking-tight text-[1.6vw] duration-300 text-gray-400 px-3">
                       No subjects found
@@ -134,7 +145,7 @@ const SideBar2 = () => {
                     setActiveSubject(null);
                     setIsHistoryOpen(false);
                   }}
-                  className={`py-1 px-3 ${
+                  className={`py-2 mt-1 px-3 ${
                     activeLink === item ? "bg-[var(--bg2)]" : ""
                   } text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer`}
                 >
@@ -157,7 +168,7 @@ const SideBar2 = () => {
           <Navbar />
         </div>
 
-        <div className="pt-20 px-5 ">{renderSection()}</div>
+        <div className="pt-20 px-5">{renderSection()}</div>
       </div>
     </div>
   );
