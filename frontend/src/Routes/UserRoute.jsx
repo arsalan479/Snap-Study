@@ -5,8 +5,8 @@ import PublicRoute from "../ProtectAndPublicRoutes/PubliRoute";
 import Checkauthgooglegithub from "../Components/WebComponents/Checkauthgooglegithub";
 import MainSystem from "../UserScreensPage/UserPage/MainSystem";
 import ProtectedRoute from "../ProtectAndPublicRoutes/ProtectedRoute";
-//  import Googleinput from '../UserScreensPage/Googleinput';
-// import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
+ import Googleinput from '../UserScreensPage/Googleinput';
+import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
 
 const UserRoute = () => {
   return (
@@ -29,7 +29,7 @@ const UserRoute = () => {
 
 
 
- {/* <Route path="/googleregister" element={
+ <Route path="/googleregister" element={
         <PublicRoute>
           <Googleinput/>
         </PublicRoute>
@@ -38,7 +38,7 @@ const UserRoute = () => {
         <PublicRoute>
           <GoogleOTP/>
         </PublicRoute>
-      }/> */}
+      }/>
 
 
       </Routes>

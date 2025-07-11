@@ -10,6 +10,7 @@ import editdeletesystem from './Routes/FileUploadCloudRoutes/editdeletesystem.ro
 import quizcardsroutes from './Routes/QuizCardRoutes/quizcard.route.js';
 import quizcardeditdeletefetch from './Routes/QuizCardRoutes/quizcardeditdeletefetch.route.js'
 import userdetails from './Routes/UserAuthRoutes/userdetails.route.js'
+import roomroute from './Routes/RoomCreateRoutes/room.route.js'
 import passport from 'passport';
 import cors from 'cors';
 import './Config/googleauth/google.passport.js';
@@ -74,7 +75,7 @@ app.use('/api/quiz/crud',quizcardeditdeletefetch)
 app.use('/userdetail',userdetails)
 
 
-const port = process.env.PORT || 3000
-app.listen(port,'0.0.0.0',()=>{
-    console.log("your server is running on port 3000")
-})
+app.use('/api/room',roomroute)
+
+
+export default app;
