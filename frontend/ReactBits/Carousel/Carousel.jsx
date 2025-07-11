@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import StyleTwoToneIcon from '@mui/icons-material/StyleTwoTone';
+import ExplainQuiz from "../../src/Components/WebComponents/ExplainQuiz";
 
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
@@ -163,10 +164,15 @@ export default function QuizCardsCarousel({
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? "p-0 m-0" : " p-4"}`}>
-                <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#060010]">
-                  <StyleTwoToneIcon style={{fontSize:20}} className="h-[16px] w-[16px] text-white" />
-                </span>
+              <div className={`${round ? "p-0 m-0" : "flex p-4"}`}>
+                
+                    <div className="bg-[var(--bg2)] px-2 py-2  rounded-full ">
+                    <ExplainQuiz
+                    question={card.question}
+                    options={card.options}
+                    answer={card.answer}
+                    />
+                  </div>
               </div>
               <div className="p-5">
                 <div className="mb-1 font-black text-lg text-white">
@@ -180,6 +186,8 @@ export default function QuizCardsCarousel({
                 <p className="text-sm text-green-500">
                   <strong>Answer:</strong> {card.answer}
                 </p>
+              
+
               </div>
             </motion.div>
           );

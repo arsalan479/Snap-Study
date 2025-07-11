@@ -25,7 +25,7 @@ const QuizCardsCreateGemini = () => {
         );
 
         setCards(response.data.data);
-
+        
         //for Context
         setcards(response.data.data);
 
