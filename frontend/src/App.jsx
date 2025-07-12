@@ -10,18 +10,33 @@
 // import MainFlashCardSystem from './UserScreensPage/FlashCardSystem/MainFlashCardSystem';
 // import FetchQuizCard from './UserScreensPage/QuizCardSystem/FetchQuizCard';
 // import DashboardLayoutBasic from './Components/UserDashboard/UserDashboardCards';
-import UserRoute from './Routes/UserRoute';
-import { Toaster } from 'react-hot-toast';
-
+import { useEffect } from "react";
+import UserRoute from "./Routes/UserRoute";
+import { Toaster } from "react-hot-toast";
+import { io } from "socket.io-client";
 
 function App() {
- 
+ useEffect(() => {
+        const socket = io("http://localhost:3000");
+
+        socket.on("connect", () => {
+            console.log("✅ Connected to server, socket id:", socket.id);
+        });
+
+        socket.on("connect_error", (err) => {
+            console.error("❌ Connection error:", err.message);
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
 
-    <Toaster position='top-center' reverseOrder={false} />
-
-    {/* <Routes>
+      {/* <Routes>
 
 <Route path='/quizcard' element={<MainQuizCardFile/>} />
 <Route path='/flashcard' element={<MainFlashCardSystem/>} />              
@@ -65,11 +80,8 @@ function App() {
 
     </Routes> */}
 
-
-<UserRoute/>
-    
+      <UserRoute />
     </>
-    
   );
 }
 

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
 const UserOneSchema = mongoose.Schema({
   authMethods: {
@@ -55,19 +54,16 @@ const UserOneSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-
+  status: { 
+    type: String,
+     enum: ["online", "offline","away"], 
+     default: "offline" 
+    },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  status: { 
-    type: String,
-     enum: ["online", "offline"], 
-     default: "offline" 
-    },
-    friends:[{
-      type:mongoose.Schema.Types.ObjectId,ref:'UserOne'
-    }]
+
 });
 
 //create index jis se db ko user dhnodne me asani hogi login karte wqt jese booke ka index number dekhte he hum or us index page pe chale jate hen ac he work karta he yeb bhi.
@@ -75,6 +71,8 @@ const UserOneSchema = mongoose.Schema({
 UserOneSchema.index({ "authMethods.google.id": 1 });
 UserOneSchema.index({ "authMethods.github.id": 1 });
 UserOneSchema.index({ "authMethods.googleuserbyemail.id": 1 });
+UserOneSchema.index({ status: 1 });
+UserOneSchema.index({ lastSeen: 1 });
 
 const UserOne = mongoose.model("UserOne", UserOneSchema);
 export default UserOne;
