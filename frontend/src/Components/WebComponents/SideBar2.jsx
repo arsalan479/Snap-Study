@@ -70,7 +70,7 @@ const SideBar2 = () => {
           </div>
         </div>
 
-        <nav className="flex-1 px-4 mt-10">
+        <nav className="flex-1 px-4 mt-7">
           {/* Main Nav */}
           <div>
             {navItems.map((item) => (
@@ -82,9 +82,9 @@ const SideBar2 = () => {
                   setIsHistoryOpen(false);
                   setQuizGenerateSubject(null); // reset quizGenerateSubject when switching
                 }}
-                className={`py-2 mt-1 px-3 ${
+                className={`py-2 mt-1  px-3 ${
                   activeLink === item ? "bg-[var(--bg2)]" : ""
-                } text-white hover:bg-[var(--bg2)] font-semibold tracking-tight rounded-[10px] cursor-pointer`}
+                } text-white hover:bg-[var(--bg2)] tracking-tight rounded-[10px] cursor-pointer`}
               >
                 {item}
               </div>
@@ -92,7 +92,7 @@ const SideBar2 = () => {
           </div>
 
           {/* Library */}
-          <div className="mt-8">
+          <div className="mt-6">
             <h3 className="text-gray-400 text-[1.6vw] tracking-tight font-semibold mb-3 px-3">
               Library
             </h3>
@@ -105,9 +105,9 @@ const SideBar2 = () => {
                   setActiveLink("QuizCard History");
                   setActiveSubject(null);
                 }}
-                className={`py-1 px-3 ${
+                className={`py-2 px-3 ${
                   activeLink === "QuizCard History" ? "bg-[var(--bg2)]" : ""
-                } text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer`}
+                } text-white hover:bg-[var(--bg2)] rounded-[10px] tracking-tight cursor-pointer`}
               >
                 QuizCard History
               </div>
@@ -149,7 +149,7 @@ const SideBar2 = () => {
                   }}
                   className={`py-2 mt-1 px-3 ${
                     activeLink === item ? "bg-[var(--bg2)]" : ""
-                  } text-white hover:bg-[var(--bg2)] font-semibold rounded-[10px] tracking-tight cursor-pointer`}
+                  } text-white hover:bg-[var(--bg2)]  rounded-[10px] tracking-tight cursor-pointer`}
                 >
                   {item}
                 </div>
@@ -162,7 +162,7 @@ const SideBar2 = () => {
       {/* Main Content */}
       <div className="w-full overflow-auto h-screen">
         <div className="bg-black fixed top-0 w-full flex justify-between px-5 items-center h-16 z-20">
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-lg  text-white">
             {activeLink}
             {activeSubject &&
               ` / ${activeSubject.charAt(0).toUpperCase() + activeSubject.slice(1)}`}
