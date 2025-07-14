@@ -61,6 +61,10 @@ export const freindsearch = async (req, res) => {
   }
 };
 
+
+
+
+
 export const getonlinefriends = async (req, res) => {
   try {
     const userId = decodedToken(req);
