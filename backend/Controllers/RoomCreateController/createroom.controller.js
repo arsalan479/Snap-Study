@@ -2,9 +2,32 @@ import UserOne from "../../Models/UserOneScehma/UserOne.model.js";
 import roomModel from "../../Models/UserRooms/createroom.model.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 
+export const fetchalluser = async (req, res) => {
+  try {
+    const userId = decodedToken(req);
+
+    if (!userId) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: Token missing or invalid." });
+    }
+
+    const response = await UserOne.find({role:"user"});
+
+    return res.status(200).json({
+      message: "Users fetched successfully.",
+      success: true,
+      users: response,
+    });
 
 
-
+  } catch (error) {
+    return res.status(500).json({
+      message: "error",
+      error,
+    });
+  }
+};
 
 export const getonlinefriends = async (req, res) => {
   try {
@@ -16,13 +39,13 @@ export const getonlinefriends = async (req, res) => {
       });
     }
 
-    const user = await UserOne.find({status:"online"});
+    const user = await UserOne.find({ status: "online" });
 
- if(!user){
-  return res.status(400).json({
-    message:"user not found"
-  })
- }
+    if (!user) {
+      return res.status(400).json({
+        message: "user not found",
+      });
+    }
     // const onlineFriend = await user.friends.filter(
     //   (f) => f.status === "online"
     // );
@@ -36,7 +59,6 @@ export const getonlinefriends = async (req, res) => {
 
 export const sendjoinrequest = async (req, res) => {
   try {
-
     const { freindId } = req.body;
     const userId = decodedToken(req);
     const io = getIO();

@@ -10,9 +10,9 @@ const io = new Server(server,{
     }
 });
 
-io.on("connection",(socket)=>{
-    console.log("a user connected")
-})
+// io.on("connection",(socket)=>{
+//     console.log("a user connected")
+// })
 
 
 const port = process.env.PORT || 3000;

@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 import SubjectSelect from "../../Components/SubjectSelect";
-import ExplainQuiz from "./ExplainQuiz";
+import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -16,7 +16,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "Images", "Videos", "Top", "Likes"];
+  const navItems = ["Quiz Generate", "Friends", "Videos", "Top", "Likes"];
   const libraryItems = ["Favorites", "Uploads", "Trash", "New folder"];
 
   const renderSection = () => {
@@ -43,9 +43,11 @@ const SideBar2 = () => {
       );
     }
 
-    if(activeLink === "Images"){
-      return <ExplainQuiz/>
+    if(activeLink === "Friends"){
+      return <FreindsList/>
     }
+
+
 
     return (
       <div className="text-white text-xl text-center mt-10">

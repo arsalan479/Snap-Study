@@ -16,21 +16,21 @@ import { Toaster } from "react-hot-toast";
 import { io } from "socket.io-client";
 
 function App() {
- useEffect(() => {
-        const socket = io("http://localhost:3000");
+//  useEffect(() => {
+//         const socket = io("http://localhost:3000");
 
-        socket.on("connect", () => {
-            console.log("✅ Connected to server, socket id:", socket.id);
-        });
+//         socket.on("connect", () => {
+//             console.log("✅ Connected to server, socket id:", socket.id);
+//         });
 
-        socket.on("connect_error", (err) => {
-            console.error("❌ Connection error:", err.message);
-        });
+//         socket.on("connect_error", (err) => {
+//             console.error("❌ Connection error:", err.message);
+//         });
 
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
+//         return () => {
+//             socket.disconnect();
+//         };
+//     }, []);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import passport from "passport"
 import { jwtgooglemail } from "../../Utils/jsonwebtoken.nodemailgoogle.js";
+import { setonline } from "../../Utils/setonline.js";
 
 export const github = (req,res,next)=>{
     passport.authenticate('github', { scope: ['user:email'],session:false })
@@ -7,7 +8,7 @@ export const github = (req,res,next)=>{
 }
 
 export const githubcallback = (req, res, next) => {
-  passport.authenticate('github', { session: false }, (err, user, info) => {
+  passport.authenticate('github', { session: false }, async(err, user, info) => {
     if (err) {
       return res.redirect(
         `http://localhost:5173/?error=${encodeURIComponent(err.message)}`
@@ -30,6 +31,7 @@ export const githubcallback = (req, res, next) => {
     try {
       // Issue JWT token
       jwtgooglemail(user, res, "GitHub login successful");
+      await setonline(user._id)
 
       // Role-based redirection
       if (user.role === 'admin') {

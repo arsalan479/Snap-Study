@@ -2,6 +2,7 @@ import passport from "passport";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import UserOneModel from "../../Models/UserOneScehma/UserOne.model.js";
 import { jwtgooglemail } from "../../Utils/jsonwebtoken.nodemailgoogle.js";
+import { setonline } from "../../Utils/setonline.js";
 
 export const google = (req, res, next) => {
   passport.authenticate("google", {
@@ -11,7 +12,7 @@ export const google = (req, res, next) => {
 };
 
 export const googlecallback = async (req, res, next) => {
-  passport.authenticate("google", { session: false }, (err, user, info) => {
+  passport.authenticate("google", { session: false }, async (err, user, info) => {
     if (err) {
       return res.redirect(
         `http://localhost:5173/?error=${encodeURIComponent(err.message)}`
@@ -34,6 +35,7 @@ export const googlecallback = async (req, res, next) => {
 
     // Successful authentication
     jwtgooglemail(user, res, "Google login successful");
+    await setonline(user._id)
 
 
 
@@ -52,6 +54,7 @@ export const googlecallback = async (req, res, next) => {
     );
   })(req, res, next);
 };
+
 
 export const userfetch = async (req, res) => {
   try {
