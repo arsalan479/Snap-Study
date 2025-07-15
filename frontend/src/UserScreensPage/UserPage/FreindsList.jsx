@@ -8,8 +8,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { FlashContext } from "../../Context/FlashCardsContext";
 
 export default function BasicTable() {
+
+  const {userfetch} = useContext(FlashContext)
+
   const [alluser, setAllUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
@@ -86,6 +91,7 @@ export default function BasicTable() {
     setSearch(e.target.value);
   };
 
+
  
 
   return (
@@ -143,13 +149,17 @@ export default function BasicTable() {
                       </h1>
                     </TableCell>
                     <TableCell align="right">
-                      <button onClick={()=>addfriend(user._id)} className="bg-blue-500 cursor-pointer px-3 py-3 rounded-full">
+                      <button  className="bg-blue-500 cursor-pointer px-3 py-3 rounded-full">
                         Add Friend
                       </button>
                       
                     </TableCell>
                          <TableCell align="right">
-                      <button className="bg-red-500 cursor-pointer px-3 py-3 rounded-full">
+                      <button 
+                      onClick={()=>{
+                        console.log(`SenderName : ${userfetch._id} : receiverName : ${user._id} `)
+                      }}
+                      className="bg-red-500 cursor-pointer px-3 py-3 rounded-full">
                         Send Request
                       </button>
                       

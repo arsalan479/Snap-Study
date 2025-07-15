@@ -72,7 +72,7 @@ UserOneSchema.index({ "authMethods.google.id": 1 });
 UserOneSchema.index({ "authMethods.github.id": 1 });
 UserOneSchema.index({ "authMethods.googleuserbyemail.id": 1 });
 UserOneSchema.index({ status: 1 });
-UserOneSchema.index({ lastSeen: 1 });
+// UserOneSchema.index({ lastSeen: 1 });
 
 const UserOne = mongoose.model("UserOne", UserOneSchema);
 export default UserOne;

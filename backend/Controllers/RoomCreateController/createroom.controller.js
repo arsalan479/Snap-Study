@@ -1,5 +1,7 @@
 import UserOne from "../../Models/UserOneScehma/UserOne.model.js";
 import roomModel from "../../Models/UserRooms/createroom.model.js";
+import FriendRequest from "../../Models/UserRooms/friendrequest.model.js";
+import Notification from "../../Models/UserRooms/notification.model.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 
 export const fetchalluser = async (req, res) => {
@@ -28,7 +30,7 @@ export const fetchalluser = async (req, res) => {
 };
 
 export const freindsearch = async (req, res) => {
- try {
+  try {
     const userId = decodedToken(req);
     const search = req.query.displayName;
 
@@ -61,9 +63,70 @@ export const freindsearch = async (req, res) => {
   }
 };
 
+export const friendrequest = async (req, res) => {
+  try {
 
+    const { senderId , receiverId } = req.body;
 
+    const sender = await UserOne.findById(receiverId);
+    const reciver = await UserOne.findById(senderId);
 
+    if (!sender || !reciver) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const existingRequest = await FriendRequest.findOne({
+      $or: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId },
+      ],
+    });
+
+    if (existingRequest) {
+      return res.status(400).json({
+        success: false,
+        message: "Friend request already exists",
+      });
+    }
+
+    // if (senderId.includes(reciver)) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "You are already friends with this user",
+    //   });
+    // }
+
+    const newRequest = await FriendRequest.create({
+      senderId,
+      receiverId,
+    });
+
+    const notification = await Notification.create({
+      receiverId,
+      senderId,
+      title: "New Friend Request",
+      message: `${sender.displayName} sent you a friend request`,
+      requestId: newRequest._id,
+    });
+
+   res.status(200).json({
+      success: true,
+      message: "Friend request sent successfully",
+      request: newRequest
+    });
+    
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An internal server error occurred.",
+      error: error.message,
+    });
+  }
+};
 
 export const getonlinefriends = async (req, res) => {
   try {
