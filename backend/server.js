@@ -6,13 +6,18 @@ const server = http.createServer(app)
 
 const io = new Server(server,{
     cors:{
-        origin:process.env.FRONTEND_URI
+        origin:process.env.FRONTEND_URI,
+        credentials: true
     }
 });
 
-// io.on("connection",(socket)=>{
-//     console.log("a user connected")
-// })
+
+export const userSocketMap = {};
+io.on("connection",(socket)=>{
+    socket.on("register",(userId)=>{
+        userSocketMap[userId] = socket.id
+    })
+})
 
 
 const port = process.env.PORT || 3000;

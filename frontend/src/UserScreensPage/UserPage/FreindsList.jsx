@@ -20,6 +20,7 @@ export default function BasicTable() {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -39,7 +40,6 @@ export default function BasicTable() {
     fetchUsers();
   }, []);
 
-  // Improved real-time search with client-side filtering first
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!search.trim()) {
@@ -91,7 +91,20 @@ export default function BasicTable() {
     setSearch(e.target.value);
   };
 
+const userId = userfetch._id
 
+const sendrequest = async(receiveId)=>{
+
+  const response = await axiosinstance.post('/api/room/sendrequest',{
+    receiverId:receiveId
+  }).then((res)=>{
+    console.log(res.data)
+  }).catch((err)=>{
+    console.log(err)
+  })
+
+}
+  
  
 
   return (
@@ -156,9 +169,7 @@ export default function BasicTable() {
                     </TableCell>
                          <TableCell align="right">
                       <button 
-                      onClick={()=>{
-                        console.log(`SenderName : ${userfetch._id} : receiverName : ${user._id} `)
-                      }}
+                      onClick={()=>sendrequest(user._id)}
                       className="bg-red-500 cursor-pointer px-3 py-3 rounded-full">
                         Send Request
                       </button>
