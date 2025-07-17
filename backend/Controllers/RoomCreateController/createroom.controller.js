@@ -67,50 +67,56 @@ export const sendrequest = async (req, res) => {
     const senderId = decodedToken(req);
     const { receiverId } = req.body;
 
-    // 1. Save the request
+    // 1. Check if receiverId exists
+    if (!receiverId) {
+      return res.status(400).json({ success: false, message: "Receiver ID missing!" });
+    }
+
+    // 2. FriendRequest create karo
     const friendRequest = await FriendRequest.create({
       senderId,
       receiverId,
     });
 
-    // 2. Fetch sender’s details
-    const senderdata = await UserOne.findById({_id:senderId}).select(
-      "displayName email"
+    // 3. Sender ka data fetch karo
+    const senderdata = await UserOne.findById(senderId).select(
+      "displayName email avatar"
     );
 
-    // 3. Emit notification if receiver is online
+    if (!senderdata) {
+      return res.status(404).json({ success: false, message: "Sender not found!" });
+    }
+
+    // 4. Check if receiver online hai
     const receiverSocketId = userSocketMap[receiverId];
+    console.log("Online Users Map:", userSocketMap); // Debugging ke liye
+
     if (receiverSocketId) {
-      req.app.get("io").to(receiverSocketId).emit("friendRequest", {
+      req.app.get("io").to(receiverSocketId).emit("newFriendRequest", {
         senderId,
+        receiverId,
         senderName: senderdata.displayName,
-        senderEmail:senderdata.email,
+        senderEmail: senderdata.email,
+        avatar: senderdata.avatar,
         requestId: friendRequest._id,
       });
     }
 
-    // 4. Always respond success
-      return res.status(200).json({
+    // 5. Response bhejo with complete data
+    return res.status(200).json({
       success: true,
-      message: "Friend request sent successfully.",
-      request: {
-        _id: friendRequest._id,
-        senderId: friendRequest.senderId,
-        receiverId: friendRequest.receiverId,
-        status: friendRequest.status,
-        createdAt: friendRequest.createdAt,
-        senderName: senderdata.displayName,
-        senderEmail: senderdata.email,
-      },
+      message: "Request successfully sent!",
+      requestData: friendRequest, // Frontend pe yeh data ayega
     });
 
   } catch (error) {
-    console.error("Send request error:", error);
+    console.error("Error in sendrequest:", error);
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error!",
     });
   }
 };
+
 
 

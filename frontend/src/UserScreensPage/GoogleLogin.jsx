@@ -3,6 +3,7 @@ import { axiosinstance } from '../AxiosInstance/axios.js';
 import toast from 'react-hot-toast';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { socket } from '../Utils/socketio.js';
 
 
 // import ReCAPTCHA from 'react-google-recaptcha';
@@ -76,14 +77,13 @@ const tooglepassword = ()=>{
         })
         
             const data = response.data;
-
           
 
 
-            if(data.success && data.redirectURL){
-              
 
-              setTimeout(()=>{
+            if(data.success && data.redirectURL){
+    socket.emit("register", data.userlogin._id);
+           setTimeout(()=>{
                 window.location.href = data.redirectURL;
               },2000)
             }

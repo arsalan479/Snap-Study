@@ -10,16 +10,15 @@ import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
+import { socket } from "../../Utils/socketio";
 
 export default function BasicTable() {
-
-  const {userfetch} = useContext(FlashContext)
+  const { userfetch } = useContext(FlashContext);
 
   const [alluser, setAllUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -91,21 +90,23 @@ export default function BasicTable() {
     setSearch(e.target.value);
   };
 
-const userId = userfetch._id
 
-const sendrequest = async(receiveId)=>{
+  const sendrequest = async (receiveId) => {
+try {
+      const response = await axiosinstance
+      .post("/api/room/sendrequest", {
+        receiverId: receiveId,
+      })
+      if(response.status === 200){
+        console.log(response.data)
+      }
 
-  const response = await axiosinstance.post('/api/room/sendrequest',{
-    receiverId:receiveId
-  }).then((res)=>{
-    console.log(res.data)
-  }).catch((err)=>{
-    console.log(err)
-  })
-
+} catch (error) {
+  console.log(error)  
 }
-  
- 
+
+  };
+
 
   return (
     <>
@@ -162,18 +163,17 @@ const sendrequest = async(receiveId)=>{
                       </h1>
                     </TableCell>
                     <TableCell align="right">
-                      <button  className="bg-blue-500 cursor-pointer px-3 py-3 rounded-full">
+                      <button className="bg-blue-500 cursor-pointer px-3 py-3 rounded-full">
                         Add Friend
                       </button>
-                      
                     </TableCell>
-                         <TableCell align="right">
-                      <button 
-                      onClick={()=>sendrequest(user._id)}
-                      className="bg-red-500 cursor-pointer px-3 py-3 rounded-full">
+                    <TableCell align="right">
+                      <button
+                        onClick={() => sendrequest(user._id)}
+                        className="bg-red-500 cursor-pointer px-3 py-3 rounded-full"
+                      >
                         Send Request
                       </button>
-                      
                     </TableCell>
                   </TableRow>
                 ))
@@ -189,7 +189,7 @@ const sendrequest = async(receiveId)=>{
             </TableBody>
           </Table>
         </TableContainer>
-      )}      
+      )}
     </>
   );
 }
