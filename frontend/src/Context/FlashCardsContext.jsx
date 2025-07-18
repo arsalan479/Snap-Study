@@ -8,6 +8,7 @@ const FlashCardsContext = ({children}) => {
     const [ExtractText, setExtractText] = useState(null)
     const [FlashCards, setFlashCards] = useState(null)
     const [userfetch, setuserfetch] = useState(null)
+    const [receiveId, setreceiveId] = useState(null)
   return (
     <>
     
@@ -20,7 +21,9 @@ const FlashCardsContext = ({children}) => {
         FlashCards,
         setFlashCards,
         userfetch,
-        setuserfetch
+        setuserfetch,
+        receiveId,
+        setreceiveId
     }}
     >
 

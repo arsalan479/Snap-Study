@@ -6,26 +6,29 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { axiosinstance } from "../../AxiosInstance/axios";
+import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
-import { socket } from "../../Utils/socketio";
 
 export default function BasicTable() {
   const { userfetch } = useContext(FlashContext);
+  const {setreceiveId} = useContext(FlashContext)
 
   const [alluser, setAllUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         setIsLoading(true);
         const response = await axiosinstance.get("/api/room/fetchuser");
+        
         setAllUser(response.data.users || []);
+
         setFilteredUsers(response.data.users || []);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -90,23 +93,24 @@ export default function BasicTable() {
     setSearch(e.target.value);
   };
 
-
   const sendrequest = async (receiveId) => {
-try {
-      const response = await axiosinstance
-      .post("/api/room/sendrequest", {
+    try {
+     
+      const userIdcurrent = userfetch._id
+
+      const response = await axiosinstance.post("/api/room/sendrequest", {
+        senderId: userIdcurrent,
         receiverId: receiveId,
-      })
-      if(response.status === 200){
-        console.log(response.data)
+      });
+      setreceiveId(receiveId)
+
+      if (response.status === 200) {
+        console.log(response.data);
       }
-
-} catch (error) {
-  console.log(error)  
-}
-
+    } catch (error) {
+      console.log(error);
+    }
   };
-
 
   return (
     <>

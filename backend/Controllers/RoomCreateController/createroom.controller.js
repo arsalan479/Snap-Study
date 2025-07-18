@@ -1,7 +1,7 @@
 import UserOne from "../../Models/UserOneScehma/UserOne.model.js";
 import FriendRequest from "../../Models/UserRooms/friendrequest.js";
-import { userSocketMap } from "../../server.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
+import Notification from "../../Models/UserRooms/notification.model.js";
 
 export const fetchalluser = async (req, res) => {
   try {
@@ -64,59 +64,106 @@ export const freindsearch = async (req, res) => {
 
 export const sendrequest = async (req, res) => {
   try {
-    const senderId = decodedToken(req);
-    const { receiverId } = req.body;
+    const { senderId, receiverId } = req.body;
 
-    // 1. Check if receiverId exists
-    if (!receiverId) {
-      return res.status(400).json({ success: false, message: "Receiver ID missing!" });
-    }
+    // Validate users exist
+    const sender = await UserOne.findById(senderId);
+    const receiver = await UserOne.findById(receiverId);
 
-    // 2. FriendRequest create karo
-    const friendRequest = await FriendRequest.create({
-      senderId,
-      receiverId,
-    });
-
-    // 3. Sender ka data fetch karo
-    const senderdata = await UserOne.findById(senderId).select(
-      "displayName email avatar"
-    );
-
-    if (!senderdata) {
-      return res.status(404).json({ success: false, message: "Sender not found!" });
-    }
-
-    // 4. Check if receiver online hai
-    const receiverSocketId = userSocketMap[receiverId];
-    console.log("Online Users Map:", userSocketMap); // Debugging ke liye
-
-    if (receiverSocketId) {
-      req.app.get("io").to(receiverSocketId).emit("newFriendRequest", {
-        senderId,
-        receiverId,
-        senderName: senderdata.displayName,
-        senderEmail: senderdata.email,
-        avatar: senderdata.avatar,
-        requestId: friendRequest._id,
+    if (!sender || !receiver) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
       });
     }
 
-    // 5. Response bhejo with complete data
-    return res.status(200).json({
-      success: true,
-      message: "Request successfully sent!",
-      requestData: friendRequest, // Frontend pe yeh data ayega
+    // Check if request already exists
+    const existingRequest = await FriendRequest.findOne({
+      $or: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId },
+      ],
     });
 
+    if (existingRequest) {
+      return res.status(400).json({
+        success: false,
+        message: "Friend request already exists",
+      });
+    }
+
+    // Check if users are already friends
+    // if (sender.friends.includes(receiverId)) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "You are already friends with this user"
+    //   });
+    // }
+
+    // Create new friend request - ONLY IDs
+    const newRequest = new FriendRequest({
+      senderId,
+      receiverId,
+      status: "pending",
+    });
+
+    await newRequest.save();
+
+    // Create notification
+    const notification = new Notification({
+      receiverId,
+      senderId,
+      type: "friend_request",
+      title: "New Friend Request",
+      message: `${sender.displayName} sent you a friend request`,
+      requestId: newRequest._id,
+    });
+
+    await notification.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Friend request sent successfully",
+      request: newRequest,
+    });
   } catch (error) {
-    console.error("Error in sendrequest:", error);
-    return res.status(500).json({
+    console.error("Send request error:", error);
+    res.status(500).json({
       success: false,
-      message: error.message || "Server error!",
+      message: "Server error",
     });
   }
 };
 
+export const getnotificaion = async (req, res) => {
+  try {
+    const userId = decodedToken(req);
 
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized: Token missing or invalid"
+      });
+    }
 
+    // Find requests where user is either sender or receiver
+    const response = await FriendRequest.find({
+      $or: [
+        { receiverId: userId, status: "pending" },
+        { senderId: userId, status: "pending" }
+      ]
+    })
+      .populate("senderId", "displayName avatar status email")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

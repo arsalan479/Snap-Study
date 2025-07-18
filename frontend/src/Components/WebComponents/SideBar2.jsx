@@ -17,7 +17,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "Friends", "Videos", "Top", "Likes"];
+  const navItems = ["Quiz Generate", "Friends", "Notifications", "Top", "Likes"];
   const libraryItems = ["Favorites", "Uploads", "Trash", "New folder"];
 
   const renderSection = () => {
@@ -48,7 +48,7 @@ const SideBar2 = () => {
       return <FreindsList/>
     }
 
-    if(activeLink === "Videos"){
+    if(activeLink === "Notifications"){
       return <Notification/>
     }
 

@@ -1,5 +1,5 @@
 import  { Router } from 'express';
-import {  fetchalluser, freindsearch, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
+import {  fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
 
 const route = Router();
 
@@ -10,6 +10,7 @@ route.get('/friendsearch',freindsearch)
 
 route.post('/sendrequest',sendrequest)
 
+route.get('/getnotify/:receiverId',getnotificaion)
 
 
 

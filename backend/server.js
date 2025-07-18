@@ -15,13 +15,16 @@ app.set("io",io)
 
 export const userSocketMap = {};
 io.on("connection", (socket) => {
+
   socket.on("register", (userId) => {
     userSocketMap[userId] = socket.id;
     console.log(`User ${userId} registered with socket ${socket.id}`);
   });
+
 });
 
 const port = process.env.PORT || 3000;
 server.listen(port, "0.0.0.0", () => {
   console.log("your server is running on port 3000");
 });
+  
