@@ -71,7 +71,6 @@ const GoogleLogin = () => {
       if (data.success && data.redirectURL) {
         setTimeout(() => {
           
-          socket.emit("register", data.userlogin._id);
           window.location.href = data.redirectURL;
         }, 2000);
       }

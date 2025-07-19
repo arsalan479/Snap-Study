@@ -5,7 +5,6 @@ import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardF
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 import SubjectSelect from "../../Components/SubjectSelect";
 import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
-import Notification from "../../UserScreensPage/UserPage/Notification";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -48,9 +47,9 @@ const SideBar2 = () => {
       return <FreindsList/>
     }
 
-    if(activeLink === "Notifications"){
-      return <Notification/>
-    }
+    // if(activeLink === "Notifications"){
+    //   return <Notification/>
+    // }
 
 
 

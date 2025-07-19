@@ -98,17 +98,24 @@ export default function BasicTable() {
      
       const userIdcurrent = userfetch._id
 
-      const response = await axiosinstance.post("/api/room/sendrequest", {
+     const response = await toast.promise(
+         axiosinstance.post("/api/room/sendrequest", {
         senderId: userIdcurrent,
         receiverId: receiveId,
-      });
+      }),
+      {
+        loading: "Sending Request...",
+        success: "Request Sent Successfully",
+      }
+      )
+
       setreceiveId(receiveId)
 
       if (response.status === 200) {
         console.log(response.data);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error)
     }
   };
 

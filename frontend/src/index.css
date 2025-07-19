@@ -206,3 +206,8 @@ color: white;
 .css-3ssuu9-MuiTableCell-root{
   color: white !important;
 }
+
+.scroll::-webkit-scrollbar{
+  display: none;
+  scroll-behavior: smooth;
+}

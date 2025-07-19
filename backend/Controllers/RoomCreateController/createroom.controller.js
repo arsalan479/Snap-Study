@@ -85,12 +85,12 @@ export const sendrequest = async (req, res) => {
       ],
     });
 
-    if (existingRequest) {
-      return res.status(400).json({
-        success: false,
-        message: "Friend request already exists",
-      });
-    }
+    // if (existingRequest) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Friend request already exists",
+    //   });
+    // }
 
     // Check if users are already friends
     // if (sender.friends.includes(receiverId)) {
@@ -146,12 +146,12 @@ export const getnotificaion = async (req, res) => {
       });
     }
 
-    // Find requests where user is either sender or receiver
     const response = await FriendRequest.find({
       $or: [
         { receiverId: userId, status: "pending" },
         { senderId: userId, status: "pending" }
-      ]
+      ],
+      senderId: { $ne: userId }
     })
       .populate("senderId", "displayName avatar status email")
       .sort({ createdAt: -1 });

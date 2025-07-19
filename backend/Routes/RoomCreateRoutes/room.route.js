@@ -10,7 +10,7 @@ route.get('/friendsearch',freindsearch)
 
 route.post('/sendrequest',sendrequest)
 
-route.get('/getnotify/:receiverId',getnotificaion)
+route.get('/getnotify',getnotificaion)
 
 
 

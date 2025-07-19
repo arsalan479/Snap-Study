@@ -11,12 +11,15 @@ import toast from "react-hot-toast";
 import Settings from "./Setting";
 import Modalrapper from "./Modalrapper";
 import { FlashContext } from "../../Context/FlashCardsContext";
+import Notification from "../../UserScreensPage/UserPage/Notification";
 
 const Navbar = ({ isSidebarOpen }) => {
+
   const navigate = useNavigate();
 
   const [user, setuser] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [shownotify, setshownotify] = useState(false)
   const { setuserfetch } = useContext(FlashContext);
 
   useEffect(() => {
@@ -52,6 +55,10 @@ const Navbar = ({ isSidebarOpen }) => {
   const handleSettingsClick = () => {
     setShowSettings(true);
   };
+
+  const handleNotificationClick = ()=>{
+    setshownotify(true)
+  }
 
   const items = [
     {
@@ -90,20 +97,10 @@ const Navbar = ({ isSidebarOpen }) => {
       <header
         className={`fixed top-0 z-50 w-full right-0  h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
       >
-      {/* notification drop down */}
-        <Dropdown
-          menu={{ items }}
-          placement="bottomRight"
-          overlayClassName="custom-dropdown"
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <div className="">
+      
+              <div className="" onClick={handleNotificationClick}>
                 <i className="ri-notification-2-line mr-5 text-2xl mb-1  rounded-full cursor-pointer"></i>
               </div>
-            </Space>
-          </a>
-        </Dropdown>
         
         
         <div className="">
@@ -142,7 +139,16 @@ const Navbar = ({ isSidebarOpen }) => {
         >
           <Settings />
         </Modalrapper>
-      )}{" "}
+      )}
+      {shownotify && (
+        <Modalrapper
+          isOpen={shownotify}
+          onClose={() => setshownotify(false)}
+        >
+          <Notification/>
+        </Modalrapper>
+      )}
+
     </>
   );
 };
