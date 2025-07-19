@@ -13,8 +13,14 @@
 import { useEffect } from "react";
 import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
+import useSocket from "./Utils/socketio";
+import { useContext } from "react";
+import { FlashContext } from "./Context/FlashCardsContext";
+import { useState } from "react";
 
 function App() {
+
+
 
  
   return (
@@ -64,6 +70,9 @@ function App() {
 
 
     </Routes> */}
+
+
+
 
       <UserRoute />
     </>

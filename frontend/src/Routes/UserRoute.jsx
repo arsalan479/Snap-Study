@@ -7,6 +7,7 @@ import MainSystem from "../UserScreensPage/UserPage/MainSystem";
 import ProtectedRoute from "../ProtectAndPublicRoutes/ProtectedRoute";
  import Googleinput from '../UserScreensPage/Googleinput';
 import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
+// import CheckSocket from "../Components/CheckSocket";
 
 const UserRoute = () => {
   return (
@@ -40,7 +41,7 @@ const UserRoute = () => {
         </PublicRoute>
       }/>
 
-
+{/* <Route path="/checksocket" element={<CheckSocket/>} /> */}
       </Routes>
     </>
   );

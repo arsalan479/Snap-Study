@@ -54,17 +54,20 @@ const Notification = () => {
     >
       <div className="flex justify-between items-center">
         <div className="flex items-start gap-3">
-          <img
+          <div>
+            <img
+
             src={notify.senderId.avatar}
             className="w-12 h-12 rounded-full"
             alt="User Avatar"
           />
+          </div>
 
           <div>
             <p className="font-semibold">
               {notify.senderId.displayName} <span className="font-normal">sent a request</span>
             </p>
-            <p className="text-sm text-gray-400">This is a dummy message.</p>
+            <p className="text-sm text-gray-400"> <span><i className={`${notify.senderId.status === "online" ? "text-green-500" : "text-red-500" } ri-circle-fill text-[1.1vw]`}></i></span> {notify.senderId.status}</p>
           </div>
         </div>
 

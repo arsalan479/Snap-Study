@@ -1,6 +1,10 @@
+import { useMemo } from "react";
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:3000", {
-  withCredentials: true,
-  // autoConnect: false, // Don't auto-connect
-});
+export default function useSocket() {
+  const socket = useMemo(
+    () => io("http://localhost:3000", { withCredentials: true }),
+    []
+  );
+  return socket;
+}
