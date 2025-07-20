@@ -13,20 +13,20 @@ import { FlashContext } from "../../Context/FlashCardsContext";
 
 export default function BasicTable() {
   const { userfetch } = useContext(FlashContext);
-  const {setreceiveId} = useContext(FlashContext)
+  const { setreceiveId } = useContext(FlashContext);
 
   const [alluser, setAllUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [sentRequests, setSentRequests] = useState(new Set());
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         setIsLoading(true);
         const response = await axiosinstance.get("/api/room/fetchuser");
-        
+
         setAllUser(response.data.users || []);
 
         setFilteredUsers(response.data.users || []);
@@ -39,6 +39,7 @@ export default function BasicTable() {
         setIsLoading(false);
       }
     };
+
     fetchUsers();
   }, []);
 
@@ -95,21 +96,21 @@ export default function BasicTable() {
 
   const sendrequest = async (receiveId) => {
     try {
-     
-      const userIdcurrent = userfetch._id
+      const userIdcurrent = userfetch._id;
 
-     const response = await toast.promise(
-         axiosinstance.post("/api/room/sendrequest", {
-        senderId: userIdcurrent,
-        receiverId: receiveId,
-      }),
-      {
-        loading: "Sending Request...",
-        success: "Request Sent Successfully",
-      }
-      )
+      const response = await toast.promise(
+        axiosinstance.post("/api/room/sendrequest", {
+          senderId: userIdcurrent,
+          receiverId: receiveId,
+        }),
+        {
+          loading: "Sending Request...",
+          success: "Request Sent Successfully",
+        }
+      );
 
-      setreceiveId(receiveId)
+      setreceiveId(receiveId);
+      setSentRequests((prev) => new Set([...prev, receiveId]));
 
       if (response.status === 200) {
         console.log(response.data);
@@ -142,7 +143,6 @@ export default function BasicTable() {
                 <TableCell>Profile Picture</TableCell>
                 <TableCell align="right">UserName</TableCell>
                 <TableCell align="right">Status</TableCell>
-                <TableCell align="right">Add Friend</TableCell>
                 <TableCell align="right">Send Request</TableCell>
               </TableRow>
             </TableHead>
@@ -173,17 +173,24 @@ export default function BasicTable() {
                         {user.status}
                       </h1>
                     </TableCell>
-                    <TableCell align="right">
+                    {/* <TableCell align="right">
                       <button className="bg-blue-500 cursor-pointer px-3 py-3 rounded-full">
                         Add Friend
                       </button>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell align="right">
                       <button
                         onClick={() => sendrequest(user._id)}
-                        className="bg-red-500 cursor-pointer px-3 py-3 rounded-full"
+                        disabled={sentRequests.has(user._id)}
+                        className={` px-3 py-3 rounded-full ${
+                          sentRequests.has(user._id)
+                            ? "bg-gray-500 cursor-not-allowed"
+                            : "bg-red-500 cursor-pointer"
+                        }`}
                       >
-                        Send Request
+                        {sentRequests.has(user._id)
+                          ? "Pending"
+                          : "Send Request"}
                       </button>
                     </TableCell>
                   </TableRow>

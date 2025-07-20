@@ -126,8 +126,6 @@ export const sendrequest = async (req, res) => {
       message: "Friend request sent successfully",
       request: newRequest,
     });
-
-
   } catch (error) {
     console.error("Send request error:", error);
     res.status(500).json({
@@ -144,16 +142,16 @@ export const getnotificaion = async (req, res) => {
     if (!userId) {
       return res.status(401).json({
         success: false,
-        message: "Unauthorized: Token missing or invalid"
+        message: "Unauthorized: Token missing or invalid",
       });
     }
 
     const response = await FriendRequest.find({
       $or: [
         { receiverId: userId, status: "pending" },
-        { senderId: userId, status: "pending" }
+        { senderId: userId, status: "pending" },
       ],
-      senderId: { $ne: userId }
+      senderId: { $ne: userId },
     })
       .populate("senderId", "displayName avatar status email")
       .sort({ createdAt: -1 });
@@ -170,36 +168,36 @@ export const getnotificaion = async (req, res) => {
   }
 };
 
-export const decline = async(req,res)=>{
+export const decline = async (req, res) => {
+  try {
 
-try {
-    const {notificationcurrentId} = req.params
+    const { notificationcurrentId } = req.params;
+
+    if (!notificationcurrentId) {
+      return res.status(400).json({
+        message: "id is missing",
+      });
+    }
+
+    const result = await FriendRequest.findByIdAndDelete(notificationcurrentId);
+
+    if (!result) {
+      return res.status(404).json({
+        message: "notification not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "declined successfully",
+      result,
+    });
 
 
-  if(!notificationcurrentId){
-    return res.status(400).json({
-      message:"id is missing"
-    })
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
   }
+};
 
 
-  const result = await Notification.findById(notificationcurrentId)
-  if(!result){
-    return res.status(404).json({
-      message:"notification not found"
-    })
-  }
-
-  return res.status(200).json({
-    message:"declined successfully",
-    result
-  })
-
-} catch (error) {
-console.log(error)
-return res.status(500).json({
-  message:error.message
-})  
-}
-
-}

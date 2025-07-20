@@ -5,6 +5,7 @@ import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardF
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 import SubjectSelect from "../../Components/SubjectSelect";
 import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
+import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -16,7 +17,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "Friends", "Notifications", "Top", "Likes"];
+  const navItems = ["Quiz Generate", "Friends", "GroupStudy", "Top", "Likes"];
   const libraryItems = ["Favorites", "Uploads", "Trash", "New folder"];
 
   const renderSection = () => {
@@ -47,10 +48,9 @@ const SideBar2 = () => {
       return <FreindsList/>
     }
 
-    // if(activeLink === "Notifications"){
-    //   return <Notification/>
-    // }
-
+    if(activeLink === "GroupStudy"){
+      return <MainGroup/>
+    }
 
 
     return (

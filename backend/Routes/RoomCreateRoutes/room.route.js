@@ -1,5 +1,6 @@
 import  { Router } from 'express';
 import {  decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
+import { aitopicsendtext } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
 
 const route = Router();
 
@@ -12,7 +13,10 @@ route.post('/sendrequest',sendrequest)
 
 route.get('/getnotify',getnotificaion)
 
-route.get('/decline/:notificationcurrentId',decline)
+route.delete('/decline/:notificationcurrentId',decline)
+
+route.post('/sendcomp',aitopicsendtext)
+
 
 
 export default route;

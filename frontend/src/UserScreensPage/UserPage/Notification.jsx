@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
+import toast from "react-hot-toast";
 
 const Notification = () => {
   const { receiveId, userfetch } = useContext(FlashContext);
@@ -31,16 +32,27 @@ const Notification = () => {
     return () => clearInterval(intervalId);
   }, [receiveId, userfetch]);
 
+
+
   const declinerequest = async (deadlineId) => {
-    const response = await axiosinstance
-      .get(`/api/room/decline/${deadlineId}`)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+try{
+  const response = await toast.promise(
+    axiosinstance.delete(`/api/room/decline/${deadlineId}`),
+ {
+  loading:"Declining Request...",
+  success:"Request Declined Successfully",
+ }
+  )
+
+}catch(err){
+toast.error(err)
+}
+  
+  }
+
+
+
+
 
   return (
     <div>
@@ -82,9 +94,9 @@ const Notification = () => {
                         {" "}
                         <span>
                           <i
-                            className={`${notify.senderId.status === "online" ? "text-green-500" : "text-red-500"} ri-circle-fill text-[1.1vw]`}
+                            className={`${notify.senderId.status === "online" ? "text-green-500" : "text-red-500"} ri-circle-fill text-sm mr-1`}
                           ></i>
-                        </span>{" "}
+                        </span>
                         {notify.senderId.status}
                       </p>
                     </div>
