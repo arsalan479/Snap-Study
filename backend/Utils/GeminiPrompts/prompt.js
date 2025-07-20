@@ -42,3 +42,32 @@ ${text}
 """
 `;
 }
+
+export const aicompetationprompt = (numberofquestions, topicname, level) => {
+  return `
+Generate a quiz of ${numberofquestions} multiple-choice questions on the topic "${topicname}".
+The questions should match the difficulty level: **${level}** (options: easy, medium, hard, insane).
+
+Each question must have exactly:
+- A question text
+- 4 answer options (a, b, c, d)
+- The correct answer (e.g., "a")
+
+⚠️ Please return the result as a valid JSON array of objects in this format:
+[
+  {
+    "question": "Your question here?",
+    "options": {
+      "a": "Option A",
+      "b": "Option B",
+      "c": "Option C",
+      "d": "Option D"
+    },
+    "correctAnswer": "a"
+  },
+  
+]
+
+Do not include any explanations, notes, or extra text — only return the JSON array.
+`;
+};

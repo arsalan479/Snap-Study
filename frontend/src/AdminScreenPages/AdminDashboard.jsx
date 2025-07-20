@@ -46,7 +46,7 @@ const AdminDashboard = () => {
   }, [location]);
 
   return (
-    <div>AdminDashboard</div>
+    <div className='text-white'>AdminDashboard</div>
   );
 };
 

@@ -41,7 +41,7 @@ export const quizcardsave = async (req, res) => {
 
 export const quizcardexplain = async (req, res) => {
   try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY_3);
 
     const { question, options, answer } = req.body;
 

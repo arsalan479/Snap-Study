@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const quiztopictext = async (prompt) => {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY_2);
 
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash-latest",
@@ -11,12 +11,19 @@ export const quiztopictext = async (prompt) => {
 
   const response = result.response;
 
-  const explanation =
-    response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+  let explanation = response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
 
   if (!explanation) {
-    throw new Error("Failed to generate explanation");
+    throw new Error("Empty response from Gemini");
   }
 
-  return explanation;
+  explanation = explanation.replace(/^```json|```$/g, "").trim();
+
+  try {
+    const data = JSON.parse(explanation);
+    if (!data) {
+      throw new Error("data is not manage");
+    }
+    return data;
+  } catch (error) {}
 };
