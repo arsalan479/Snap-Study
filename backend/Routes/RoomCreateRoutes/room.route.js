@@ -1,5 +1,5 @@
 import  { Router } from 'express';
-import {  fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
+import {  decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
 
 const route = Router();
 
@@ -12,6 +12,7 @@ route.post('/sendrequest',sendrequest)
 
 route.get('/getnotify',getnotificaion)
 
+route.get('/decline/:notificationcurrentId',decline)
 
 
 export default route;

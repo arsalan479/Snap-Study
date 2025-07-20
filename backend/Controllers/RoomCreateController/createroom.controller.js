@@ -85,12 +85,12 @@ export const sendrequest = async (req, res) => {
       ],
     });
 
-    // if (existingRequest) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Friend request already exists",
-    //   });
-    // }
+    if (existingRequest) {
+      return res.status(400).json({
+        success: false,
+        message: "Friend request already exists",
+      });
+    }
 
     // Check if users are already friends
     // if (sender.friends.includes(receiverId)) {
@@ -126,6 +126,8 @@ export const sendrequest = async (req, res) => {
       message: "Friend request sent successfully",
       request: newRequest,
     });
+
+
   } catch (error) {
     console.error("Send request error:", error);
     res.status(500).json({
@@ -167,3 +169,37 @@ export const getnotificaion = async (req, res) => {
     });
   }
 };
+
+export const decline = async(req,res)=>{
+
+try {
+    const {notificationcurrentId} = req.params
+
+
+  if(!notificationcurrentId){
+    return res.status(400).json({
+      message:"id is missing"
+    })
+  }
+
+
+  const result = await Notification.findById(notificationcurrentId)
+  if(!result){
+    return res.status(404).json({
+      message:"notification not found"
+    })
+  }
+
+  return res.status(200).json({
+    message:"declined successfully",
+    result
+  })
+
+} catch (error) {
+console.log(error)
+return res.status(500).json({
+  message:error.message
+})  
+}
+
+}
