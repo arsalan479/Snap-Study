@@ -110,6 +110,11 @@ const Navbar = ({ isSidebarOpen }) => {
       <header
         className={`fixed top-0 z-50 w-full right-0  h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
       >
+
+<div>
+  
+</div>
+
         <div className="relative" onClick={handleNotificationClick}>
           <div className="absolute top-0 -left-1 cursor-pointer">
             {notifylength > 0 && (
@@ -120,8 +125,10 @@ const Navbar = ({ isSidebarOpen }) => {
           </div>
 
           <i className="ri-notification-2-line mr-5 text-2xl mb-1 rounded-full cursor-pointer"></i>
+       
+       
         </div>
-
+        
         <div className="">
           {user ? (
             <Dropdown

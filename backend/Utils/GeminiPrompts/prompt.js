@@ -51,7 +51,7 @@ The questions should match the difficulty level: **${level}** (options: easy, me
 Each question must have exactly:
 - A question text
 - 4 answer options (a, b, c, d)
-- The correct answer (e.g., "a")
+- The correct answer (value must be one of the 4 option texts — e.g., "Paris", not just the letter)
 
 ⚠️ Please return the result as a valid JSON array of objects in this format:
 [
@@ -63,11 +63,11 @@ Each question must have exactly:
       "c": "Option C",
       "d": "Option D"
     },
-    "correctAnswer": "a"
-  },
-  
+    "correctAnswer": "Option A"
+  }
 ]
 
-Do not include any explanations, notes, or extra text — only return the JSON array.
+✅ Do not include any explanations, notes, or extra text — only return the JSON array.
 `;
+
 };

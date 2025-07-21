@@ -27,6 +27,7 @@
     "motion": "^12.18.1",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
+    "react-circular-progressbar": "^2.2.0",
     "react-dom": "^19.1.0",
     "react-google-recaptcha": "^3.1.0",
     "react-google-recaptcha-v3": "^1.11.0",
