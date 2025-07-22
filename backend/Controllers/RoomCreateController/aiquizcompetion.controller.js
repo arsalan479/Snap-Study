@@ -78,17 +78,17 @@ export const quizcompdatasave = async (req, res) => {
       quizdatacards,
     } = req.body;
 
-    // if (
-    //   !userId ||
-    //   !topicName ||
-    //   !numberofquestion ||
-    //   !levels ||
-    //   !score ||
-    //   !total ||
-    //   !quizdatacards
-    // ) {
-    //   return res.status(400).json({ message: "All fields are required" });
-    // }
+    if (
+      !userId ||
+      !topicName ||
+      !numberofquestion ||
+      !levels ||
+      !score ||
+      !total ||
+      !quizdatacards
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const response = await competiondata.create({
       userId,

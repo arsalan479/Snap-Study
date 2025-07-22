@@ -9,7 +9,7 @@ const Notification = () => {
   const { receiveId, userfetch } = useContext(FlashContext);
   const [notifydata, setnotifydata] = useState([]);
 
-  const { setNotificationCount } = useContext(FlashContext);
+  const { setNotificationCount,settargetuserId } = useContext(FlashContext);
 
   useEffect(() => {
     const getnotify = async () => {
@@ -43,6 +43,12 @@ try{
   success:"Request Declined Successfully",
  }
   )
+
+  if(response.status===200){
+    console.log(response.data.result.senderId)
+    //for context
+    settargetuserId(response.data.result.senderId)
+  }
 
 }catch(err){
 toast.error(err)
@@ -103,7 +109,7 @@ toast.error(err)
                   </div>
 
                   <div className="flex  gap-2">
-                    <button className="text-black cursor-pointer bg-white w-8 h-8 rounded-full text-sm">
+                    <button  className="text-black cursor-pointer bg-white w-8 h-8 rounded-full text-sm">
                       <i className="ri-check-double-line"></i>
                     </button>
                     <button

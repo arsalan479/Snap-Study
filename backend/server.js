@@ -11,6 +11,46 @@ const io = new Server(server, {
   },
 });
 
+// const userSockeMap = new Map();
+
+// io.on("connection", (socket) => {
+//   // console.log("SocketConnected", socket.id);
+
+//   socket.on("register", (userId) => {
+//     userSockeMap.set(userId, socket.id);
+//     console.log(`User ${userId} registered on socket ${socket.id}`);
+//   });
+
+//   socket.on("disconnect", () => {
+//     for (const [userId, socketId] of userSockeMap.entries()) {
+//       if (socketId === socket.id) {
+//         userSockeMap.delete(userId);
+//         console.log(`user ${userId} disconnected`);
+//         break;
+//       }
+//     }
+//   });
+
+//   socket.on("send_request", ({ senderId, receiverId }) => {
+//     const targetSocketId = userSockeMap.get(receiverId);
+
+//     if (targetSocketId) {
+//       io.to(targetSocketId).emit("receive_request", { senderId });
+//     } else {
+//       console.log(`Target user ${toUserId} not connected`);
+//     }
+//   });
+// });
+
+
+
+
+
+
+
+
+
+
 
 // io.on("connection",(socket)=>{
 // console.log("a user connected",socket.id);

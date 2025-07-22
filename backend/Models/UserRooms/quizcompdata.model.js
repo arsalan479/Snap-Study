@@ -25,12 +25,10 @@ const aicompdata = new mongoose.Schema({
     type: String,
     require: true,
   },
-  correctedAnswer: [{
-   answer:String,
-  }],
-  WrongAnswer: [{
-    answer:String
-  }],
+ correctedAnswer: [String],
+
+WrongAnswer: [String],
+
   quizdatacards: [
     {
       question: String,

@@ -12,6 +12,7 @@ const MainGroup = () => {
   const [useranswer, setuseranswer] = useState({});
   const [scoreData, setscoreData] = useState(null);
   const [isSubmitting, setisSubmitting] = useState(false);
+  const [datasavebtn, setdatasavebtn] = useState(false);
 
   const generatecompetationquiz = async () => {
     try {
@@ -87,34 +88,34 @@ const MainGroup = () => {
     }));
 
     try {
-      const response = await axiosinstance.post("/api/room/aicompdatasave", {
-        topicName: topic,
-        numberofquestion: numberquestion,
-        levels: levels,
-        score: scoreData.score,
-        total: scoreData.total,
-        correctedAnswer,
-        WrongAnswer,
-        quizdatacards
+      const response = await toast.promise(
+        axiosinstance.post("/api/room/aicompdatasave", {
+          topicName: topic,
+          numberofquestion: numberquestion,
+          levels: levels,
+          score: scoreData.score,
+          total: scoreData.total,
+          correctedAnswer,
+          WrongAnswer,
+          quizdatacards,
+        }),
+        {
+          loading: "data saving...",
+          success: "data saved successfully",
+        }
+      );
 
-      });
-
-      if(response.status === 200){
-        console.log(response.data)
+      if (response.status === 201) {
+        console.log(response);
+        setdatasavebtn(true);
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <div className="flex flex-col gap-4 max-w-md mx-auto mt-8">
-
-<button onClick={quizcompdatasave} className="bg-red-300 py-3 rounded-2xl cursor-pointer">
-  data save quiz
-</button>
-
       <h1 className="text-2xl font-bold mb-4">Generate Competition</h1>
       <input
         type="text"
@@ -195,6 +196,15 @@ const MainGroup = () => {
           >
             {isSubmitting ? "Already Submitted" : "Submit Quiz"}
           </button>
+
+          <button
+            disabled={datasavebtn}
+            onClick={quizcompdatasave}
+            className={`${datasavebtn ? "bg-gray-800 cursor-not-allowed text-white" : "bg-red-500 cursor-pointer text-white"} py-3 rounded-2xl cursor-pointer`}
+          >
+            {datasavebtn ? "Already submitting":"sumbit data"}
+          </button>
+          
         </div>
       )}
 

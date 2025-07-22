@@ -13,13 +13,26 @@
 import { useEffect } from "react";
 import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
-
+import useSocket from "./Utils/socketio";
+import { useContext } from "react";
+import { FlashContext } from "./Context/FlashCardsContext";
 
 function App() {
+  // const { userfetch, targetuserId } = useContext(FlashContext);
 
-  
+  // const socket = useSocket();
+  // useEffect(() => {
 
- 
+  //   if (!userfetch ) return; // user not yet loaded
+
+  //   const userLoggenId = userfetch._id;
+
+  //   socket.emit("register",userLoggenId)
+
+  //   socket.emit("send_request",{senderId:userLoggenId,receiverId:targetuserId})
+    
+  // }, [userfetch,socket]);
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -67,9 +80,6 @@ function App() {
 
 
     </Routes> */}
-
-
-
 
       <UserRoute />
     </>
