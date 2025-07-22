@@ -1,4 +1,5 @@
 import quizcardmodel from '../../Models/QuizCarsSystemModel/quizcard.model.js';
+import competiondata from '../../Models/UserRooms/quizcompdata.model.js';
 import { decodedToken } from '../../Utils/decodedtoken.js';
 
 export const saveQuizcardService = async (req) => {
@@ -35,3 +36,9 @@ export const saveQuizcardService = async (req) => {
     };
   }
 };
+
+
+export const aicompdatacreate = async(data)=>{
+  const aidata = await competiondata.create(data);
+  return aidata;
+}
