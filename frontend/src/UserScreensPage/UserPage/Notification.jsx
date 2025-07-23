@@ -4,12 +4,14 @@ import { axiosinstance } from "../../AxiosInstance/axios";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
 import toast from "react-hot-toast";
+import useSocket from "../../Utils/socketio";
 
 const Notification = () => {
   const { receiveId, userfetch } = useContext(FlashContext);
   const [notifydata, setnotifydata] = useState([]);
+  const socket = useSocket();
 
-  const { setNotificationCount,settargetuserId } = useContext(FlashContext);
+  const { setNotificationCount, settargetuserId } = useContext(FlashContext);
 
   useEffect(() => {
     const getnotify = async () => {
@@ -32,33 +34,51 @@ const Notification = () => {
     return () => clearInterval(intervalId);
   }, [receiveId, userfetch]);
 
-
-
   const declinerequest = async (deadlineId) => {
-try{
-  const response = await toast.promise(
-    axiosinstance.delete(`/api/room/decline/${deadlineId}`),
- {
-  loading:"Declining Request...",
-  success:"Request Declined Successfully",
- }
-  )
+    try {
+      const response = await toast.promise(
+        axiosinstance.delete(`/api/room/decline/${deadlineId}`),
+        {
+          loading: "Declining Request...",
+          success: "Request Declined Successfully",
+        }
+      );
 
-  if(response.status===200){
-    console.log(response.data.result.senderId)
-    //for context
-    settargetuserId(response.data.result.senderId)
-  }
+      if (response.status === 200) {
+        console.log(response.data.result.senderId);
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
-}catch(err){
-toast.error(err)
-}
-  
-  }
+  const acceptrequest = async (acceptId) => {
+    try {
+      const response = await axiosinstance.get(
+        `/api/room/acceptrequest/${acceptId}`
+      );
 
+      const senderstatus = response.data.response.senderId.status;
 
+      if (senderstatus === "offline") {
+        toast.error("user is offline");
+      } else if (senderstatus === "online") {
+        const userLoggenId = userfetch._id;
+        const receiveId = response.data.response.senderId._id;
+        if (!receiveId) {
+          alert("No target user selected");
+          return;
+        }
+        socket.emit("send_request", {
+          senderId: userLoggenId,
+          receiverId: receiveId,
+        });
 
-
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -109,7 +129,10 @@ toast.error(err)
                   </div>
 
                   <div className="flex  gap-2">
-                    <button  className="text-black cursor-pointer bg-white w-8 h-8 rounded-full text-sm">
+                    <button
+                      onClick={() => acceptrequest(notify._id)}
+                      className="text-black cursor-pointer bg-white w-8 h-8 rounded-full text-sm"
+                    >
                       <i className="ri-check-double-line"></i>
                     </button>
                     <button

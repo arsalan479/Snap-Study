@@ -1,5 +1,5 @@
 import  { Router } from 'express';
-import {  decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
+import {  acceptrequest, decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
 import { aitopicsendtext, quizcompdatasave, sumbitquizdata } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
 import { body } from 'express-validator';
 
@@ -16,6 +16,7 @@ route.get('/getnotify',getnotificaion)
 
 route.delete('/decline/:notificationcurrentId',decline)
 
+route.get('/acceptrequest/:senderId',acceptrequest)
 
 
 route.post('/sendcomp',

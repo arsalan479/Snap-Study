@@ -18,20 +18,23 @@ import { useContext } from "react";
 import { FlashContext } from "./Context/FlashCardsContext";
 
 function App() {
-  // const { userfetch, targetuserId } = useContext(FlashContext);
+  const { userfetch, targetuserId } = useContext(FlashContext);
 
-  // const socket = useSocket();
-  // useEffect(() => {
+  const socket = useSocket();
+  useEffect(() => {
 
-  //   if (!userfetch ) return; // user not yet loaded
+    if (!userfetch  ) return; // user not yet loaded
 
-  //   const userLoggenId = userfetch._id;
+    const userLoggenId = userfetch._id;
 
-  //   socket.emit("register",userLoggenId)
+    socket.emit("register",userLoggenId)
 
-  //   socket.emit("send_request",{senderId:userLoggenId,receiverId:targetuserId})
-    
-  // }, [userfetch,socket]);
+    socket.on("receive_request",(senderId)=>{
+      console.log(senderId)
+    })
+
+
+  }, [userfetch,socket]);
 
   return (
     <>
