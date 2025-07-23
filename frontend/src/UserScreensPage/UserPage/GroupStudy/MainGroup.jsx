@@ -29,14 +29,21 @@ const MainGroup = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.response);
         setdatashow(response.data.response);
         setscoreData(null);
         setisSubmitting(false);
         setuseranswer({});
       }
     } catch (error) {
-      toast.error(error.response.data.error[0].msg);
+      const data = error?.response?.data;
+
+      if (data?.message?.includes("credits")) {
+        toast.error(data?.message);
+      } else if (data?.error?.length) {
+        toast.error(data?.error[0].msg);
+      } else {
+        toast.error(data.message || "Something went wrong");
+      }
     }
   };
 
@@ -202,9 +209,8 @@ const MainGroup = () => {
             onClick={quizcompdatasave}
             className={`${datasavebtn ? "bg-gray-800 cursor-not-allowed text-white" : "bg-red-500 cursor-pointer text-white"} py-3 rounded-2xl cursor-pointer`}
           >
-            {datasavebtn ? "Already submitting":"sumbit data"}
+            {datasavebtn ? "Already submitting" : "sumbit data"}
           </button>
-          
         </div>
       )}
 

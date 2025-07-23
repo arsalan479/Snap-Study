@@ -67,14 +67,22 @@ const QuizFileUpload = () => {
         {
           loading: "Uploading image...",
           success: "Image uploaded successfully!",
-          error: "Something went wrong. Try again.",
         }
       );
 
-      setFileUrl(response.data.result.file.fileUrl);
+      if(response.status === 200){
+         console.log(response)
+        //forcontext 
+        setFileUrl(response.data.result.file.fileUrl);
+      }
+
+
     } catch (error) {
-      console.error("Upload error:", error);
+      toast.error(error.response.data.message);
+      console.log(error)
+    
       setProcessing(false);
+    
     } finally {
       setLoading(false);
     }
@@ -140,12 +148,7 @@ const QuizFileUpload = () => {
       >
         {processing || loading ? (
           <span className="flex items-center gap-2">
-            Uploading
-            <img
-              src={loadingGIF}
-              alt="Loading..."
-              className="w-6 h-6 animate-spin"
-            />
+            Uploading...
           </span>
         ) : (
           "Upload Image"

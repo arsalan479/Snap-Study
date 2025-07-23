@@ -16,3 +16,4 @@ export const deductCredits = async(userId, amount = 10) => {
 
     return user.credits; 
 }
+

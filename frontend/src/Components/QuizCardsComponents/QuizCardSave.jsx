@@ -1,21 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../Context/QuizCardsContext';
-import { axiosinstance } from '../../AxiosInstance/axios';
-import toast from 'react-hot-toast';
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../Context/QuizCardsContext";
+import { axiosinstance } from "../../AxiosInstance/axios";
+import toast from "react-hot-toast";
 
 const QuizCardSave = () => {
-  const [title, settitle] = useState('');
+  const [title, settitle] = useState("");
   const [hasSaved, setHasSaved] = useState(false);
 
-  const { FileUrl, Cards, setisProcessing,setSaveQuizCard } = useContext(AppContext);
+  const { FileUrl, Cards, setisProcessing, setSaveQuizCard } =
+    useContext(AppContext);
 
+  const subject = localStorage.getItem("subject");
 
-  const subject = localStorage.getItem('subject');
+  const handleSave = async () => {
+    if (!title) {
+      toast.error("title is required");
+      return;
+    }
 
-  
-     const handleSave = async () => {
-    if (!title || !subject || !FileUrl || !Cards?.length) {
-      toast.error('Missing data to save quiz card');
+    if (!subject || !FileUrl || !Cards?.length) {
+      toast.error("Missing data to save quiz card");
       return;
     }
 
@@ -23,27 +27,29 @@ const QuizCardSave = () => {
 
     try {
       await toast.promise(
-        axiosinstance.post('/api/quiz/quizcard-save', {
+        axiosinstance.post("/api/quiz/quizcard-save", {
           fileUrl: FileUrl,
           Title: title,
           Subjects: subject,
           Cards,
         }),
         {
-          loading: 'Saving quiz card...',
-          success: 'Quiz card saved successfully!',
+          loading: "Saving quiz card...",
+          success: "Quiz card saved successfully!",
         }
       );
     } catch (error) {
-      toast.error(error?.response?.data?.result?.message || 'Something went wrong.');
+      toast.error(
+        error?.response?.data?.result?.message || "Something went wrong."
+      );
     } finally {
       setisProcessing(false);
     }
   };
 
-  useEffect(()=>{
-    setSaveQuizCard(()=>handleSave)
-},[FileUrl,Cards,title,subject])
+  useEffect(() => {
+    setSaveQuizCard(() => handleSave);
+  }, [FileUrl, Cards, title, subject]);
 
   return (
     <div>

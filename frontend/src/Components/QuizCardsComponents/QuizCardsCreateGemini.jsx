@@ -5,8 +5,7 @@ import toast from "react-hot-toast";
 import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel";
 
 const QuizCardsCreateGemini = () => {
-  const { ExtractText, setcards, setisProcessing, SaveQuizCard } =
-    useContext(AppContext);
+  const { ExtractText, setcards, setisProcessing, SaveQuizCard } = useContext(AppContext);
   const [cards, setCards] = useState([]);
   const [isSavedCard, setisSavedCard] = useState(false);
 
@@ -14,6 +13,7 @@ const QuizCardsCreateGemini = () => {
     const quizcardcreate = async () => {
       if (!ExtractText) return;
       setisProcessing(true);
+
 
       try {
         const response = await toast.promise(
@@ -24,12 +24,19 @@ const QuizCardsCreateGemini = () => {
           }
         );
 
-        setCards(response.data.data);
-        
-        //for Context
-        setcards(response.data.data);
+        if(response.status === 200){
+          console.log(response.data)
 
-        setisSavedCard(false)
+          setCards(response.data.data);
+          //for context
+          setcards(response.data.data);
+        
+          setisSavedCard(false)
+        
+        }
+        
+        
+
       } catch (error) {
         toast.error(
           error?.response?.data?.response || "Failed to generate quiz cards."

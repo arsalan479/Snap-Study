@@ -1,38 +1,33 @@
-    import { decodedToken } from "../../Utils/decodedtoken.js";
-    import quizcardfilemodel from "../../Models/QuizCarsSystemModel/quizcardfile.model.js";
+import { decodedToken } from "../../Utils/decodedtoken.js";
+import quizcardfilemodel from "../../Models/QuizCarsSystemModel/quizcardfile.model.js";
+import { deductCredits } from "../../Utils/creditssubtraction.js";
 
-    export const handleQuizFileUploadService = async (req) => {
-      try {
+export const handleQuizFileUploadService = async (req) => {
+  
+  if (!req.file) {
+    throw new Error("No file uploaded.");
+  }
 
-        const filetype = req.file.mimetype.includes('pdf') ? 'pdf' : 'image';
-        const UserLoginId = decodedToken(req);
+  const filetype = req.file.mimetype.includes("pdf") ? "pdf" : "image";
 
-        if (!UserLoginId) {
-          return {
-            status: 400,
-            data: { message: "Please correctly login" }
-          };
-        }
+  const UserLoginId = decodedToken(req);
+  if (!UserLoginId) {
+    throw new Error("Unauthorized: Please login correctly.");
+  }
 
-        const newFile = new quizcardfilemodel({
-          fileUrl: req.file.path,
-          filetype,
-          UserLoginId
-        });
+  const remainingCredits = await deductCredits(UserLoginId, 10);
 
-        await newFile.save();
+  const newFile = new quizcardfilemodel({
+    fileUrl: req.file.path,
+    filetype,
+    UserLoginId,
+  });
 
-        return {
-          status: 200,  
-          data: {
-            message: "QuizCard File uploaded successfully",
-            file: newFile,
-          }
-        };
-      } catch (error) {
-        return {
-          status: 500,
-          errors:error
-        };
-      }
-    };
+  await newFile.save();
+
+  return {
+    message: "QuizCard file uploaded successfully.",
+    file: newFile,
+    remainingCredits,
+  };
+};

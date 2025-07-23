@@ -1,6 +1,8 @@
 import http from "http";
 import app from "./app.js";
 import { Server } from "socket.io";
+import cron from "node-cron";
+import UserOne from "./Models/UserOneScehma/UserOne.model.js";
 
 const server = http.createServer(app);
 
@@ -9,6 +11,16 @@ const io = new Server(server, {
     origin: process.env.FRONTEND_URI,
     credentials: true,
   },
+});
+
+cron.schedule("0 0 * * *", async () => {
+  try {
+  const result = await UserOne.updateMany(
+      { credits: { $lt: 50 } },     // 🔍 Only update users with credits less than 50
+      { $set: { credits: 50 } }     // ✅ Set credits to 50
+    );  } catch (error) {
+    console.error("Error resetting credits:", err);
+  }
 });
 
 

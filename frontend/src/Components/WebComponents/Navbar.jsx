@@ -116,7 +116,7 @@ const Navbar = ({ isSidebarOpen }) => {
 
 
 <div>
-  <div className="mr-3 py-3 rounded-2xl ">
+  <div className="mr-3 cursor-pointer py-3 rounded-2xl ">
     <h1><span><i className="ri-coin-fill"></i></span> {user.credits} </h1>
   </div>
 </div>

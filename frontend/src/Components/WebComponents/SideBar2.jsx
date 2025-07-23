@@ -6,6 +6,7 @@ import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 import SubjectSelect from "../../Components/SubjectSelect";
 import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
 import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
+import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -50,6 +51,10 @@ const SideBar2 = () => {
 
     if(activeLink === "GroupStudy"){
       return <MainGroup/>
+    }
+
+    if(activeLink === "Favorites"){
+      return <UserCompetionData/>
     }
 
 

@@ -1,6 +1,6 @@
 import  { Router } from 'express';
 import {  acceptrequest, decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
-import { aitopicsendtext, quizcompdatasave, sumbitquizdata } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
+import { aitopicsendtext, quizcompdatafetch, quizcompdatasave, sumbitquizdata } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
 import { body } from 'express-validator';
 
 const route = Router();
@@ -31,7 +31,7 @@ route.post('/sumbitquizdata',sumbitquizdata);
 
 route.post('/aicompdatasave',quizcompdatasave)
 
-
+route.get('/getcompdata',quizcompdatafetch)
 
 
 export default route;

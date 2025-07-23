@@ -8,12 +8,12 @@ import { deductCredits } from "../../Utils/creditssubtraction.js";
 export const aitopicsendtext = async (req, res) => {
   try {
     const { topicName, numberofquestions, levels } = req.body;
-    const userId = decodedToken(req)
+    const userId = decodedToken(req);
 
-    if(!userId){
+    if (!userId) {
       return res.status(400).json({
-        message:"id is missing"
-      })
+        message: "id is missing",
+      });
     }
 
     const err = validationResult(req);
@@ -23,19 +23,25 @@ export const aitopicsendtext = async (req, res) => {
         error: err.array(),
       });
     }
-    
-    const remainingCredits = await deductCredits(userId,10)
+
+    const remainingCredits = await deductCredits(userId, 10);
 
     const prompt = aicompetationprompt(numberofquestions, topicName, levels);
 
     const response = await quiztopictext(prompt);
 
-
     return res.status(200).json({
       response,
-      remainingCredits
+      remainingCredits,
     });
   } catch (error) {
+    if (error.message === "Insufficient credits") {
+      return res.status(500).json({
+        message:
+          "You have no credits left. Please wait until your credits are refreshed.",
+      });
+    }
+
     return res.status(500).json({
       message: error.message,
     });
@@ -74,9 +80,7 @@ export const sumbitquizdata = async (req, res) => {
 };
 
 export const quizcompdatasave = async (req, res) => {
- 
   try {
-
     const userId = decodedToken(req);
     const {
       topicName,
@@ -117,7 +121,6 @@ export const quizcompdatasave = async (req, res) => {
       message: "data create successfully",
       data: response,
     });
-
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -125,3 +128,28 @@ export const quizcompdatasave = async (req, res) => {
   }
 };
 
+export const quizcompdatafetch = async(req,res)=>{
+
+try {
+  const userId = decodedToken(req);
+
+if(!userId){
+  return res.status(400).json({
+    message:"id is missing"
+  })
+}
+
+const response = await competiondata.find({userId});
+
+return res.status(200).json({
+  data:response
+})
+
+} catch (error) {
+    return res.status(500).json({
+      message:error
+    })
+}
+
+
+}

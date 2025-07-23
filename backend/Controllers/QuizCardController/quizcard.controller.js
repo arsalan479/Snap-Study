@@ -3,18 +3,31 @@ import { handleQuizFileUploadService } from "../../Services/FileUploadServices/q
 import { quizcardgeminiapi } from "../../Services/GeminiApiLogic/quizcardgeminiapi.service.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { decodedToken } from "../../Utils/decodedtoken.js";
-import { deductCredits } from "../../Utils/creditssubtraction.js";
+// import { deductCredits } from "../../Utils/creditssubtraction.js";
 
 export const quizfileupload = async (req, res) => {
-  const response = await handleQuizFileUploadService(req);
-  return res.status(response.status).json({
-    result: response.data,
-  });
+  try {
+    const response = await handleQuizFileUploadService(req);
+    return res.status(200).json({
+      result: response,
+    })
+
+  } catch (error) {
+
+  if (error.message === "Insufficient credits") {
+      return res.status(500).json({
+        message:
+          "You have no credits left. Please wait until your credits are refreshed.",
+      });
+    }
+
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export const quizcardgeneratefromtext = async (req, res) => {
   const { text } = req.body;
-  const userId = decodedToken(req)
+  const userId = decodedToken(req);
 
   if (!text || !userId) {
     return res.status(400).json({
@@ -23,20 +36,24 @@ export const quizcardgeneratefromtext = async (req, res) => {
   }
 
   try {
-    
-    const remainingCredits  = await deductCredits(userId,10)
-    
-    const result = await quizcardgeminiapi(text);
+    // const remainingCredits = await deductCredits(userId, 10);
 
+    const result = await quizcardgeminiapi(text);
 
     return res.status(200).json({
       message: "QuizCard content generated successfully",
       data: result,
-      remainingCredits 
+      // remainingCredits,
     });
   } catch (error) {
+    // if (error.message === "Insufficient credits") {
+    //   return res.status(500).json({
+    //     message:
+    //       "You have no credits left. Please wait until your credits are refreshed.",
+    //   });
+    // }
     res.status(500).json({
-      message: `something wrong ${error}`,
+      message: error.message,
     });
   }
 };
@@ -93,4 +110,3 @@ Correct Answer: ${answer}
     res.status(500).json({ error: "Failed to generate explanation." });
   }
 };
-
