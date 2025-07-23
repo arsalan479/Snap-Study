@@ -1,13 +1,20 @@
 import { validationResult } from "express-validator";
 import { quiztopictext } from "../../Services/GeminiApiLogic/aicomptopic.service.js";
 import { aicompetationprompt } from "../../Utils/GeminiPrompts/prompt.js";
-import { aicompdatacreate } from "../../Services/CardsSaveSevice/quizcard.service.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
+import { deductCredits } from "../../Utils/creditssubtraction.js";
 
 export const aitopicsendtext = async (req, res) => {
   try {
     const { topicName, numberofquestions, levels } = req.body;
+    const userId = decodedToken(req)
+
+    if(!userId){
+      return res.status(400).json({
+        message:"id is missing"
+      })
+    }
 
     const err = validationResult(req);
     if (!err.isEmpty()) {
@@ -16,13 +23,17 @@ export const aitopicsendtext = async (req, res) => {
         error: err.array(),
       });
     }
+    
+    const remainingCredits = await deductCredits(userId,10)
 
     const prompt = aicompetationprompt(numberofquestions, topicName, levels);
 
     const response = await quiztopictext(prompt);
 
+
     return res.status(200).json({
       response,
+      remainingCredits
     });
   } catch (error) {
     return res.status(500).json({
@@ -113,3 +124,4 @@ export const quizcompdatasave = async (req, res) => {
     });
   }
 };
+

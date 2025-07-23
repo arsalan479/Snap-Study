@@ -10,32 +10,14 @@
 // import MainFlashCardSystem from './UserScreensPage/FlashCardSystem/MainFlashCardSystem';
 // import FetchQuizCard from './UserScreensPage/QuizCardSystem/FetchQuizCard';
 // import DashboardLayoutBasic from './Components/UserDashboard/UserDashboardCards';
-import { useEffect } from "react";
 import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
-import useSocket from "./Utils/socketio";
-import { useContext } from "react";
-import { FlashContext } from "./Context/FlashCardsContext";
 
 function App() {
-  const { userfetch, targetuserId } = useContext(FlashContext);
-
-  const socket = useSocket();
-  useEffect(() => {
-
-    if (!userfetch  ) return; // user not yet loaded
-
-    const userLoggenId = userfetch._id;
-
-    socket.emit("register",userLoggenId)
-
-    socket.on("receive_request",(senderId)=>{
-      console.log(senderId)
-    })
 
 
-  }, [userfetch,socket]);
 
+  
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />

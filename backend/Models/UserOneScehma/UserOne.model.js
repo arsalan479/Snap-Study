@@ -59,6 +59,10 @@ const UserOneSchema = mongoose.Schema({
      enum: ["online", "offline","away"], 
      default: "offline" 
     },
+    credits:{
+      type:Number,
+      default:50
+    },
   createdAt: {
     type: Date,
     default: Date.now,

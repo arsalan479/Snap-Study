@@ -10,16 +10,20 @@ import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
+import useSocket from "../../Utils/socketio";
+
 
 export default function BasicTable() {
-  const { userfetch } = useContext(FlashContext);
-  const { setreceiveId } = useContext(FlashContext);
+
+  const { setreceiveId,userfetch,setuserloggenId} = useContext(FlashContext);
 
   const [alluser, setAllUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sentRequests, setSentRequests] = useState(new Set());
+
+  const socket = useSocket()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -109,10 +113,13 @@ export default function BasicTable() {
         }
       );
 
+       //forcontext 
       setreceiveId(receiveId);
       setSentRequests((prev) => new Set([...prev, receiveId]));
 
       if (response.status === 200) {
+        setuserloggenId(response.data.request.senderId)
+        socket.emit("userloggenId",response.data.request.senderId)
         console.log(response.data);
       }
     } catch (error) {

@@ -10,7 +10,8 @@ const FlashCardsContext = ({children}) => {
     const [userfetch, setuserfetch] = useState(null)
     const [receiveId, setreceiveId] = useState(null)
     const [notificationCount, setNotificationCount] = useState(0);
-    const [targetuserId, settargetuserId] = useState(null)
+    const [userloggenId, setuserloggenId] = useState(null)
+    const [receiversIds, setreceiversIds] = useState(null)
 
   return (
     <>
@@ -29,8 +30,12 @@ const FlashCardsContext = ({children}) => {
         setreceiveId,
         notificationCount,
         setNotificationCount,
-        targetuserId,
-        settargetuserId
+        userloggenId,
+        setuserloggenId,
+        receiversIds,
+        setreceiversIds
+    
+        
     }}
     >
 

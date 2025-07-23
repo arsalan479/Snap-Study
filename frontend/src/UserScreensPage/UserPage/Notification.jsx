@@ -7,11 +7,9 @@ import toast from "react-hot-toast";
 import useSocket from "../../Utils/socketio";
 
 const Notification = () => {
-  const { receiveId, userfetch } = useContext(FlashContext);
+  const { receiveId, userfetch ,setNotificationCount,setreceiversIds} = useContext(FlashContext);
   const [notifydata, setnotifydata] = useState([]);
-  const socket = useSocket();
-
-  const { setNotificationCount, settargetuserId } = useContext(FlashContext);
+  const socket = useSocket()
 
   useEffect(() => {
     const getnotify = async () => {
@@ -63,16 +61,10 @@ const Notification = () => {
       if (senderstatus === "offline") {
         toast.error("user is offline");
       } else if (senderstatus === "online") {
-        const userLoggenId = userfetch._id;
-        const receiveId = response.data.response.senderId._id;
-        if (!receiveId) {
-          alert("No target user selected");
-          return;
-        }
-        socket.emit("send_request", {
-          senderId: userLoggenId,
-          receiverId: receiveId,
-        });
+
+        const receiveId = response.data.response.receiverId;
+        socket.emit("receiverId",receiveId)
+        setreceiversIds(receiveId)
 
       }
     } catch (error) {

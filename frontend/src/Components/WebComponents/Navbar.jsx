@@ -22,20 +22,22 @@ const Navbar = ({ isSidebarOpen }) => {
   const [notifylength, setnotifylength] = useState(null);
   const { setuserfetch } = useContext(FlashContext);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axiosinstance.get("/auth/userfetch");
-        if (response.status === 200) {
-          setuser(response.data.result);
-          setuserfetch(response.data.result); // for context
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
+ useEffect(() => {
+  const intervalId = setInterval(async () => {
+    try {
+      const response = await axiosinstance.get("/auth/userfetch");
+      if (response.status === 200) {
+        setuser(response.data.result);
+        setuserfetch(response.data.result);
       }
-    };
-    fetchUser();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  }, 2000);
+
+  return () => clearInterval(intervalId);
+}, []);
+
 
   const logoutuser = async () => {
     try {
@@ -103,6 +105,7 @@ const Navbar = ({ isSidebarOpen }) => {
     const intervalId = setInterval(notificationget, 2000);
 
     return () => clearInterval(intervalId);
+ 
   }, []);
 
   return (
@@ -111,11 +114,15 @@ const Navbar = ({ isSidebarOpen }) => {
         className={`fixed top-0 z-50 w-full right-0  h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
       >
 
+
 <div>
-  
+  <div className="mr-3 py-3 rounded-2xl ">
+    <h1><span><i className="ri-coin-fill"></i></span> {user.credits} </h1>
+  </div>
 </div>
 
         <div className="relative" onClick={handleNotificationClick}>
+
           <div className="absolute top-0 -left-1 cursor-pointer">
             {notifylength > 0 && (
               <div className="bg-red-500 text-white relative flex items-center justify-center rounded-full w-4 h-4 text-xs">
@@ -126,9 +133,9 @@ const Navbar = ({ isSidebarOpen }) => {
 
           <i className="ri-notification-2-line mr-5 text-2xl mb-1 rounded-full cursor-pointer"></i>
        
-       
         </div>
         
+
         <div className="">
           {user ? (
             <Dropdown

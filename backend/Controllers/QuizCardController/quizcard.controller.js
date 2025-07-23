@@ -2,6 +2,8 @@ import { saveQuizcardService } from "../../Services/CardsSaveSevice/quizcard.ser
 import { handleQuizFileUploadService } from "../../Services/FileUploadServices/quizfileupload.service.js";
 import { quizcardgeminiapi } from "../../Services/GeminiApiLogic/quizcardgeminiapi.service.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { decodedToken } from "../../Utils/decodedtoken.js";
+import { deductCredits } from "../../Utils/creditssubtraction.js";
 
 export const quizfileupload = async (req, res) => {
   const response = await handleQuizFileUploadService(req);
@@ -12,18 +14,25 @@ export const quizfileupload = async (req, res) => {
 
 export const quizcardgeneratefromtext = async (req, res) => {
   const { text } = req.body;
+  const userId = decodedToken(req)
 
-  if (!text) {
+  if (!text || !userId) {
     return res.status(400).json({
       message: "text are required",
     });
   }
 
   try {
+    
+    const remainingCredits  = await deductCredits(userId,10)
+    
     const result = await quizcardgeminiapi(text);
+
+
     return res.status(200).json({
       message: "QuizCard content generated successfully",
       data: result,
+      remainingCredits 
     });
   } catch (error) {
     res.status(500).json({
@@ -84,3 +93,4 @@ Correct Answer: ${answer}
     res.status(500).json({ error: "Failed to generate explanation." });
   }
 };
+
