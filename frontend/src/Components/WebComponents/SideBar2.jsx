@@ -19,7 +19,7 @@ const SideBar2 = () => {
   });
 
   const navItems = ["Quiz Generate", "Friends", "GroupStudy", "Top", "Likes"];
-  const libraryItems = ["Favorites", "Uploads", "Trash", "New folder"];
+  const libraryItems = ["Competion Data", "Uploads", "Trash", "New folder"];
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {
@@ -53,7 +53,7 @@ const SideBar2 = () => {
       return <MainGroup/>
     }
 
-    if(activeLink === "Favorites"){
+    if(activeLink === "Competion Data"){
       return <UserCompetionData/>
     }
 

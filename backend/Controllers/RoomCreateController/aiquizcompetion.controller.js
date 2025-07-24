@@ -128,28 +128,59 @@ export const quizcompdatasave = async (req, res) => {
   }
 };
 
-export const quizcompdatafetch = async(req,res)=>{
+export const quizcompdatafetch = async (req, res) => {
+  try {
+    const userId = decodedToken(req);
 
-try {
-  const userId = decodedToken(req);
+    if (!userId) {
+      return res.status(400).json({
+        message: "id is missing",
+      });
+    }
 
-if(!userId){
-  return res.status(400).json({
-    message:"id is missing"
-  })
-}
+    const response = await competiondata.find({ userId });
 
-const response = await competiondata.find({userId});
-
-return res.status(200).json({
-  data:response
-})
-
-} catch (error) {
+    return res.status(200).json({
+      data: response,
+    });
+  } catch (error) {
     return res.status(500).json({
-      message:error
-    })
-}
+      message: error,
+    });
+  }
+};
 
+export const qicompdatadelete = async (req, res) => {
 
-}
+  try {
+
+    const {cardId} = req.params;
+    const userId = decodedToken(req);
+
+    if (!userId || !cardId) {
+      return res.status(400).json({
+        message: "id is missing",
+      });
+    }
+
+    const result = await competiondata.findOneAndDelete({
+      _id: cardId,
+      userId,
+    });
+
+    if (!result) {
+      return res.status(404).json({
+        message: "data not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "data deleted successfully",
+      result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};

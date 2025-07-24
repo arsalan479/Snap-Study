@@ -1,6 +1,6 @@
 import  { Router } from 'express';
 import {  acceptrequest, decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
-import { aitopicsendtext, quizcompdatafetch, quizcompdatasave, sumbitquizdata } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
+import { aitopicsendtext, quizcompdatafetch, quizcompdatasave, sumbitquizdata,qicompdatadelete } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
 import { body } from 'express-validator';
 
 const route = Router();
@@ -33,5 +33,6 @@ route.post('/aicompdatasave',quizcompdatasave)
 
 route.get('/getcompdata',quizcompdatafetch)
 
+route.delete('/deletecompdata/:cardId',qicompdatadelete)
 
 export default route;

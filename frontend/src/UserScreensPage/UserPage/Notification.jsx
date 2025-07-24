@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
 import toast from "react-hot-toast";
 import useSocket from "../../Utils/socketio";
+import HorizontalRuleTwoToneIcon from '@mui/icons-material/HorizontalRuleTwoTone';
 
 const Notification = () => {
   const { receiveId, userfetch ,setNotificationCount,setreceiversIds} = useContext(FlashContext);
@@ -77,15 +78,14 @@ const Notification = () => {
       <div className="bg-[#2D2D2D] w-130 rounded-2xl h-120 px-2">
         <h1 className="ml-4 pt-5 font-semibold text-2xl">Notifications</h1>
 
-        <div className="scroll mt-3 h-96 overflow-auto pr-2 space-y-3 ">
+        <div className="scroll  h-96 overflow-auto pr-2 space-y-3 ">
           {notifydata.length === 0 ? (
-            <div className="text-center text-[20px]  text-gray-400 ">
-              <p>
-                No Notification Yet{" "}
-                <span className="ml-1">
-                  <i className="ri-notification-off-fill"></i>
-                </span>
-              </p>
+            <div className="flex justify-center items-center h-full">
+              <div className="text-center text-2xl font-semibold text-gray-400">
+                <p>
+                  Nothing to see here <span><HorizontalRuleTwoToneIcon/></span> yet
+                </p>
+              </div>
             </div>
           ) : (
             notifydata.map((notify) => (
@@ -99,7 +99,7 @@ const Notification = () => {
                       <img
                         src={notify.senderId.avatar}
                         className="w-12 h-12 rounded-full"
-                        alt="User Avatar"
+                        alt={notify.senderId.displayName}
                       />
                     </div>
 
