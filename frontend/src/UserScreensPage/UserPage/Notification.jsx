@@ -78,7 +78,8 @@ const Notification = () => {
       <div className="bg-[#2D2D2D] w-130 rounded-2xl h-120 px-2">
         <h1 className="ml-4 pt-5 font-semibold text-2xl">Notifications</h1>
 
-        <div className="scroll  h-96 overflow-auto pr-2 space-y-3 ">
+        <div className="scroll h-96 overflow-auto pr-2 space-y-3 ">
+          
           {notifydata.length === 0 ? (
             <div className="flex justify-center items-center h-full">
               <div className="text-center text-2xl font-semibold text-gray-400">
@@ -138,7 +139,9 @@ const Notification = () => {
               </div>
             ))
           )}
+
         </div>
+        
       </div>
     </div>
   );

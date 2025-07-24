@@ -22,6 +22,7 @@ const Navbar = ({ isSidebarOpen }) => {
   const [notifylength, setnotifylength] = useState(null);
   const { setuserfetch } = useContext(FlashContext);
 
+
  useEffect(() => {
   const intervalId = setInterval(async () => {
     try {
@@ -114,27 +115,27 @@ const Navbar = ({ isSidebarOpen }) => {
         className={`fixed top-0 z-50 w-full right-0  h-16 flex items-center justify-end px-8 text-white z-10 transition-all duration-300`}
       >
 
+{user && user.credits !== undefined && (
+  <>
+    <div>
+      <div className="mr-3 cursor-pointer py-3 rounded-2xl ">
+        <h1><span><i className="ri-coin-fill"></i></span> {user.credits} </h1>
+      </div>
+    </div>
 
-<div>
-  <div className="mr-3 cursor-pointer py-3 rounded-2xl ">
-    <h1><span><i className="ri-coin-fill"></i></span> {user.credits} </h1>
-  </div>
-</div>
-
-        <div className="relative" onClick={handleNotificationClick}>
-
-          <div className="absolute top-0 -left-1 cursor-pointer">
-            {notifylength > 0 && (
-              <div className="bg-red-500 text-white relative flex items-center justify-center rounded-full w-4 h-4 text-xs">
-                {notifylength}
-              </div>
-            )}
+    <div className="relative" onClick={handleNotificationClick}>
+      <div className="absolute top-0 -left-1 cursor-pointer">
+        {notifylength > 0 && (
+          <div className="bg-red-500 text-white relative flex items-center justify-center rounded-full w-4 h-4 text-xs">
+            {notifylength}
           </div>
+        )}
+      </div>
+      <i className="ri-notification-2-line mr-5 text-2xl mb-1 rounded-full cursor-pointer"></i>
+    </div>
+  </>
+)}
 
-          <i className="ri-notification-2-line mr-5 text-2xl mb-1 rounded-full cursor-pointer"></i>
-       
-        </div>
-        
 
         <div className="">
           {user ? (

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   passwordUpdate,
+  useraccountdelete,
   usernameUpdate,
 } from "../../Controllers/UserAuthController/userdetails.controller.js";
 import { body } from "express-validator";
@@ -39,5 +40,7 @@ route.patch(
 
     usernameUpdate
 );
+
+route.delete('/deleteaccount',useraccountdelete)
 
 export default route;

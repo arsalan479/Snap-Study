@@ -95,3 +95,35 @@ return res.status(200).json({
 }
 
 }
+
+export const useraccountdelete = async(req,res)=>{
+try {
+    const userId = decodedToken(req);
+
+if(!userId){
+    return res.status(400).json({
+        message:"id is not found"
+    })
+}
+
+const response = await Userone.findByIdAndDelete(userId);
+
+const cookieclear = res.clearCookie('token')
+
+if(!response){
+    return res.status(401).json({
+        message:"something wrong"
+    })
+}
+
+return res.status(200).json({
+    message:"account deleted successfully",
+    response
+})
+} catch (error) {
+  return res.status(500).json({
+    messag:error.message
+  })  
+}
+
+}

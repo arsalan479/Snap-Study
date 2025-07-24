@@ -3,10 +3,7 @@ import { axiosinstance } from "../../../AxiosInstance/axios";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import toast from "react-hot-toast";
-import HorizontalRuleTwoToneIcon from '@mui/icons-material/HorizontalRuleTwoTone';
-
-
-
+import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
 
 const UserCompetionData = () => {
   const [compdata, setCompData] = useState([]);
@@ -48,116 +45,126 @@ const UserCompetionData = () => {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 space-y-8">
       {compdata.length === 0 ? (
         <div className="flex justify-center items-center h-full min-h-[450px]">
           <div className="flex flex-col items-center">
-            <p className="text-center font-semibold text-2xl text-whtie -400">
-              Nothing to see here <span><HorizontalRuleTwoToneIcon/></span> yet
+            <p className="text-center font-semibold text-2xl text-white">
+              Nothing to see here
+              <span>
+                <HorizontalRuleTwoToneIcon />
+              </span>
+              yet
             </p>
           </div>
         </div>
-      ) :(
-
+      ) : (
         compdata.map((item) => (
-          
-          <div key={item._id} className=" p-20 rounded-2xl bg-red-400 h-auto">
-          
-            <button
-              onClick={() => compdatadelete(item._id)}
-              className="px-3 py-2 hover:bg-red-400 duration-300  mb-4  cursor-pointer text-white capitalize bg-[#474545] rounded-full"
-            >
-              <span>
-                <i className="ri-delete-bin-6-line  "></i>
-              </span>
-            </button>
-
-            <h2 className="text-xl font-semibold text-blue-600 mb-2">
-              Topic: {item.topicName}
-            </h2>
-
-            <p className="text-sm text-whtie mb-2">Level: {item.levels}</p>
-
-<div className="flex justify-center items-center gap-30">
-
-            <div className="mt-4">
-
-              {item.quizdatacards.map((q, index) => {
-                const userAnswer = item.WrongAnswer?.[index];
-                const correctAnswer = q.answer;
-                const wasWrong =
-                  userAnswer !== undefined && userAnswer !== correctAnswer;
-
-                return (
-                  <div
-                    key={q._id}
-                    className="mt-4 p-3 border rounded shadow-sm"
-                  >
-                    <p className="font-medium text-whtie">
-                      Q{index + 1}: {q.question}
-                    </p>
-
-                    <ul className="list-disc pl-5 mt-1 text-whtie">
-                      {q.options.map((opt, idx) => (
-                        <li
-                          key={idx}
-                          className={`${
-                            opt === correctAnswer
-                              ? "text-green-600 font-semibold"
-                              : wasWrong && opt === userAnswer
-                                ? "text-red-600"
-                                : ""
-                          }`}
-                        >
-                          {opt}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {wasWrong && (
-                      <div className="mt-2 text-sm">
-                        <p className="text-red-500">
-                          Your Answer: <strong>{userAnswer}</strong>
-                        </p>
-                        <p className="text-green-600">
-                          Correct Answer: <strong>{correctAnswer}</strong>
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+          <div
+            key={item._id}
+            className="rounded-2xl bg-[#2D2D2D] p-6 space-y-4 shadow-md"
+          >
+            {/* Header */}
+            <div className="flex justify-between items-center">
+              <h2 className="capitalize text-xl font-semibold text-white">
+                <i className="ri-message-3-line"></i> {item.topicName}{" "}
+                <span>
+                  <HorizontalRuleTwoToneIcon /> {item.levels} mode{" "}
+                </span>
+              </h2>
+              <button
+                onClick={() => compdatadelete(item._id)}
+                className="px-3 py-2 hover:bg-red-400 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
+              >
+                <i className="ri-delete-bin-6-line"></i>
+              </button>
             </div>
-           <div>
-            
-            <div className="mt-4 w-40 h-40 mx-auto">
-              <CircularProgressbar
-                value={(item.score / item.total) * 100}
-                text={`${item.score}/${item.total}`}
-                styles={buildStyles({
-                  textColor: "#fff",
-                  pathColor: "#5227FF",
-                  trailColor: "#e0e0e0",
+
+            {/* Main Content */}
+            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-8 lg:items-center">
+              {/* Scrollable Questions */}
+              <div className="compquiz overflow-y-auto max-h-[400px] w-full lg:w-[65%] space-y-4 pr-2">
+                {item.quizdatacards.map((q, index) => {
+                  const userAnswer = item.WrongAnswer?.[index];
+                  const correctAnswer = q.answer;
+                  const wasWrong =
+                    userAnswer !== undefined && userAnswer !== correctAnswer;
+
+                  return (
+                    <div
+                      key={q._id}
+                      className="bg-[#3b3b3b] p-4 rounded-2xl shadow space-y-2"
+                    >
+                      <p className="font-medium text-white">
+                        Q{index + 1}: {q.question}
+                      </p>
+
+                      <ul className="list-disc pl-5 text-white">
+                        {q.options.map((opt, idx) => (
+                          <li
+                            key={idx}
+                            className={`${
+                              opt === correctAnswer
+                                ? "text-green-500 font-semibold"
+                                : wasWrong && opt === userAnswer
+                                  ? "text-red-500"
+                                  : ""
+                            }`}
+                          >
+                            {opt}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {wasWrong && (
+                        <div className="text-sm">
+                          <p className="text-red-400">
+                            Your Answer: <strong>{userAnswer}</strong>
+                          </p>
+                          <p className="text-green-400">
+                            Correct Answer: <strong>{correctAnswer}</strong>
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
                 })}
-              />
-           <h1 className="text-center text-whtie mt-2 text-md font-medium">
-              Percentage: {(item.score / item.total) * 100}%
-            </h1>
-            </div>
+              </div>
 
-            
+              {/* Progress */}
+              <div className="w-40 flex-shrink-0">
+                <CircularProgressbar
+                  value={(item.score / item.total) * 100}
+                  text={`${item.score}/${item.total}`}
+                  styles={buildStyles({
+                    textColor: "#fff",
+                    pathColor: "#5227FF",
+                    trailColor: "#e0e0e0",
+                  })}
+                />
+                <h1 className="text-center text-white mt-2 text-md font-medium">
+                  <i className="ri-trophy-line"></i> Your Score :
+                  {Math.round((item.score / item.total) * 100)}%
+                </h1>
+                <div className="flex justify-center mt-1">
+  <p className="text-sm font-semibold text-yellow-400 text-center">
+    {(() => {
+      const percentage = (item.score / item.total) * 100;
 
-            </div>
-
-
+      if (percentage >= 90) return "🌟 Outstanding!";
+      if (percentage >= 80) return "🎯 Excellent!";
+      if (percentage >= 60) return "👍 Good Job!";
+      if (percentage >= 40) return "📝 Keep Practicing!";
+      return "🚧 Needs Improvement";
+    })()}
+  </p>
 </div>
 
-
+              </div>
+            </div>
           </div>
         ))
       )}
-
-
     </div>
   );
 };

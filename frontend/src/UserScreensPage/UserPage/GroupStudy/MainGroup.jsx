@@ -122,7 +122,7 @@ const MainGroup = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 max-w-md mx-auto mt-8">
+    <div className="flex flex-col gap-4  mt-8">
       <h1 className="text-2xl font-bold mb-4">Generate Competition</h1>
       <input
         type="text"
@@ -142,9 +142,9 @@ const MainGroup = () => {
         </option>
         <option value="1">1</option>
         <option value="2">2</option>
+        <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
-        <option value="6">6</option>
       </select>
 
       <select
@@ -214,75 +214,113 @@ const MainGroup = () => {
         </div>
       )}
 
-      <div className="py-20">
-        {scoreData && (
-          <>
-            <div className="mt-6 w-60 h-60 mx-auto">
-              <CircularProgressbar
-                value={(scoreData.score / scoreData.total) * 100}
-                text={`${scoreData.score}/${scoreData.total}`}
-                styles={buildStyles({
-                  textColor: "white",
-                  pathColor: "#5227FF",
-                  trailColor: "gray",
-                })}
-              />
-            </div>
+       <div className=" p-6 rounded-2xl">
 
-            <h2 className="text-xl font-semibold text-center mt-6 text-red-600">
-              Incorrect Answers
-            </h2>
 
-            <div className="mt-4 space-y-4">
+  {scoreData && (
+    <>
+      {/* 📊 Progress Bar on Top */}
+      <div className="flex flex-col items-center justify-center mb-8">
+        <div className="w-40 h-40">
+          <CircularProgressbar
+            value={(scoreData.score / scoreData.total) * 100}
+            text={`${scoreData.score}/${scoreData.total}`}
+            styles={buildStyles({
+              textColor: "#fff",
+              pathColor: "#5227FF",
+              trailColor: "#e0e0e0",
+            })}
+          />
+        </div>
+         <h1 className="text-center text-white mt-2 text-md font-medium">
+                  <i className="ri-trophy-line"></i> Your Score :
+                  {Math.round((scoreData.score / scoreData.total) * 100)}%
+                </h1>
+        <p className="text-center text-white font-semibold mt-4">
+          {(() => {
+            const percentage = (scoreData.score / scoreData.total) * 100;
+            if (percentage >= 90) return "🌟 Outstanding!";
+            if (percentage >= 80) return "🎯 Excellent!";
+            if (percentage >= 60) return "👍 Good Job!";
+            if (percentage >= 40) return "📝 Keep Practicing!";
+            return "🚧 Needs Improvement";
+          })()}
+        </p>
+      </div>
+
+      {/* 🟫 Main Brown Section with Two Columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px] overflow-hidden">
+        
+        {/* ❌ Incorrect Answers */}
+        <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
+          <h2 className="text-center text-red-300 font-semibold text-lg mb-4">
+            ❌ Incorrect Answers
+          </h2>
+          {scoreData.result.filter((item) => !item.isCorrect).length === 0 ? (
+            <p className="text-center text-gray-300">All answers correct ✅</p>
+          ) : (
+            <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
               {scoreData.result
                 .filter((item) => !item.isCorrect)
                 .map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-black border-l-4 border-red-500 p-4 rounded"
+                    className=" p-3 rounded-md text-white"
                   >
-                    <p className="font-medium">Question: {item.question}</p>
+                    <p className="font-medium mb-1">Q{idx + 1} {item.question}</p>
                     <p>
-                      Your Answer
-                      <span className="text-red-600">
+                      Your Answer:{" "}
+                      <span className="text-red-400 ">
                         {item.selectedAnswer || "No Answer"}
                       </span>
                     </p>
-                    <p>
+                    <p  >
                       Correct Answer:{" "}
-                      <span className="text-green-600">
+                      <span className="text-green-400 ">
                         {item.correctAnswer}
                       </span>
                     </p>
                   </div>
                 ))}
             </div>
+          )}
+        </div>
 
-            <h2 className="text-xl font-semibold text-center mt-6 text-green-600">
-              Corrected Answers
-            </h2>
-
-            <div className="mt-4 space-y-4">
+        {/* ✅ Correct Answers */}
+        <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
+          <h2 className="text-center text-green-400 font-semibold text-lg mb-4">
+            ✅ Correct Answers
+          </h2>
+          {scoreData.result.filter((item) => item.isCorrect).length === 0 ? (
+            <p className="text-center text-gray-300">No correct answers</p>
+          ) : (
+            <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
               {scoreData.result
                 .filter((item) => item.isCorrect)
                 .map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-black border-l-4 border-red-500 p-4 rounded"
+                    className=" p-3 rounded-md   text-white"
                   >
-                    <p className="font-medium">Question: {item.question}</p>
+                    <p className="font-medium mb-1">Q{idx + 1} {item.question}</p>
                     <p>
-                      Correct Answer
-                      <span className="text-green-600">
+                      Correct Answer:{" "}
+                      <span className="text-green-400 ">
                         {item.correctAnswer}
                       </span>
                     </p>
                   </div>
                 ))}
             </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
+    </>
+  )}
+</div>
+
+
+      
     </div>
   );
 };

@@ -4,6 +4,9 @@ import { FlashContext } from '../../Context/FlashCardsContext';
 import UserNameModal from './UserNameModal';
 import { SettingOutlined } from "@ant-design/icons";
 import ConfirmationNumberTwoToneIcon from "@mui/icons-material/ConfirmationNumberTwoTone";
+import toast from 'react-hot-toast';
+import { axiosinstance } from '../../AxiosInstance/axios';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
   const [selectedTheme, setSelectedTheme] = useState('System');
@@ -11,6 +14,30 @@ const Settings = () => {
   const themes = ['System', 'Light', 'Dark'];
 
   const {userfetch} = useContext(FlashContext)
+
+  const navigate = useNavigate()
+
+  const accountdelete = async()=>{
+    try {
+      
+      const response = await toast.promise(
+        axiosinstance.delete('/userdetail/deleteaccount'),
+        {
+          loading: "Account Deleting...",
+          success: "Account Deleted Successfully",
+        }
+      )
+      if(response.status === 200){
+       setTimeout(() => {
+        navigate("/")
+      }, 2000);
+      console.log(response.data)
+      }
+
+    } catch (error) {
+      console.log(error) 
+    }
+  }
 
   return (
     <div className="flex  w-[150vh] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white">
@@ -113,8 +140,8 @@ const Settings = () => {
         {/* Done Button */}
         <div className="relative h-65  ">
   <div className="absolute bottom-0 right-0">
-    <button className="px-6 py-2 bg-white text-gray-900 font-medium rounded-full hover:bg-gray-100 transition-colors">
-      Done
+    <button onClick={accountdelete} className="px-6 py-3 bg-red-600 text-white font-medium rounded-2xl hover:bg-red-500 duration-300 cursor-pointer transition-colors">
+      Account Delete <span><i className="ri-delete-bin-6-line"></i></span>
     </button>
   </div>
 </div>

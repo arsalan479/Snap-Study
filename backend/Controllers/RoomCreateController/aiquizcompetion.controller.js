@@ -93,14 +93,17 @@ export const quizcompdatasave = async (req, res) => {
       quizdatacards,
     } = req.body;
 
+    // Validate required fields (including allowing empty arrays for answers)
     if (
       !userId ||
       !topicName ||
       !numberofquestion ||
       !levels ||
-      !score ||
-      !total ||
-      !quizdatacards
+      score == null ||
+      total == null ||
+      !quizdatacards ||
+      correctedAnswer == null ||
+      WrongAnswer == null
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -118,7 +121,7 @@ export const quizcompdatasave = async (req, res) => {
     });
 
     return res.status(201).json({
-      message: "data create successfully",
+      message: "Data created successfully",
       data: response,
     });
   } catch (error) {
@@ -127,6 +130,7 @@ export const quizcompdatasave = async (req, res) => {
     });
   }
 };
+
 
 export const quizcompdatafetch = async (req, res) => {
   try {
