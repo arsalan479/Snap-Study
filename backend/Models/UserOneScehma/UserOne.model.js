@@ -63,6 +63,11 @@ const UserOneSchema = mongoose.Schema({
       type:Number,
       default:50
     },
+    Plans: {
+      type: String,
+      enum: ["SnapStudy Free", "SnapStudy Plus"],
+      default: "SnapStudy Free",
+    },
   createdAt: {
     type: Date,
     default: Date.now,

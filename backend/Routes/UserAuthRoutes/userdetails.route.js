@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {
   passwordUpdate,
-  paymentstripe,
   useraccountdelete,
   usernameUpdate,
 } from "../../Controllers/UserAuthController/userdetails.controller.js";
@@ -45,6 +44,5 @@ route.patch(
 route.delete('/deleteaccount',useraccountdelete)
 
 
-route.get('/strip',paymentstripe)
 
 export default route;
