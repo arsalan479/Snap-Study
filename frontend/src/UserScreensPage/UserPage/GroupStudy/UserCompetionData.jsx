@@ -81,7 +81,7 @@ const UserCompetionData = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-8 lg:items-center">
+            <div className="flex flex-col-reverse lg:flex-row justify-between items-center  lg:items-center">
               {/* Scrollable Questions */}
               <div className="compquiz overflow-y-auto max-h-[400px] w-full lg:w-[65%] space-y-4 pr-2">
                 {item.quizdatacards.map((q, index) => {

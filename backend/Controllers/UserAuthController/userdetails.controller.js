@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import {comparepasssword,hashedpassword} from '../../Utils/hashpassword.js'
 import Userone from '../../Models/UserOneScehma/UserOne.model.js'
+import Stripe from 'stripe';
 
 export const passwordUpdate = async (req, res) => {
     const errors = validationResult(req);
@@ -124,6 +125,31 @@ return res.status(200).json({
   return res.status(500).json({
     messag:error.message
   })  
+}
+
+}
+
+export const paymentstripe = async(req,res)=>{
+
+try {
+    
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1000,
+    currency: 'usd',
+    payment_method_types: ['card'],
+  });
+
+  return res.status(200).json({
+    clientSecret: paymentIntent.client_secret,
+  });
+
+
+} catch (error) {
+    return res.status(500).json({
+        error:error.message
+    })
 }
 
 }
