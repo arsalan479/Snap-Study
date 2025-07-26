@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import keysImage from '../assets/LoginImages/security.jpg';
+import { Link } from "react-router-dom";
 
 // const sitekeyV2 = "6LczM1orAAAAANHnVgjcrv65_juy5_xacZ7Sl8dw"; // Replace with your actual site key
 
@@ -86,89 +88,137 @@ const toogleyepassword = ()=>{
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit} 
-        className="w-full max-w-md bg-white p-8 rounded-xl shadow-md"
-      >
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Signup Form
-        </h2>
-
-      
-        {/* Email Input */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold mb-1 text-gray-700">
-            Name
-          </label>
-          <input
-            type="text"
-            name="displayName"
-            value={displayName}
-            onChange={(e) => setdisplayName(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your name"
+     <div className="h-screen flex bg-black">
+        {/* Left Image Section — hidden on screens smaller than lg */}
+        <div className="hidden lg:block lg:w-1/2 h-full">
+          <img
+            src={keysImage}
+            alt="Signup Visual"
+            className="w-full h-full object-cover"
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-sm font-semibold mb-1 text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your email"
-          />
+        {/* Right Form Section */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-md bg-black p-8 rounded-xl shadow-xl"
+          >
+            {/* Heading */}
+            <div className="text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-white   mb-2">
+                Create Your Account
+              </h1>
+              <p className="text-white text-sm">
+                Join us today and access exclusive features!
+              </p>
+            </div>
+
+            {/* Name */}
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-white mb-1">
+                <i className="ri-user-line mr-1"></i> Full Name
+              </label>
+              <input
+                type="text"
+                name="displayName"
+                value={displayName}
+                onChange={(e) => setdisplayName(e.target.value)}
+                required
+                className="w-full px-4 py-2 text-white border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                placeholder="John Doe"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-white mb-1">
+                <i className="ri-mail-line mr-1"></i> Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 text-white py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                placeholder="example@email.com"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="mb-6 relative">
+              <label className="block text-sm font-semibold text-white mb-1">
+                <i className="ri-lock-password-line mr-1"></i> Password
+              </label>
+              <input
+                type={eyepassword ? 'text' : 'password'}
+                name="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                required
+                className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                placeholder="********"
+              />
+              <button
+                type="button"
+                onClick={toogleyepassword}
+                className="absolute top-9  right-3 text-white cursor-pointer"
+              >
+                {eyepassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+
+ <div className="mb-6 relative">
+              <label className="block text-sm font-semibold text-white mb-1">
+                <i className="ri-lock-password-line mr-1"></i> Confirm Password
+              </label>
+              <input
+                type={eyepassword ? 'text' : 'password'}
+                name="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                required
+                className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                placeholder="********"
+              />
+              <button
+                type="button"
+                onClick={toogleyepassword}
+                className="absolute top-9  right-3 text-white cursor-pointer"
+              >
+                {eyepassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-white text-black cursor-pointer py-2 rounded-md  transition duration-200 font-semibold"
+            >
+              Sign Up
+            </button>
+
+            {/* Footer */}
+            <p className="text-center text-sm text-gray-400 mt-4">
+              Already have an account?{' '}
+              <Link to={"/snapstudylogin"}>
+              <a href="#" className="text-white hover:border-b duration-300 font-medium">
+                Login
+              </a></Link>
+            </p>
+          </form>
         </div>
-
-<div className="mb-4">
-          <label className="block text-sm font-semibold mb-1 text-gray-700">
-            Password
-          </label>
-          <input
-            type={eyepassword ? 'text' : 'password'}
-            name="password"
-            value={password}
-            onChange={(e) => setpassword(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your password"
-          />
-        </div>
-        <span
-        onClick={toogleyepassword}
-        style={{
-          position:"absolute",
-          top:"63%",
-          left:"65%",
-          cursor:"pointer"
-        }}
-        >
-          {
-            eyepassword ? <EyeSlashIcon className="h-5 w-5"/> :  <EyeIcon className="h-5 w-5" />
-          }
-        </span>
+      </div>
 
 
-        {/* Google reCAPTCHA  */}
-        {/* <div className="mb-6">
-          <ReCAPTCHA sitekey={sitekeyV2} ref={recaptchaRef} />
-        </div> */}
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
   );
 };
 

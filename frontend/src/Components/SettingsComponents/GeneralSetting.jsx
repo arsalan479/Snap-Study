@@ -76,11 +76,12 @@ const GeneralSetting = () => {
           <span className="text-gray-400">Per Day Credits</span>
           <span className="text-green-400 font-medium">{userfetch.credits}</span>
         </div>  
-        <div className="flex justify-between border-b border-gray-700 pb-2">
+       <div className="flex justify-between border-b border-gray-700 pb-2">
           <span className="text-gray-400">Account</span>
-            <button onClick={opendeletemodel} className='bg-red-500 cursor-pointer hover:bg-red-400 duration-300 rounded-2xl py-2 px-4'>Remove Account</button>
-        </div>  
+            <button onClick={opendeletemodel} className='bg-[#FFD7D1] text-[#C0361C] font-semibold cursor-pointer hover:bg-[#ff9f8c] duration-300 rounded-[10px] py-2 px-4'>Delete Account</button>
+        </div>   
       </div>
+      
 
       <Modal
         open={modelopen}
@@ -92,7 +93,7 @@ const GeneralSetting = () => {
       >
         
        <div className='text-white'>
-         <h1 className='text-[19px] tracking-tight'><span><i className="ri-error-warning-line text-yellow-300"></i></span> Remove Account Permission</h1>
+         <h1 className='text-[19px] tracking-tight'><span><i className="ri-error-warning-line text-yellow-300"></i></span> Delete Account Permission</h1>
             <p className='text-gray-300 mt-2 tracking-tight text-[15px]'>Are you sure you want to delete your account? This action cannot be undone.</p>
             <div className='flex justify-end gap-2 mt-4'>
               <button onClick={closedeletemodel} className='bg-[#4b4b4b] text-white  px-10 py-2 rounded-full cursor-pointer'>Cancel</button>
