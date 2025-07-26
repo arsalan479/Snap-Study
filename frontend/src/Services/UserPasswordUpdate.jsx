@@ -41,7 +41,7 @@ const UserPasswordUpdate = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-[#1f1f1f] text-white p-8 rounded-xl shadow-md mt-10 space-y-6">
+    <div className="w-full max-w-lg mx-auto text-white p-8 rounded-xl shadow-md mt-10 space-y-6">
       <h2 className="text-2xl font-semibold text-center">Update Your Password</h2>
 
       <div className="space-y-4">
@@ -85,18 +85,18 @@ const UserPasswordUpdate = () => {
         </div>
 
         {/* Show Password Toggle */}
-        <div className="flex items-center gap-2 mt-2">
-          <input
-            type="checkbox"
-            id="showPassword"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-            className="accent-blue-600 w-4 h-4"
-          />
-          <label htmlFor="showPassword" className="text-sm text-gray-300">
-            Show Passwords
-          </label>
-        </div>
+        <div className="flex items-center gap-3 mt-4">
+  <label htmlFor="showPassword" className="flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      id="showPassword"
+      checked={showPassword}
+      onChange={() => setShowPassword(!showPassword)}
+      className="w-5 h-5 appearance-none border border-white bg-transparent rounded-[6px] checked:bg-white checked:border-white focus:outline-none transition duration-200"
+    />
+    <span className="ml-3 text-sm text-white font-medium">Show Passwords</span>
+  </label>
+</div>
 
         {/* Submit Button */}
         <button

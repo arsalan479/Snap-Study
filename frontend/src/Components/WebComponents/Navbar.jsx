@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
-import { SettingOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
-import HelpOutlineTwoToneIcon from "@mui/icons-material/HelpOutlineTwoTone";
-import "remixicon/fonts/remixicon.css";
-import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
-import ConfirmationNumberTwoToneIcon from "@mui/icons-material/ConfirmationNumberTwoTone";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Settings from "./Setting";
@@ -67,28 +62,23 @@ const Navbar = ({ isSidebarOpen }) => {
     {
       key: "1",
       label: <span onClick={handleSettingsClick}>Settings</span>,
-      icon: <SettingOutlined />,
+      icon: <i className="ri-settings-5-line"></i>,
     },
     {
       key: "2",
       label: "Help",
-      icon: <HelpOutlineTwoToneIcon />,
+      icon: <i className="ri-question-line"></i>,
     },
     {
       key: "3",
       label: "Join our Discord",
       icon: <i className="ri-discord-line"></i>,
     },
-    {
-      key: "4",
-      label: "My plan",
-      icon: <ConfirmationNumberTwoToneIcon />,
-      className: "plan-item",
-    },
+  
     {
       key: "5",
       label: <span onClick={logoutuser}>Logout</span>,
-      icon: <LogoutTwoToneIcon />,
+      icon: <i className="ri-logout-box-line"></i>,
       className: "logout-item",
     },
   ];

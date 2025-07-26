@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import  GeneralSetting  from "../SettingsComponents/GeneralSetting";
 import UserPasswordUpdate from "../../Services/UserPasswordUpdate";
+import Plans from "./Plans";
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState("settings");
@@ -9,7 +10,7 @@ const Settings = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "plans":
-        return <div>Here are your available plans...</div>;
+        return <Plans/>
       case "settings":
         return <GeneralSetting/>;
       case "password":
@@ -29,7 +30,7 @@ const Settings = () => {
             activeTab === "settings" ? "bg-[#444]" : "hover:bg-[#333]"
           }`}
         >
-         <span><i className="ri-settings-5-line"></i></span>  General Settings
+         <span><i className="ri-settings-5-line"></i></span> General Settings
         </button>
         <button
           onClick={() => setActiveTab("password")}

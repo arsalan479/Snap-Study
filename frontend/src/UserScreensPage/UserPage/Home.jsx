@@ -76,7 +76,7 @@ const Home = () => {
         } transition-all duration-300`}
       >
         <section className="relative h-screen w-full flex justify-center items-center overflow-hidden">
-          {/* Ballpit in the background */}
+          {/* Ballpit in the background
           <Ballpit
             count={170}
             gravity={0.5}
@@ -85,7 +85,7 @@ const Home = () => {
             followCursor={true}
             colors={[0xffffff, 0x5227ff, 0x222222]}
             className="absolute inset-0 z-0"
-          />
+          /> */}
 
           {/* Text in center */}
           <ShinyText

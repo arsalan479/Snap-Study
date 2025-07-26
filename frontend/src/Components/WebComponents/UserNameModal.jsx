@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Modal } from "antd";
-import DriveFileRenameOutlineTwoToneIcon from "@mui/icons-material/DriveFileRenameOutlineTwoTone";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
 import { FlashContext } from "../../Context/FlashCardsContext";
@@ -9,11 +8,6 @@ const UserNameModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [username, setUsername] = useState("");
   const { userfetch, setuserfetch } = useContext(FlashContext);
-
-  const showModal = () => {
-    setUsername("");
-    setIsModalOpen(true);
-  };
 
   const handleOk = async () => {
     if (!username.trim()) {
@@ -42,6 +36,10 @@ const UserNameModal = () => {
     }
   };
 
+ const showModal = () => {
+    setUsername("");
+    setIsModalOpen(true);
+  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -50,9 +48,9 @@ const UserNameModal = () => {
     <>
       <button
         onClick={showModal}
-        className="text-white hover:bg-transparent active:bg-transparent focus:bg-transparent"
+        className="text-white cursor-pointer hover:bg-transparent active:bg-transparent focus:bg-transparent"
       >
-        <DriveFileRenameOutlineTwoToneIcon style={{ fontSize: 20,cursor:"pointer" }} />
+        <i title="Edit UserName" className="ri-pencil-fill text-[19px] duration-300"></i>
       </button>
 
       <Modal
@@ -64,10 +62,14 @@ const UserNameModal = () => {
         centered
       >
         <div className="bg-[#2d2d2d] p-1 ">
-        <div className="flex justify-between">
-           <label className="block text-sm text-white font-semibold mb-2">Username</label>
-          <label className="block text-sm text-gray-400 font-semibold mb-2">At least 3 characters</label>
-        </div>
+          <div className="flex justify-between">
+            <label className="block text-sm text-white font-semibold mb-2">
+              Username
+            </label>
+            <label className="block text-sm text-gray-400 font-semibold mb-2">
+              At least 3 characters
+            </label>
+          </div>
           <input
             type="text"
             name="username"
@@ -93,6 +95,8 @@ const UserNameModal = () => {
           </div>
         </div>
       </Modal>
+
+
     </>
   );
 };

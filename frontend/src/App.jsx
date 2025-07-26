@@ -12,6 +12,8 @@
 // import DashboardLayoutBasic from './Components/UserDashboard/UserDashboardCards';
 import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
+import "remixicon/fonts/remixicon.css";
+
 
 function App() {
 

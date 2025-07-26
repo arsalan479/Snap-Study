@@ -3,6 +3,8 @@ import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import Googleinput from "./Googleinput.jsx";
+import Modalrapper from "../Components/WebComponents/Modalrapper.jsx";
 
 // import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -12,6 +14,13 @@ const GoogleLogin = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
+  const [showregisterform, setshowregisterform] = useState(false);
+
+
+   const handleregisterformClick = () => {
+    setshowregisterform(true);
+  };
+
   // const recaptchaRef = useRef(null);
 
   const tooglepassword = () => {
@@ -173,14 +182,21 @@ const GoogleLogin = () => {
 
           <p className="text-sm text-center text-gray-400">
             Don’t have an account?{" "}
-            <Link to="/googleregister">
-              <span className="text-[var(--Accent)] cursor-pointer hover:underline">
+              <span onClick={handleregisterformClick} className="text-[var(--Accent)] cursor-pointer hover:underline">
                 Sign up
               </span>
-            </Link>
           </p>
         </div>
       </form>
+
+      {showregisterform && (
+         <Modalrapper
+          isOpen={showregisterform}
+          onClose={() => setshowregisterform(false)}
+        >
+         <Googleinput/>   
+        </Modalrapper>
+      )}
     </div>
   );
 };
