@@ -51,7 +51,7 @@ const UserPasswordUpdate = () => {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter old password"
-            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
             required
@@ -64,7 +64,7 @@ const UserPasswordUpdate = () => {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter new password"
-            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
@@ -77,7 +77,7 @@ const UserPasswordUpdate = () => {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Re-enter new password"
-            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg bg-[#2d2d2d] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
             value={comparePassword}
             onChange={(e) => setComparePassword(e.target.value)}
             required
@@ -101,7 +101,7 @@ const UserPasswordUpdate = () => {
         {/* Submit Button */}
         <button
           onClick={passwordUpdate}
-          className="cursor-pointer w-full py-3 mt-4 bg-white text-black hover:bg-[#ebe6e6] transition duration-300  rounded-lg"
+          className="cursor-pointer w-full py-3 mt-4 bg-white text-black hover:bg-[#ebe6e6] transition duration-300  rounded-2xl"
         >
           Update Password
         </button>

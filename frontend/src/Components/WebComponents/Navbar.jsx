@@ -78,7 +78,7 @@ const Navbar = ({ isSidebarOpen }) => {
     {
       key: "5",
       label: <span onClick={logoutuser}>Logout</span>,
-      icon: <i className="ri-logout-box-line"></i>,
+      icon: <i className="ri-logout-circle-line"></i>,
       className: "logout-item",
     },
   ];

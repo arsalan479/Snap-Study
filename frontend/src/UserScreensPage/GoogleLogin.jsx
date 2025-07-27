@@ -164,11 +164,11 @@ const GoogleLogin = () => {
           Continue
         </button>
 
-        <div className="flex justify-center gap-10 mt-4">
+        <div className="flex justify-center gap-40 mt-4">
           <p className=" text-sm text-center">
             <span
               onClick={forgetpasswordbyId}
-              className="text-[var(--Accent)] cursor-pointer hover:underline"
+              className="text-[var(--Accent)] cursor-pointer hover:underline "
             >
               Forget Password
             </span>

@@ -7,7 +7,7 @@ import MainSystem from "../UserScreensPage/UserPage/MainSystem";
 import ProtectedRoute from "../ProtectAndPublicRoutes/ProtectedRoute";
  import Googleinput from '../UserScreensPage/Googleinput';
 import { GoogleOTP } from '../UserScreensPage/GoogleOTP';
-// import CheckSocket from "../Components/CheckSocket";
+import ResetPassword from "../UserScreensPage/ResetPassword";
 
 const UserRoute = () => {
   return (
@@ -41,10 +41,15 @@ const UserRoute = () => {
         </PublicRoute>
       }/>
 
+  <Route path='/resetpassword/:token' element={
+            <PublicRoute>
+              <ResetPassword/>
+
+            </PublicRoute>
+              } />
 
 
 
-{/* <Route path="/checksocket" element={<CheckSocket/>} /> */}
 
       </Routes>
     </>

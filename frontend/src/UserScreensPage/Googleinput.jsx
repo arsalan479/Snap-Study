@@ -2,9 +2,11 @@ import React, { useState, useRef } from "react";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import keysImage from '../assets/LoginImages/security.jpg';
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+// import keysImage from '../assets/LoginImages/banner.png';
 import { Link } from "react-router-dom";
+import CurvedLoop from '../../ReactBits/CurvedLoop/CurvedLoop.jsx';
+import Bannerlogindesign from "../Utils/Bannerlogindesign.jsx";
 
 // const sitekeyV2 = "6LczM1orAAAAANHnVgjcrv65_juy5_xacZ7Sl8dw"; // Replace with your actual site key
 
@@ -12,21 +14,17 @@ const Googleinput = () => {
   const [email, setEmail] = useState("");
   const [displayName, setdisplayName] = useState("");
   const [password, setpassword] = useState("");
-  const [comparepassword, setcomparepassword] = useState('')
-  const [eyepassword, seteyepassword] = useState(false)
+  const [comparepassword, setcomparepassword] = useState("");
+  const [eyepassword, seteyepassword] = useState(false);
   const [validationerrors, setvalidationerrors] = useState([]);
   // const recaptchaRef = useRef(null);
 
-
-const toogleyepassword = ()=>{
-  seteyepassword((prev)=>!prev)
-}
-
+  const toogleyepassword = () => {
+    seteyepassword((prev) => !prev);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-   
 
     // const token = recaptchaRef.current?.getValue();
 
@@ -35,190 +33,182 @@ const toogleyepassword = ()=>{
     //   return;
     // }
 
-     try {
-    //   // Step 1: Verify reCAPTCHA token
-    //   const captchaVerifyRes = await axiosinstance.post(
-    //     "/auth/verify-captcha-V2",
-    //     { token }
-    //   );
+    try {
+      //   // Step 1: Verify reCAPTCHA token
+      //   const captchaVerifyRes = await axiosinstance.post(
+      //     "/auth/verify-captcha-V2",
+      //     { token }
+      //   );
 
-    //   if (!captchaVerifyRes.data.success) {
-    //     toast.error("reCAPTCHA verification failed.");
-    //     return;
-    //   }
+      //   if (!captchaVerifyRes.data.success) {
+      //     toast.error("reCAPTCHA verification failed.");
+      //     return;
+      //   }
 
+      const registrationRes = await toast.promise(
+        axiosinstance.post("/auth/magic/register", {
+          email,
+          displayName,
+          password,
+        }),
+        {
+          loading: "Register User...",
+          success: "User Register Successfully!",
+        }
+      );
 
-    
-
-    const registrationRes = await toast.promise(
-   axiosinstance.post("/auth/magic/register", { email ,displayName,password }),
-  {
-    loading:"Register User...",
-    success:"User Register Successfully!",
-  }
-)
-
-      
-      
       const data = registrationRes.data;
-      
-      if (data.success && data.redirectURL) {        
-       setTimeout(()=>{
-         window.location.href = data.redirectURL         
-       },2000)
+
+      if (data.success && data.redirectURL) {
+        setTimeout(() => {
+          window.location.href = data.redirectURL;
+        }, 2000);
       }
-      
+
       // recaptchaRef.current.reset(); // Optional: Reset reCAPTCHA after success
-      
-    } catch (err){
-      
-      const errors = err.response?.data?.errors
-      const message = err.response?.data?.message
-      
+    } catch (err) {
+      const errors = err.response?.data?.errors;
+      const message = err.response?.data?.message;
+
       // recaptchaRef.current?.reset(); // Reset on error too
-    
-      if(Array.isArray(errors)){
-        errors.forEach((errors)=>toast.error(errors.msg))
-      }else{
-        toast.error(message)
+
+      if (Array.isArray(errors)) {
+        errors.forEach((errors) => toast.error(errors.msg));
+      } else {
+        toast.error(message);
       }
-    
     }
   };
 
-
   return (
-     <div className="h-screen flex bg-black">
-        {/* Left Image Section — hidden on screens smaller than lg */}
-        <div className="hidden lg:block lg:w-1/2 h-full">
-          <img
-            src={keysImage}
-            alt="Signup Visual"
-            className="w-full h-full object-cover"
-          />
-        </div>
+    <div className="h-screen flex bg-black">
+      {/* Left Image Section — hidden on screens smaller than lg */}
+      <Bannerlogindesign/>
 
-        {/* Right Form Section */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-md bg-black p-8 rounded-xl shadow-xl"
-          >
-            {/* Heading */}
-            <div className="text-center mb-6">
-              <h1 className="text-3xl md:text-4xl font-bold text-white   mb-2">
-                Create Your Account
-              </h1>
-              <p className="text-white text-sm">
-                Join us today and access exclusive features!
-              </p>
-            </div>
-
-            {/* Name */}
-            <div className="mb-4">
-              <label className="block text-sm font-semibold text-white mb-1">
-                <i className="ri-user-line mr-1"></i> Full Name
-              </label>
-              <input
-                type="text"
-                name="displayName"
-                value={displayName}
-                onChange={(e) => setdisplayName(e.target.value)}
-                required
-                className="w-full px-4 py-2 text-white border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
-                placeholder="John Doe"
-              />
-            </div>
-
-            {/* Email */}
-            <div className="mb-4">
-              <label className="block text-sm font-semibold text-white mb-1">
-                <i className="ri-mail-line mr-1"></i> Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 text-white py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
-                placeholder="example@email.com"
-              />
-            </div>
-
-            {/* Password */}
-            <div className="mb-6 relative">
-              <label className="block text-sm font-semibold text-white mb-1">
-                <i className="ri-lock-password-line mr-1"></i> Password
-              </label>
-              <input
-                type={eyepassword ? 'text' : 'password'}
-                name="password"
-                value={password}
-                onChange={(e) => setpassword(e.target.value)}
-                required
-                className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
-                placeholder="********"
-              />
-              <button
-                type="button"
-                onClick={toogleyepassword}
-                className="absolute top-9  right-3 text-white cursor-pointer"
-              >
-                {eyepassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
-                ) : (
-                  <EyeIcon className="h-5 w-5" />
-                )}
-              </button>
-            </div>
-
- <div className="mb-6 relative">
-              <label className="block text-sm font-semibold text-white mb-1">
-                <i className="ri-lock-password-line mr-1"></i> Confirm Password
-              </label>
-              <input
-                type={eyepassword ? 'text' : 'password'}
-                name="password"
-                value={password}
-                onChange={(e) => setpassword(e.target.value)}
-                required
-                className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
-                placeholder="********"
-              />
-              <button
-                type="button"
-                onClick={toogleyepassword}
-                className="absolute top-9  right-3 text-white cursor-pointer"
-              >
-                {eyepassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
-                ) : (
-                  <EyeIcon className="h-5 w-5" />
-                )}
-              </button>
-            </div>
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full bg-white text-black cursor-pointer py-2 rounded-md  transition duration-200 font-semibold"
-            >
-              Sign Up
-            </button>
-
-            {/* Footer */}
-            <p className="text-center text-sm text-gray-400 mt-4">
-              Already have an account?{' '}
-              <Link to={"/snapstudylogin"}>
-              <a href="#" className="text-white hover:border-b duration-300 font-medium">
-                Login
-              </a></Link>
+      {/* Right Form Section */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md bg-black p-8 rounded-xl shadow-xl"
+        >
+          {/* Heading */}
+          <div className="text-center mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-white   mb-2">
+              Create Your Account
+            </h1>
+            <p className="text-white text-sm">
+              Join us today and access exclusive features!
             </p>
-          </form>
-        </div>
+          </div>
+
+          {/* Name */}
+          <div className="mb-4">
+            <label className="block text-sm  text-white mb-1">
+              <i className="ri-user-line mr-1"></i> Full Name
+            </label>
+            <input
+              type="text"
+              name="displayName"
+              value={displayName}
+              onChange={(e) => setdisplayName(e.target.value)}
+              required
+              className="w-full px-4 py-2 text-white border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
+              placeholder="John Doe"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-4">
+            <label className="block text-sm  text-white mb-1">
+              <i className="ri-mail-line mr-1"></i> Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 text-white py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
+              placeholder="example@email.com"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-6 relative">
+            <label className="block text-sm  text-white mb-1">
+              <i className="ri-lock-password-line mr-1"></i> Password
+            </label>
+            <input
+              type={eyepassword ? "text" : "password"}
+              name="password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+              required
+              className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
+              placeholder="********"
+            />
+            <button
+              type="button"
+              onClick={toogleyepassword}
+              className="absolute top-9  right-3 text-white cursor-pointer"
+            >
+              {eyepassword ? (
+                <EyeSlashIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+
+          <div className="mb-6 relative">
+            <label className="block text-sm  text-white mb-1">
+              <i className="ri-lock-password-line mr-1"></i> Confirm Password
+            </label>
+            <input
+              type={eyepassword ? "text" : "password"}
+              name="password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+              required
+              className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
+              placeholder="********"
+            />
+            <button
+              type="button"
+              onClick={toogleyepassword}
+              className="absolute top-9  right-3 text-white cursor-pointer"
+            >
+              {eyepassword ? (
+                <EyeSlashIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-white text-black cursor-pointer py-3 rounded-2xl  transition duration-200 "
+          >
+            Register on SnapStudy 
+          </button>
+
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-400 mt-4">
+            Already have an account?{" "}
+            <Link to={"/snapstudylogin"}>
+              <a
+                href="#"
+                className="text-white hover:border-b duration-300 font-medium"
+              >
+                Login
+              </a>
+            </Link>
+          </p>
+        </form>
       </div>
 
-
+    </div>
   );
 };
 
