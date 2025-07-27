@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import StyleTwoToneIcon from '@mui/icons-material/StyleTwoTone';
 import ExplainQuiz from "../../src/Components/WebComponents/ExplainQuiz";
+import { axiosinstance } from "../../src/AxiosInstance/axios";
 
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
@@ -110,6 +110,18 @@ export default function QuizCardsCarousel({
     return <div className="text-gray-500 p-4">No quiz cards available.</div>;
   }
 
+
+const bookmark = async(bookmarkcardId)=>{
+ try {
+   const response = await axiosinstance.post(`/api/room/bookmark/${bookmarkcardId}`)
+  if(response.status === 201){
+    console.log(response.data)
+  }
+ } catch (error) {
+  console.log(error)
+ }
+}
+
   return (
     <div
       ref={containerRef}
@@ -164,7 +176,7 @@ export default function QuizCardsCarousel({
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? "p-0 m-0" : "flex p-4"}`}>
+              <div className={`${round ? "p-0 m-0" : "flex p-4 items-center"}`}>
                 
                     <div className="bg-[var(--bg2)] px-2 py-2  rounded-full ">
                     <ExplainQuiz
@@ -172,7 +184,13 @@ export default function QuizCardsCarousel({
                     options={card.options}
                     answer={card.answer}
                     />
+                  
                   </div>
+
+                  <div>
+                    <button onClick={()=>bookmark(card.id)} className="bg-yellow-300 px-5 py-2 rounded-full text-black cursor-pointer">bookmark</button>
+                  </div>
+                   
               </div>
               <div className="p-5">
                 <div className="mb-1 font-black text-lg text-white">

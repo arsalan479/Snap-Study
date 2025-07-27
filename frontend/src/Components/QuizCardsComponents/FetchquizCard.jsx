@@ -7,7 +7,7 @@ import { axiosinstance } from "../../AxiosInstance/axios.js";
 import PopupSureUpdate from "../../Utils/PopupSureUpdate.jsx";
 import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel.jsx";
 
-const FetchquizCard = ({ quizcards: propQuizCards }) => {
+const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
   const context = useQuizCard();
   const quizcards = propQuizCards || context.quizcards;
 
@@ -127,7 +127,8 @@ const FetchquizCard = ({ quizcards: propQuizCards }) => {
                     cards={QuizSet.cards}
                     baseWidth={350}
                     round={false}
-                    onDeleteCard={showSpecificDeleteConfirm} // 👈 pass here
+                    onDeleteCard={showSpecificDeleteConfirm}
+                     
                   />
                 </div>
               </React.Fragment>
