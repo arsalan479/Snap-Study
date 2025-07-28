@@ -8,19 +8,17 @@ import { Modal } from "antd";
 
 const UserCompetionData = () => {
   const [compdata, setCompData] = useState([]);
-  const [modelopen, setmodelopen] = useState(false)
+  const [modelopen, setmodelopen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
+  const opendeletemodel = (id) => {
+    setSelectedId(id);
+    setmodelopen(true);
+  };
 
-  const opendeletemodel = (id) =>{
-    setSelectedId(id)
-    setmodelopen(true)
-  }
-
-  const closedeletemodel = () =>{
-    setmodelopen(false)
-  }
-
+  const closedeletemodel = () => {
+    setmodelopen(false);
+  };
 
   useEffect(() => {
     const fetchCompetitionData = async () => {
@@ -53,13 +51,12 @@ const UserCompetionData = () => {
           prevData.filter((data) => data._id !== cardId)
         );
         setmodelopen(false);
-        setSelectedId(null)
+        setSelectedId(null);
       }
     } catch (err) {
       console.log(err);
     }
   };
-
 
   return (
     <div className="p-4 space-y-8">
@@ -90,8 +87,8 @@ const UserCompetionData = () => {
                 </span>
               </h2>
               <button
-                onClick={()=>opendeletemodel(item._id)}
-                className="px-3 py-2 hover:bg-red-400 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
+                onClick={() => opendeletemodel(item._id)}
+                className="px-3 py-2 hover:bg-red-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
               >
                 <i className="ri-delete-bin-6-line"></i>
               </button>
@@ -164,25 +161,24 @@ const UserCompetionData = () => {
                   {Math.round((item.score / item.total) * 100)}%
                 </h1>
                 <div className="flex justify-center mt-1">
-  <p className="text-sm font-semibold text-yellow-400 text-center">
-    {(() => {
-      const percentage = (item.score / item.total) * 100;
+                  <p className="text-sm font-semibold text-yellow-400 text-center">
+                    {(() => {
+                      const percentage = (item.score / item.total) * 100;
 
-      if (percentage >= 90) return "🌟 Outstanding!";
-      if (percentage >= 80) return "🎯 Excellent!";
-      if (percentage >= 60) return "👍 Good Job!";
-      if (percentage >= 40) return "📝 Keep Practicing!";
-      return "🚧 Needs Improvement";
-    })()}
-  </p>
-</div>
-
+                      if (percentage >= 90) return "🌟 Outstanding!";
+                      if (percentage >= 80) return "🎯 Excellent!";
+                      if (percentage >= 60) return "👍 Good Job!";
+                      if (percentage >= 40) return "📝 Keep Practicing!";
+                      return "🚧 Needs Improvement";
+                    })()}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         ))
       )}
-       <Modal
+      <Modal
         open={modelopen}
         onCancel={closedeletemodel}
         footer={null}
@@ -190,18 +186,33 @@ const UserCompetionData = () => {
         className="p-0 custom-modal-style"
         centered
       >
-        
-       <div className='text-white'>
-         <h1 className='text-[19px] tracking-tight'><span><i className="ri-error-warning-line text-yellow-300"></i></span> Remove Card Permission</h1>
-            <p className='text-gray-300 mt-2 tracking-tight text-[15px]'>Are you sure you want to delete your progress card? This action cannot be undone.</p>
-            <div className='flex justify-end gap-2 mt-4'>
-              <button onClick={closedeletemodel} className='bg-[#4b4b4b] text-white  px-10 py-2 rounded-full cursor-pointer'>Cancel</button>
-              <button onClick={()=>compdatadelete(selectedId)} className='bg-white text-black px-10 py-2 rounded-full cursor-pointer'>Ok</button>
-            </div>
-       </div>
-
+        <div className="text-white">
+          <h1 className="text-[19px] tracking-tight">
+            <span>
+              <i className="ri-error-warning-line text-yellow-300"></i>
+            </span>{" "}
+            Remove Card Permission
+          </h1>
+          <p className="text-gray-300 mt-2 tracking-tight text-[15px]">
+            Are you sure you want to delete your progress card? This action
+            cannot be undone.
+          </p>
+          <div className="flex justify-end gap-2 mt-4">
+            <button
+              onClick={closedeletemodel}
+              className="bg-[#4b4b4b] text-white  px-10 py-2 rounded-full cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => compdatadelete(selectedId)}
+              className="bg-white text-black px-10 py-2 rounded-full cursor-pointer"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
       </Modal>
-
     </div>
   );
 };

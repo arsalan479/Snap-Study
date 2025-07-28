@@ -45,7 +45,7 @@ const Plans = () => {
             <li><i className="ri-lock-2-line mr-2"></i> Custom room creation</li>
             <li><i className="ri-lock-2-line mr-2"></i> Priority support</li>
           </ul>
-          <span className="inline-block px-4 py-2 bg-yellow-400  text-black  text-sm rounded-full">
+          <span className="inline-block px-4 py-2 bg-[#5227FF]  text-white  text-sm rounded-full">
             Coming Soon
           </span>
         </div>

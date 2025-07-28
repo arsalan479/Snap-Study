@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import ExplainQuiz from "../../src/Components/WebComponents/ExplainQuiz";
 import { axiosinstance } from "../../src/AxiosInstance/axios";
+import toast from "react-hot-toast";
 
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
@@ -28,7 +29,7 @@ export default function QuizCardsCarousel({
   const [isResetting, setIsResetting] = useState(false);
 
   const containerRef = useRef(null);
-  
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -100,27 +101,29 @@ export default function QuizCardsCarousel({
   const dragProps = loop
     ? {}
     : {
-      dragConstraints: {
-        left: -trackItemOffset * (carouselItems.length - 1),
-        right: 0,
-      },
-    };
+        dragConstraints: {
+          left: -trackItemOffset * (carouselItems.length - 1),
+          right: 0,
+        },
+      };
 
   if (cards.length === 0) {
     return <div className="text-gray-500 p-4">No quiz cards available.</div>;
   }
 
-
-const bookmark = async(bookmarkcardId)=>{
- try {
-   const response = await axiosinstance.post(`/api/room/bookmark/${bookmarkcardId}`)
-  if(response.status === 201){
-    console.log(response.data)
-  }
- } catch (error) {
-  console.log(error)
- }
-}
+  const bookmark = async (bookmarkcardId) => {
+    try {
+      const response = await toast.promise(
+        axiosinstance.post(`/api/room/bookmark/${bookmarkcardId}`),
+        {
+          loading: "Bookmarking...",
+          success: "Bookmark Added Successfully",
+        }
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
+  };
 
   return (
     <div
@@ -176,22 +179,24 @@ const bookmark = async(bookmarkcardId)=>{
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? "p-0 m-0" : "flex p-4 items-center"}`}>
-                
-                    <div className="bg-[var(--bg2)] px-2 py-2  rounded-full ">
-                    <ExplainQuiz
-                    question={card.question}
-                    options={card.options}
-                    answer={card.answer}
-                    />
-                  
-                  </div>
+<div className="flex items-center justify-between p-4 w-full">
+  <div className="bg-[var(--bg2)] px-2 py-2 rounded-full inline-block">
+    <ExplainQuiz
+      question={card.question}
+      options={card.options}
+      answer={card.answer}
+    />
+  </div>
 
-                  <div>
-                    <button onClick={()=>bookmark(card.id)} className="bg-yellow-300 px-5 py-2 rounded-full text-black cursor-pointer">bookmark</button>
-                  </div>
-                   
-              </div>
+  <button
+    onClick={() => bookmark(card.id)}
+    className="text-2xl rounded-full text-yellow-400 cursor-pointer ml-4"
+  title="bookmark"
+  >
+    <i className="ri-star-fill"></i>
+  </button>
+</div>
+
               <div className="p-5">
                 <div className="mb-1 font-black text-lg text-white">
                   Q{index + 1}: {card.question}
@@ -204,8 +209,6 @@ const bookmark = async(bookmarkcardId)=>{
                 <p className="text-sm text-green-500">
                   <strong>Answer:</strong> {card.answer}
                 </p>
-              
-
               </div>
             </motion.div>
           );
@@ -226,8 +229,8 @@ const bookmark = async(bookmarkcardId)=>{
                     ? "bg-white"
                     : "bg-[#2D2D2D]"
                   : round
-                  ? "bg-[#red]"
-                  : "bg-[white]"
+                    ? "bg-[#red]"
+                    : "bg-[white]"
               }`}
               animate={{
                 scale: currentIndex % cards.length === index ? 1.2 : 1,

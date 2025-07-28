@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
 import { FlashContext } from "../../Context/FlashCardsContext";
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
 
 const UserNameModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +51,7 @@ const UserNameModal = () => {
         onClick={showModal}
         className="text-white cursor-pointer hover:bg-transparent active:bg-transparent focus:bg-transparent"
       >
-        <i title="Edit UserName" className="ri-pencil-fill text-[19px] duration-300"></i>
+<DriveFileRenameOutlineTwoToneIcon titleAccessg="Edit UserName"/>
       </button>
 
       <Modal

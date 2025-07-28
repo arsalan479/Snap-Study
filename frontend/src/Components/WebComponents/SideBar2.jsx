@@ -7,6 +7,7 @@ import SubjectSelect from "../../Components/SubjectSelect";
 import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
 import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
+import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -19,7 +20,7 @@ const SideBar2 = () => {
   });
 
   const navItems = ["Quiz Generate", "Friends", "GroupStudy", "Top", "Likes"];
-  const libraryItems = ["Competion Data", "Uploads", "Trash", "New folder"];
+  const libraryItems = ["Competion Data", "BookMark", "Trash", "New folder"];
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {
@@ -57,6 +58,9 @@ const SideBar2 = () => {
       return <UserCompetionData/>
     }
 
+    if(activeLink === "BookMark"){
+      return <Bookmark/>
+    }
 
     return (
       <div className="text-white text-xl text-center mt-10">

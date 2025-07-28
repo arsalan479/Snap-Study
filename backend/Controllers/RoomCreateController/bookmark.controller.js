@@ -13,7 +13,6 @@ export const bookmark = async (req, res) => {
   }
 
   try {
-
     const result = await quizcardmodel.findOne(
       {
         UserLoginId: userId,
@@ -21,11 +20,8 @@ export const bookmark = async (req, res) => {
       },
       {
         "Cards.$": 1,
-        title: 1,
-        subject: 1
       }
     );
-
 
     if (!result || !result.Cards || result.Cards.length === 0) {
       return res.status(404).json({
@@ -33,12 +29,21 @@ export const bookmark = async (req, res) => {
       });
     }
 
+    const existingCard = await Bookmark.findOne({
+      userId,
+      "cards._id": cardId,
+    });
+
+    if (existingCard) {
+      return res.status(400).json({
+        message: "This Card is already bookmarked",
+      });
+    }
+
     const card = result.Cards[0];           
 
     const createBookmark = await Bookmark.create({
       userId,
-      title,
-      subject,
       cards: [card],
     });
 
@@ -55,6 +60,7 @@ export const bookmark = async (req, res) => {
 };
 
 export const bookmarkdelete = async (req, res) => {
+  
   const userId = decodedToken(req);
   const { bookmarkId } = req.params;
   try {

@@ -78,7 +78,7 @@ const GeneralSetting = () => {
         </div>  
        <div className="flex justify-between border-b border-gray-700 pb-2">
           <span className="text-gray-400">Account</span>
-            <button onClick={opendeletemodel} className='bg-[#FFD7D1] text-[#C0361C] font-semibold cursor-pointer hover:bg-[#ff9f8c] duration-300 rounded-[10px] py-2 px-4'>Delete Account</button>
+            <button onClick={opendeletemodel} className='bg-red-500 text-white font-medium cursor-pointer hover:bg-red-400  duration-300 rounded-[10px] py-2 px-4'>Delete Account</button>
         </div>   
       </div>
       
