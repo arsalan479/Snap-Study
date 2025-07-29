@@ -52,9 +52,6 @@ app.use('/auth',githubauthroute);
 app.use('/auth/magic',googleinputmagicroute);
 
 
-//admin route
-app.use('/admin',adminauthroute)
-
 
 //verifyreCAPTCHA ROUTE FOR V2 AND V3
 app.use('/auth',verfifyrecaptcharoute)
@@ -74,8 +71,13 @@ app.use('/api/quiz/crud',quizcardeditdeletefetch)
 //userdetails
 app.use('/userdetail',userdetails)
 
-
+//room routes
 app.use('/api/room',roomroute)
+
+
+//admin route
+app.use('/admin',adminauthroute)
+
 
 
 export default app;

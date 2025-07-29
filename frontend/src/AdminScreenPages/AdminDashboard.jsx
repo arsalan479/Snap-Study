@@ -1,53 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { createTheme } from '@mui/material/styles';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import DescriptionIcon from '@mui/icons-material/Description';
+import LayersIcon from '@mui/icons-material/Layers';
+import { AppProvider } from '@toolpad/core/AppProvider';
+import { DashboardLayout } from '@toolpad/core/DashboardLayout';
+import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
+import UsersData from './UsersData';
 
-const AdminDashboard = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState("");
-  const [role, setRole] = useState("");
+const NAVIGATION = [
+  {
+    kind: 'header',
+    title: 'Main items',
+  },
+  {
+    segment: 'users',
+    title:'Users',
+    icon:<i className="ri-group-3-fill text-2xl"></i>,
+  },
+  {
+    segment: 'orders',
+    title: 'Orders',
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    kind: 'divider',
+  },
+  {
+    kind: 'header',
+    title: 'Analytics',
+  },
+  {
+    segment: 'reports',
+    title: 'Reports',
+    icon: <BarChartIcon />,
+    children: [
+      {
+        segment: 'sales',
+        title: 'Sales',
+        icon: <DescriptionIcon />,
+      },
+      {
+        segment: 'traffic',
+        title: 'Traffic',
+        icon: <DescriptionIcon />,
+      },
+    ],
+  },
+  {
+    segment: 'integrations',
+    title: 'Integrations',
+    icon: <LayersIcon />,
+  },
+];
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const success = params.get("success");
-    const name = params.get("name");
-    const userRole = params.get("role"); // Get role from URL params
+const demoTheme = createTheme({
+  cssVariables: {
+    colorSchemeSelector: 'data-toolpad-color-scheme',
+  },
+  colorSchemes: { light: true, dark: true },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 600,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 
-    if (success === "true" && name) {
-      // Set role if available
-      if (userRole) {
-        setRole(userRole);
-        localStorage.setItem("userRole", userRole);
-      }
-
-      // Customize welcome message based on role
-      const welcomeMessage = userRole 
-        ? `Welcome back ${userRole} ${name}!` 
-        : `Welcome back ${name}!`;
-
-      toast.success(welcomeMessage, { id: "welcome-toast" });
-      localStorage.setItem("userName", name);
-      setUserName(name);
-
-      // Clean URL after showing message
-      window.history.replaceState({}, document.title, location.pathname);
-    } else {
-      // On page reload, get data from localStorage
-      const savedName = localStorage.getItem("userName");
-      const savedRole = localStorage.getItem("userRole");
-      
-      if (savedName) {
-        setUserName(savedName);
-      }
-      if (savedRole) {
-        setRole(savedRole);
-      }
-    }
-  }, [location]);
-
+function DemoPageContent({ pathname }) {
   return (
-    <div className='text-white'>AdminDashboard</div>
+    <Box
+      sx={{
+        py: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'start',
+        textAlign: 'left',
+      }}
+    >
+      <Typography>
+        {pathname}
+      </Typography>
+      <UsersData/>
+    </Box>
   );
+}
+
+DemoPageContent.propTypes = {
+  pathname: PropTypes.string.isRequired,
 };
 
-export default AdminDashboard;
+function DashboardLayoutBasic(props) {
+  const { window } = props;
+
+  const router = useDemoRouter('/users');
+
+  // Remove this const when copying and pasting into your project.
+  const demoWindow = window !== undefined ? window() : undefined;
+
+  return (
+    // Remove this provider when copying and pasting into your project.
+    <DemoProvider window={demoWindow}>
+      {/* preview-start */}
+      <AppProvider
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+        window={demoWindow}
+      >
+        <DashboardLayout>
+          <DemoPageContent pathname={router.pathname} />
+        </DashboardLayout>
+      </AppProvider>
+      {/* preview-end */}
+    </DemoProvider>
+  );
+}
+
+DashboardLayoutBasic.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * Remove this when copying and pasting into your project.
+   */
+  window: PropTypes.func,
+};
+
+export default DashboardLayoutBasic;

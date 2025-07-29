@@ -13,6 +13,7 @@
 import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
 import "remixicon/fonts/remixicon.css";
+import AdminRoute from "./Routes/AdminRoute";
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
     </Routes> */}
 
       <UserRoute />
+      <AdminRoute/>
     </>
   );
 }

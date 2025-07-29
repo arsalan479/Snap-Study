@@ -1,14 +1,8 @@
 import { Router } from 'express';
-import { getauser } from '../../Controllers/AdminAuthController/adminauth.controller.js';
-import {verifytoken} from '../../Middleware/UserAuthMiddleware/verifyusertoken.js';
+import { alluserdata } from '../../Controllers/AdminAuthController/adminauth.controller.js';
 
 const route = Router();
 
-route.get('/checkadmin', verifytoken ,(req,res)=>{
-    res.status(200).json({
-        message:"Welcome to admin dashboard",
-        success:true
-    })
-})
+route.get('/alluserdata',alluserdata);
 
 export default route;   
