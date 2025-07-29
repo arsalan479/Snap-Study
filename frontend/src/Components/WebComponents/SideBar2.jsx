@@ -19,8 +19,8 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "Friends", "GroupStudy", "Top", "Likes"];
-  const libraryItems = ["Competion Data", "BookMark", "Trash", "New folder"];
+  const navItems = ["Quiz Generate", "Friends", "GroupStudy"];
+  const libraryItems = ["Competion Data", "BookMark"];
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {

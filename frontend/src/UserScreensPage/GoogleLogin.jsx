@@ -119,7 +119,7 @@ const GoogleLogin = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <form onSubmit={submithandler}>
         <input
           type="email"

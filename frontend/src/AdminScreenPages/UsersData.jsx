@@ -17,7 +17,7 @@ import Grid from '@mui/material/Grid';
 const ProgressBar = ({ label, value, total, color }) => {
   const percent = total > 0 ? (value / total) * 100 : 0;
   return (
-    <Box sx={{ my: 2, p: 5, bgcolor: "transparent", borderRadius: 2 }}>
+    <Box sx={{ my: 2, p: 5, bgcolor:"#474545", borderRadius: 2 }}>
       <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="white">
         {label}
       </Typography>

@@ -60,7 +60,7 @@ const GooglegithubloginV3Captcha = () => {
     <div>
       <div>
         <button
-          className="flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
+          className="authbtn flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
           onClick={loginWithGoogle}
         >
           <img src={googlepng} className="w-5 h-5 object-cover" alt="Google" />
@@ -70,7 +70,7 @@ const GooglegithubloginV3Captcha = () => {
 
       <div>
         <button
-          className="flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
+          className="authbtn flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white font-semibold py-3"
           onClick={loginWithGithub}
         >
           <img src={githublogo} className='w-6 h-6 object-cover' alt="" />

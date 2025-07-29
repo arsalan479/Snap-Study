@@ -9,7 +9,7 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
   return (
     <>
       {/* Logo and menu toggle - Fixed outside sidebar */}
-      <div className="fixed top-3 left-3 z-50 flex items-center gap-10">
+      <div className="fixed top-3 left-3  z-50 flex items-center gap-10">
         <div className="w-10 h-10">
           <img
             src={snaplogo}

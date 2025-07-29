@@ -23,7 +23,7 @@ const Settings = () => {
   return (
     <div className="flex w-[80vw] h-[85vh] rounded-2xl bg-[#2d2d2d] text-white overflow-hidden">
       {/* Sidebar */}
-      <div className="w-1/4 bg-[#1f1f1f]  p-5 flex flex-col gap-4">
+      <div className="w-1/4 sidebarsetting bg-[#1f1f1f]  p-5 flex flex-col gap-4">
         <button
           onClick={() => setActiveTab("settings")}
           className={`text-left cursor-pointer px-4 py-2 rounded-lg ${

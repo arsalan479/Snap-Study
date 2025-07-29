@@ -60,6 +60,8 @@ color: #fff;
   p {
     font-size: 3vw !important; /* Larger text for small screens */
   }
+ 
+ 
 }
 
 .home:hover .arrow {
