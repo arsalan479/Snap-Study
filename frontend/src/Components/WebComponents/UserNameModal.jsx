@@ -4,7 +4,6 @@ import { axiosinstance } from "../../AxiosInstance/axios";
 import toast from "react-hot-toast";
 import { FlashContext } from "../../Context/FlashCardsContext";
 import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
-
 const UserNameModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [username, setUsername] = useState("");

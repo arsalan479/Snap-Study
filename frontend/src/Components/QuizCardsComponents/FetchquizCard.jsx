@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import PopupSureUpdate from "../../Utils/PopupSureUpdate.jsx";
 import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel.jsx";
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
 
 const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
   const context = useQuizCard();
@@ -92,9 +93,9 @@ const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
                             onClick={() =>
                               handleOpenUpdateModal(QuizSet.id, QuizSet.title)
                             }
-                            className="bg-[#5227FF] p-3 ml-2 rounded-full cursor-pointer text-white"
+                            className="ml-2 rounded-full cursor-pointer text-white"
                           >
-                            <PencilSquareIcon className="w-5 h-5" />
+                            <DriveFileRenameOutlineTwoToneIcon titleAccess="Edit Title"/>
                           </button>
                         </h1>
                         <p className="text-lg">
@@ -108,14 +109,14 @@ const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
                         onClick={() => {
                           showAllDeleteConfirm(QuizSet.subject);
                         }}
-                        className="px-4 py-2 tracking-tight flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-[#dc3545]"
+                        className="px-4 py-2 tracking-tight flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-red-500"
                       >
                         Remove All <TrashIcon className="w-4 h-4" />
                       </button>
 
                       <button
                         onClick={() => DeleteCardobjeConfirm(QuizSet.id)}
-                        className="px-4 py-2 cursor-pointer text-white capitalize bg-[#e63946] rounded"
+                        className="px-4 py-2 cursor-pointer text-white capitalize bg-red-500 rounded"
                       >
                         Remove This
                       </button>

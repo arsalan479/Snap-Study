@@ -129,13 +129,13 @@ const MainGroup = () => {
         value={topic}
         onChange={(e) => settopic(e.target.value)}
         placeholder="Enter topic name"
-        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
       />
 
       <select
         value={numberquestion}
         onChange={(e) => setnumberquestion(e.target.value)}
-        className="border bg-[var(--bg2)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border bg-[var(--bg2)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
       >
         <option selected disabled value="">
           Select number of questions
@@ -150,7 +150,7 @@ const MainGroup = () => {
       <select
         value={levels}
         onChange={(e) => setlevels(e.target.value)}
-        className="border bg-[var(--bg2)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border bg-[var(--bg2)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
       >
         <option value="">Select Level</option>
         <option value="easy">Easy</option>
@@ -158,7 +158,7 @@ const MainGroup = () => {
         <option value="hard">Hard</option>
       </select>
       <button
-        className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+        className="cursor-pointer bg-white text-black px-4 py-3 rounded-2xl duration-300 transition-colors"
         onClick={generatecompetationquiz}
       >
         Generate

@@ -192,7 +192,7 @@ export default function BasicTable() {
                         className={` px-3 py-3 rounded-full ${
                           sentRequests.has(user._id)
                             ? "bg-gray-500 cursor-not-allowed"
-                            : "bg-red-500 cursor-pointer"
+                            : "bg-white text-black cursor-pointer"
                         }`}
                       >
                         {sentRequests.has(user._id)
