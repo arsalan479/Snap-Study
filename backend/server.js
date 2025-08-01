@@ -25,20 +25,20 @@ cron.schedule("0 0 * * *", async () => {
 
 
 
-io.on("connection",(socket)=>{
-console.log("a user connected",socket.id);
-// socket.emit("welcome","hello world")
+// io.on("connection",(socket)=>{
+// console.log("a user connected",socket.id);
+// // socket.emit("welcome","hello world")
 
-socket.on("message",(message)=>{
-  socket.broadcast.emit("reieve-message",message)
-  console.log(message)
-})
+// socket.on("message",(message)=>{
+//   socket.broadcast.emit("reieve-message",message)
+//   console.log(message)
+// })
 
-socket.on("disconnect",()=>{
-  console.log("user disconnect",socket.id)
-})
+// socket.on("disconnect",()=>{
+//   console.log("user disconnect",socket.id)
+// })
 
-})
+// })
 
 const port = process.env.PORT || 3000;
 server.listen(port, "0.0.0.0", () => {

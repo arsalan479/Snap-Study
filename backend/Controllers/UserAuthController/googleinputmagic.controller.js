@@ -89,7 +89,7 @@ export const googleverifyemailinput = async (req, res) => {
       message: "email verified successfully",
       success: true,
       email: googleinputuser.email,
-      redirectURL: `http://localhost:5173/dashboard?success=true&name=${googleinputuser.displayName}`,
+      redirectURL: `http://localhost:5173/?success=true&name=${googleinputuser.displayName}`,
     });
   } catch (error) {
     return res.status(500).json({
