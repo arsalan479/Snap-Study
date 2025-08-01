@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CardDelete, fetchquizcard, quizcardDelete, QuizdeleteSpecificCard, QuizTitleupdate } from "../../Controllers/QuizCardController/quizcardeditdeletefetch.controller.js";
+import { CardDelete, fetchquizcard, filefetch, quizcardDelete, QuizdeleteSpecificCard, QuizTitleupdate } from "../../Controllers/QuizCardController/quizcardeditdeletefetch.controller.js";
 
 const route = Router();
 
@@ -13,5 +13,7 @@ route.delete('/specificquizcardDelete/:id',QuizdeleteSpecificCard)
 route.delete('/cardDelete/:id',CardDelete)
 
 route.patch('/quizTitleUpadate/:id',QuizTitleupdate)
+
+route.get('/filefetch',filefetch)
 
 export default route;

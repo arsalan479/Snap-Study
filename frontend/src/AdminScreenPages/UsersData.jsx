@@ -94,13 +94,13 @@ const UsersData = () => {
   </Typography>
   <div className="flex items-center justify-center gap-10 flex-wrap">
     <div className="min-w-[250px]">
-      <ProgressBar label="GitHub Users" value={githubUsers} total={totalUsers} color="#5227FF" />
+      <ProgressBar label="GitHub Users" value={githubUsers} total={totalUsers} color="#fff" />
     </div>
     <div className="min-w-[250px]">
-      <ProgressBar label="Google Users" value={googleUsers} total={totalUsers} color="#5227FF" />
+      <ProgressBar label="Google Users" value={googleUsers} total={totalUsers} color="#fff" />
     </div>
     <div className="min-w-[250px]">
-      <ProgressBar label="Email Login Users" value={emailUsers} total={totalUsers} color="#5227FF" />
+      <ProgressBar label="Email Login Users" value={emailUsers} total={totalUsers} color="#fff" />
     </div>
   </div>
 </Box>

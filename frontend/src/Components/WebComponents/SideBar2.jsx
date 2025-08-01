@@ -8,6 +8,8 @@ import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
 import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
 import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";
+import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
+import Communication from "../../UserScreensPage/UserPage/Communication";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -19,8 +21,8 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "Friends", "GroupStudy"];
-  const libraryItems = ["Competion Data", "BookMark"];
+  const navItems = ["Quiz Generate", "All Users", "Competion","Communication"];
+  const libraryItems = ["Competion Data", "BookMark","Upload Files"];
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {
@@ -46,11 +48,11 @@ const SideBar2 = () => {
       );
     }
 
-    if(activeLink === "Friends"){
+    if(activeLink === "All Users"){
       return <FreindsList/>
     }
 
-    if(activeLink === "GroupStudy"){
+    if(activeLink === "Competion"){
       return <MainGroup/>
     }
 
@@ -60,6 +62,12 @@ const SideBar2 = () => {
 
     if(activeLink === "BookMark"){
       return <Bookmark/>
+    }
+    if(activeLink === "Upload Files"){
+      return <UploadFiles/>
+    }
+    if(activeLink === "Communication"){
+      return <Communication/>
     }
 
     return (

@@ -6,9 +6,10 @@ import toast from "react-hot-toast";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import PopupSureUpdate from "../../Utils/PopupSureUpdate.jsx";
 import QuizCardsCarousel from "../../../ReactBits/Carousel/Carousel.jsx";
-import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
+import DriveFileRenameOutlineTwoToneIcon from "@mui/icons-material/DriveFileRenameOutlineTwoTone";
+import { QuizToPdf } from "../../Utils/QuizToPdf.jsx";
 
-const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
+const FetchquizCard = ({ quizcards: propQuizCards, subject, title }) => {
   const context = useQuizCard();
   const quizcards = propQuizCards || context.quizcards;
 
@@ -87,24 +88,31 @@ const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
                         onClick={() => setSelectedImage(QuizSet.imageURl)}
                       />
                       <div>
-                        <h1 className="font-bold text-2xl">
+                        <h1 className=" text-2xl capitalize">
                           Title: {QuizSet.title}
                           <button
                             onClick={() =>
                               handleOpenUpdateModal(QuizSet.id, QuizSet.title)
                             }
-                            className="ml-2 rounded-full cursor-pointer text-white"
+                            className="ml-1 rounded-full cursor-pointer text-white"
                           >
-                            <DriveFileRenameOutlineTwoToneIcon titleAccess="Edit Title"/>
+                            <DriveFileRenameOutlineTwoToneIcon titleAccess="Edit Title" />
                           </button>
                         </h1>
-                        <p className="text-lg">
-                          Subject: <strong>{QuizSet.subject}</strong>
-                        </p>
+                        <button
+                        title="Export to PDF"
+                        className="bg-[white] mt-2 px-4 py-2 rounded-full cursor-pointer text-black"
+                        onClick={() => QuizToPdf(QuizSet.cards)}
+                      >
+                        
+                        <span>
+                         Export <i className="ri-download-line"></i>
+                        </span>
+                      </button>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <button
+                      {/* <button
                         type="button"
                         onClick={() => {
                           showAllDeleteConfirm(QuizSet.subject);
@@ -112,25 +120,29 @@ const FetchquizCard = ({ quizcards: propQuizCards , subject, title }) => {
                         className="px-4 py-2 tracking-tight flex justify-center items-center gap-1 cursor-pointer rounded text-white bg-red-500"
                       >
                         Remove All <TrashIcon className="w-4 h-4" />
-                      </button>
-
+                      </button> */}
+                      
                       <button
+                      title="Remove This Card"
                         onClick={() => DeleteCardobjeConfirm(QuizSet.id)}
-                        className="px-4 py-2 cursor-pointer text-white capitalize bg-red-500 rounded"
+                        className="px-3 py-2 cursor-pointer text-white capitalize bg-[#474545] hover:bg-red-500 duration-300 rounded-full"
                       >
-                        Remove This
+                        <span>
+                          <i class="ri-delete-bin-6-line"></i>
+                        </span>
                       </button>
                     </div>
                   </div>
 
                   {/* 🧾 Carousel here */}
-                  <QuizCardsCarousel
-                    cards={QuizSet.cards}
-                    baseWidth={350}
-                    round={false}
-                    onDeleteCard={showSpecificDeleteConfirm}
-                     
-                  />
+                  <div className="flex justify-center mt-8">
+                    <QuizCardsCarousel
+                      cards={QuizSet.cards}
+                      baseWidth={350}
+                      round={false}
+                      onDeleteCard={showSpecificDeleteConfirm}
+                    />
+                  </div>
                 </div>
               </React.Fragment>
             ))

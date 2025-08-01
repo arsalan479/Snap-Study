@@ -1,4 +1,5 @@
 import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
+import QuizFileData from "../../Models/QuizCarsSystemModel/quizcardfile.model.js";
 import quizcardfilemodel from '../../Models/QuizCarsSystemModel/quizcardfile.model.js';
 import { AlldeleteUserQuizCards,deleteEntireQuizCardDocument, deleteSpecificQuizCard,} from "../../Services/EditDeleteFetch/deletecardsystem.service.js";
 import { fetchdatacardquiz } from "../../Services/EditDeleteFetch/fetchdata.service.js";
@@ -140,3 +141,29 @@ export const QuizTitleupdate = async (req, res) => {
   }
 };
 
+export const filefetch = async(req,res)=>{
+  
+  
+  try {
+    const userId = decodedToken(req);
+
+    if(!userId){
+      return res.status(400).json({
+        message:"id is missing"
+      })
+    }
+    
+    const response = await QuizFileData.find({UserLoginId:userId})
+
+    return res.status(200).json({
+      message:"file fetched successfully",
+      data:response
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+      message:error.message
+    })
+  }
+
+}
