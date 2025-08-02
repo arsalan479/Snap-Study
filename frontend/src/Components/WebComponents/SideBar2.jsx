@@ -9,7 +9,6 @@ import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
 import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";
 import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
-import Communication from "../../UserScreensPage/UserPage/Communication";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -66,9 +65,7 @@ const SideBar2 = () => {
     if(activeLink === "Upload Files"){
       return <UploadFiles/>
     }
-    if(activeLink === "Communication"){
-      return <Communication/>
-    }
+   
 
     return (
       <div className="text-white text-xl text-center mt-10">
@@ -135,7 +132,7 @@ const SideBar2 = () => {
 
               {/* Dropdown */}
               {isHistoryOpen && (
-                <div className="ml-3 mt-2">
+                <div className="ml-3 mt-2 overflow-auto h-20 subjectsidebar">
                   {uniqueSubjects?.length > 0 ? (
                     uniqueSubjects.map((subject) => (
                       <div
@@ -144,7 +141,7 @@ const SideBar2 = () => {
                           setActiveLink("QuizCard History");
                           setActiveSubject(subject);
                         }}
-                        className={`py-1 px-3 duration-300 ${
+                        className={`py-2 mt-1 px-3 duration-300 ${
                           activeSubject === subject ? "bg-[var(--bg2)]" : ""
                         } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-[1.6vw]`}
                       >

@@ -9,21 +9,21 @@ export const QuizCardCrudContext = ({ children }) => {
   
   const [quizcards, setCards] = useState([]);
 
-  const fetchQuizCards = async () => {
-   
-    const isFetched = localStorage.getItem("quizCardsFetched");
-    try {
-      const response = await axiosinstance.get("/api/quiz/crud/quizcardfetch");
+    const fetchQuizCards = async () => {
+    
+      const isFetched = localStorage.getItem("quizCardsFetched");
+      try {
+        const response = await axiosinstance.get("/api/quiz/crud/quizcardfetch");
 
-      setCards(response.data.response);
+        setCards(response.data.response);
 
-      if (!isFetched) {
-        localStorage.setItem("quizCardsFetched", "true");
+        if (!isFetched) {
+          localStorage.setItem("quizCardsFetched", "true");
+        }
+      } catch (error) {
+        console.log("Failed to fetch quiz cards.");
       }
-    } catch (error) {
-      console.log("Failed to fetch quiz cards.");
-    }
-  };
+    };
 
 const deleteSpecificQuizCard = async (cardId) => {
   try {
@@ -98,6 +98,12 @@ const cardDelete = async (objId) => {
 
   useEffect(() => {
     fetchQuizCards();
+    const intervalId = setInterval(()=>{
+      fetchQuizCards()
+    },3000)
+
+    return ()=> clearInterval(intervalId)
+
   }, []);
 
   return (

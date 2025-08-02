@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const aicompdata = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref:"UserOne",
     require: true,
   },
   topicName: {

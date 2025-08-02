@@ -11,6 +11,9 @@ color: #fff;
 .compquiz::-webkit-scrollbar{
   display: none;
 }
+.subjectsidebar::-webkit-scrollbar{
+  display: none;
+}
 
 
 

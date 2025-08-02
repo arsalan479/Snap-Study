@@ -1,6 +1,7 @@
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
 import Bookmark from "../../Models/UserRooms/bookmark.model.js";
+import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
 
 export const bookmark = async (req, res) => {
   const userId = decodedToken(req);
@@ -113,4 +114,25 @@ return res.status(500).json({
   message: error.message,
 });  
 }
+}
+
+export const competionpost = async(req,res)=>{
+
+  const userId = decodedToken(req);
+  const {compId} = req.params
+
+  if(!userId){
+    return res.status(400).json({
+      message:"id is not found"
+    })
+  }
+
+  const response = await competiondata.find({userId,_id:compId}).populate({ path: "userId", select: "displayName email" });
+
+  
+
+  return res.status(200).json(response)
+
+
+
 }

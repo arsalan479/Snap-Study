@@ -10,6 +10,7 @@ const QuizCardsCreateGemini = () => {
   const [isSavedCard, setisSavedCard] = useState(false);
 
   useEffect(() => {
+
     const quizcardcreate = async () => {
       if (!ExtractText) return;
       setisProcessing(true);
@@ -46,9 +47,8 @@ const QuizCardsCreateGemini = () => {
       }
     };
 
-    if (ExtractText) {
       quizcardcreate();
-    }
+   
   }, [ExtractText]);
 
   return (

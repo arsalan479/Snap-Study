@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useQuizCard } from "../../Context/QuizCardCrudContext.jsx";
 import PopupSureDelete from "../../Utils/PopupSureDelete";
 import toast from "react-hot-toast";
