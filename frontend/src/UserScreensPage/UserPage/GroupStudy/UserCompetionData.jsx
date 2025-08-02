@@ -5,6 +5,7 @@ import "react-circular-progressbar/dist/styles.css";
 import toast from "react-hot-toast";
 import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
 import { Modal } from "antd";
+import { useContext } from "react";
 
 const UserCompetionData = () => {
   const [compdata, setCompData] = useState([]);
@@ -58,6 +59,17 @@ const UserCompetionData = () => {
     }
   };
 
+  const getpostdata = async (dataId) => {
+    const res = await toast.promise(
+      axiosinstance.post(`/api/room/competionpost/${dataId}`),
+      {
+        loading:"post uploading...",
+        success:"post uploaded Successfully",
+        error:"Try again later"
+      }
+    );
+  };
+
   return (
     <div className="p-4 space-y-8">
       {compdata.length === 0 ? (
@@ -91,6 +103,16 @@ const UserCompetionData = () => {
                 className="px-3 py-2 hover:bg-red-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
               >
                 <i className="ri-delete-bin-6-line"></i>
+              </button>
+
+              <button
+                onClick={() => getpostdata(item._id)}
+                className="bg-white text-black p-2 rounded-full capitalize cursor-pointer"
+              >
+                share{" "}
+                <span>
+                  <i class="ri-share-forward-line"></i>
+                </span>
               </button>
             </div>
 

@@ -2,6 +2,7 @@ import { decodedToken } from "../../Utils/decodedtoken.js";
 import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
 import Bookmark from "../../Models/UserRooms/bookmark.model.js";
 import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
+import post from "../../Models/UserRooms/compPoststore.js";
 
 export const bookmark = async (req, res) => {
   const userId = decodedToken(req);
@@ -118,21 +119,73 @@ return res.status(500).json({
 
 export const competionpost = async(req,res)=>{
 
+try {
+  
   const userId = decodedToken(req);
   const {compId} = req.params
 
-  if(!userId){
+  if(!userId || !compId){
     return res.status(400).json({
       message:"id is not found"
     })
   }
 
-  const response = await competiondata.find({userId,_id:compId}).populate({ path: "userId", select: "displayName email" });
+  const response = await competiondata.find({_id:compId});
+
+    const postdatacreate = await post.create({
+      userId,
+      compId
+    })
+
+
+
+  return res.status(200).json({find:response , create:postdatacreate})
+
+
+} catch (error) {
+  return res.status(500).json({
+    message:error.message
+  })  
+}
+
+
+}
+
+export const compdatafetch = async (req, res) => {
+  try {
+    const userId = decodedToken(req);
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const posts = await post
+      .find({})
+      .populate({ path: "userId", select: "displayName email avatar" })
+      .populate({ path: "compId", select: "topicName levels score total quizdatacards" }) 
+      .sort({ createdAt: -1 }); 
 
   
+    return res.status(200).json(posts);
 
-  return res.status(200).json(response)
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
+export const deletecompPost = async(req,res)=>{
+  try {
+    const {compcardId} = req.params
+  const userId = decodedToken(req)
 
+  const response = await post.deleteOne({userId,compId:compcardId})
 
+  return res.status(200).json({
+    message:response
+  })
+  } catch (error) {
+    return res.status(500).json({
+      message:error.message
+    })
+  }
 }

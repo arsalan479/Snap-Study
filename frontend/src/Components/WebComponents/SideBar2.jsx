@@ -9,6 +9,7 @@ import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
 import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";
 import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
+import LeaderBoard from "../../UserScreensPage/UserPage/LeaderBoard";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("Quiz Generate");
@@ -20,7 +21,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "All Users", "Competion","Communication"];
+  const navItems = ["Quiz Generate", "All Users", "Competion","LeaderBoard"];
   const libraryItems = ["Competion Data", "BookMark","Upload Files"];
 
   const renderSection = () => {
@@ -65,7 +66,9 @@ const SideBar2 = () => {
     if(activeLink === "Upload Files"){
       return <UploadFiles/>
     }
-   
+    if(activeLink === "LeaderBoard"){
+      return <LeaderBoard/>
+    }
 
     return (
       <div className="text-white text-xl text-center mt-10">

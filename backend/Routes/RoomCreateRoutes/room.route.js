@@ -2,7 +2,7 @@ import  { Router } from 'express';
 import {  acceptrequest, decline, fetchalluser, freindsearch, getnotificaion, sendrequest } from '../../Controllers/RoomCreateController/createroom.controller.js';
 import { aitopicsendtext, quizcompdatafetch, quizcompdatasave, sumbitquizdata,qicompdatadelete } from '../../Controllers/RoomCreateController/aiquizcompetion.controller.js';
 import { body } from 'express-validator';
-import { bookmark, bookmarkdelete,competionpost,fetchbookmark } from '../../Controllers/RoomCreateController/bookmark.controller.js';
+import { bookmark, bookmarkdelete,compdatafetch,competionpost,deletecompPost,fetchbookmark } from '../../Controllers/RoomCreateController/bookmark.controller.js';
 
 const route = Router();
 
@@ -45,6 +45,10 @@ route.delete('/bookmarkdelete/:bookmarkId',bookmarkdelete)
 
 route.get('/fetchbookmark',fetchbookmark)
 
-route.get('/competionpost/:compId',competionpost)
+route.post('/competionpost/:compId',competionpost);
+
+route.get('/compdatafetch',compdatafetch)
+
+route.delete('/compPostdelete/:compcardId',deletecompPost)
 
 export default route;
