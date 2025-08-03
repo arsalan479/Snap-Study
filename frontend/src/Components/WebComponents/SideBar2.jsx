@@ -12,6 +12,7 @@ import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
 import LeaderBoard from "../../UserScreensPage/UserPage/LeaderBoard";
 
 const SideBar2 = () => {
+  
   const [activeLink, setActiveLink] = useState("LeaderBoard");
   const [activeSubject, setActiveSubject] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
