@@ -4,13 +4,15 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import toast from "react-hot-toast";
 import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
-import { Modal } from "antd";
+import { Modal, Input } from "antd";
 
 const UserCompetionData = () => {
   const [compdata, setCompData] = useState([]);
-  const [modelopen, setmodelopen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [sharedPosts, setSharedPosts] = useState({});
+  const [shareMessage, setShareMessage] = useState("");
 
   useEffect(() => {
     const checkSharedPosts = async () => {
@@ -30,21 +32,30 @@ const UserCompetionData = () => {
       checkSharedPosts();
     }
 
-    const intervalId = setInterval(()=>{
-      checkSharedPosts()
-    },1000)
+    const intervalId = setInterval(() => {
+      checkSharedPosts();
+    }, 1000);
 
-    return () => clearInterval(intervalId)
-
+    return () => clearInterval(intervalId);
   }, [compdata]);
 
   const opendeletemodel = (id) => {
     setSelectedId(id);
-    setmodelopen(true);
+    setDeleteModalOpen(true);
   };
 
   const closedeletemodel = () => {
-    setmodelopen(false);
+    setDeleteModalOpen(false);
+  };
+
+  const opensharemodel = (id) => {
+    setSelectedId(id);
+    setShareMessage(""); // reset kare
+    setShareModalOpen(true);
+  };
+
+  const closesharemodel = () => {
+    setShareModalOpen(false);
   };
 
   useEffect(() => {
@@ -77,7 +88,7 @@ const UserCompetionData = () => {
         setCompData((prevData) =>
           prevData.filter((data) => data._id !== cardId)
         );
-        setmodelopen(false);
+        setDeleteModalOpen(false);
         setSelectedId(null);
       }
     } catch (err) {
@@ -85,33 +96,41 @@ const UserCompetionData = () => {
     }
   };
 
-  const getpostdata = async (dataId) => {
+  const sharePost = async () => {
+    if (!shareMessage.trim()) {
+      toast.error("Please write a message before sharing!");
+      return;
+    }
     try {
       const res = await toast.promise(
-        axiosinstance.post(`/api/room/competionpost/${dataId}`),
+        axiosinstance.post(`/api/room/competionpost/${selectedId}`, {
+          message: shareMessage,
+        }),
         {
-          loading: "post uploading...",
-          success: "post uploaded Successfully",
+          loading: "Posting...",
+          success: "Post uploaded successfully",
         }
       );
       if (res.status === 200) {
-        setSharedPosts((prev) => ({ ...prev, [dataId]: true }));
+        setSharedPosts((prev) => ({ ...prev, [selectedId]: true }));
+        setShareModalOpen(false);
+        setShareMessage("");
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.err[0].msg);
     }
   };
 
-  const compPosthide = async(compId)=>{
+  const compPosthide = async (compId) => {
     const response = await toast.promise(
       axiosinstance.delete(`/api/room/compPostdelete/${compId}`),
       {
-        loading:"post hidding",
-        success:"post hidded successfully",
-        error:"try again"
+        loading: "Hiding post...",
+        success: "Post hidden successfully",
+        error: "Try again",
       }
-    )
-  }
+    );
+  };
 
   return (
     <div className="p-4 space-y-8">
@@ -133,7 +152,6 @@ const UserCompetionData = () => {
             key={item._id}
             className="rounded-2xl bg-[#2D2D2D] p-6 space-y-4 shadow-md"
           >
-            {/* Header */}
             <div className="flex justify-between items-center">
               <h2 className="capitalize text-xl font-semibold text-white">
                 <i className="ri-message-3-line"></i> {item.topicName}{" "}
@@ -141,27 +159,34 @@ const UserCompetionData = () => {
                   <HorizontalRuleTwoToneIcon /> {item.levels} mode{" "}
                 </span>
               </h2>
-              <button
-                onClick={() => opendeletemodel(item._id)}
-                className="px-3 py-2 hover:bg-red-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
-              >
-                <i className="ri-delete-bin-6-line"></i>
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => opendeletemodel(item._id)}
+                  className="px-3 py-2 hover:bg-red-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
+                >
+                  <i className="ri-delete-bin-6-line"></i>
+                </button>
 
-              <button
-                className="px-3 py-2 hover:bg-blue-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
-              >
-                {sharedPosts[item._id] ? (
-                  <i onClick={()=>compPosthide(item._id)} className="ri-eye-line"></i> // Eye if shared
-                ) : (
-                  <i onClick={() => getpostdata(item._id)} className="ri-share-forward-line"></i> // Share if not shared
-                )}
-              </button>
+                <button className="px-3 py-2 hover:bg-white hover:text-black cursor-pointer transition-all text-white bg-[#474545] rounded-full">
+                  {sharedPosts[item._id] ? (
+                    <i
+                      title="hide a post"
+                      onClick={() => compPosthide(item._id)}
+                      className="ri-eye-off-line"
+                    ></i>
+                  ) : (
+                    <i
+                      title="shared a post"
+                      onClick={() => opensharemodel(item._id)}
+                      className="ri-share-line"
+                    ></i>
+                  )}
+                </button>
+              </div>
             </div>
 
-            {/* Main Content */}
+            {/* Quiz Data + Progress */}
             <div className="flex flex-col-reverse lg:flex-row justify-between items-center  lg:items-center">
-              {/* Scrollable Questions */}
               <div className="compquiz overflow-y-auto max-h-[400px] w-full lg:w-[65%] space-y-4 pr-2">
                 {item.quizdatacards.map((q, index) => {
                   const userWrongAnswers = item.WrongAnswer || [];
@@ -176,7 +201,6 @@ const UserCompetionData = () => {
                       <p className="font-medium text-white">
                         Q{index + 1}: {q.question}
                       </p>
-
                       <ul className="list-disc pl-5 text-white">
                         {q.options.map((opt, idx) => {
                           const isCorrect = userCorrectAnswers.includes(opt);
@@ -198,8 +222,6 @@ const UserCompetionData = () => {
                           );
                         })}
                       </ul>
-
-                      {/* Wrong answer hone par neeche correct bhi show karo */}
                       {q.options.some((opt) =>
                         userWrongAnswers.includes(opt)
                       ) && (
@@ -222,7 +244,6 @@ const UserCompetionData = () => {
                 })}
               </div>
 
-              {/* Progress */}
               <div className="w-40 flex-shrink-0">
                 <CircularProgressbar
                   value={(item.score / item.total) * 100}
@@ -237,26 +258,15 @@ const UserCompetionData = () => {
                   <i className="ri-trophy-line"></i> Your Score :
                   {Math.round((item.score / item.total) * 100)}%
                 </h1>
-                <div className="flex justify-center mt-1">
-                  <p className="text-sm font-semibold text-yellow-400 text-center">
-                    {(() => {
-                      const percentage = (item.score / item.total) * 100;
-
-                      if (percentage >= 90) return "🌟 Outstanding!";
-                      if (percentage >= 80) return "🎯 Excellent!";
-                      if (percentage >= 60) return "👍 Good Job!";
-                      if (percentage >= 40) return "📝 Keep Practicing!";
-                      return "🚧 Needs Improvement";
-                    })()}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
         ))
       )}
+
+      {/* Delete Modal */}
       <Modal
-        open={modelopen}
+        open={deleteModalOpen}
         onCancel={closedeletemodel}
         footer={null}
         closable={false}
@@ -265,10 +275,8 @@ const UserCompetionData = () => {
       >
         <div className="text-white">
           <h1 className="text-[19px] tracking-tight">
-            <span>
-              <i className="ri-error-warning-line text-yellow-300"></i>
-            </span>{" "}
-            Remove Card Permission
+            <i className="ri-error-warning-line text-yellow-300"></i> Remove
+            Card Permission
           </h1>
           <p className="text-gray-300 mt-2 tracking-tight text-[15px]">
             Are you sure you want to delete your progress card? This action
@@ -277,7 +285,7 @@ const UserCompetionData = () => {
           <div className="flex justify-end gap-2 mt-4">
             <button
               onClick={closedeletemodel}
-              className="bg-[#4b4b4b] text-white  px-10 py-2 rounded-full cursor-pointer"
+              className="bg-[#4b4b4b] text-white px-10 py-2 rounded-full cursor-pointer"
             >
               Cancel
             </button>
@@ -286,6 +294,47 @@ const UserCompetionData = () => {
               className="bg-white text-black px-10 py-2 rounded-full cursor-pointer"
             >
               Ok
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Share Modal */}
+      <Modal
+        open={shareModalOpen}
+        onCancel={closesharemodel}
+        footer={null}
+        closable={false}
+        className="p-0 custom-modal-style"
+        centered
+      >
+        <div className="text-white">
+          <h1 className="text-[19px] tracking-tight">
+            <i className="ri-share-line text-blue-500"></i> Share Competation
+            Card
+          </h1>
+          <p className="text-gray-300 mt-2 mb-2 capitalize tracking-tight text-[15px]">
+            Write a caption for your shared competation card
+          </p>
+          <Input.TextArea
+            rows={4}
+            value={shareMessage}
+            onChange={(e) => setShareMessage(e.target.value)}
+            placeholder="Write your message..."
+            className="text-start mt-3 message"
+          />
+          <div className="flex justify-end gap-2 mt-4">
+            <button
+              onClick={closesharemodel}
+              className="bg-[#4b4b4b] text-white px-10 py-2 rounded-full cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={sharePost}
+              className="bg-white text-black px-10 py-2 rounded-full cursor-pointer"
+            >
+              Share
             </button>
           </div>
         </div>

@@ -1,37 +1,34 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import Modalrapper from "../../Components/WebComponents/Modalrapper";
-import Settings from "../../Components/WebComponents/Setting";
-import { AppContext } from "../../Context/QuizCardsContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LeaderBoard = () => {
   const [postdata, setpostdata] = useState([]);
   const [showpopup, setshowpopup] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
-const {setleaderboardata} = useContext(AppContext)
+  const [arrowPost, setArrowPost] = useState(null);
 
   useEffect(() => {
     const fetchpostcomp = async () => {
       try {
         const res = await axiosinstance.get("/api/room/compdatafetch");
         setpostdata(res.data);
-
-        //forcontext
-        setleaderboardata(res.data)
-
       } catch (err) {
         console.log(err);
       }
     };
     fetchpostcomp();
-    // const intervalId = setInterval(() => {
-    //   fetchpostcomp();
-    // }, 3000);
-    // return () => clearInterval(intervalId);
+
+    const intervalId = setInterval(() => {
+      fetchpostcomp();
+    }, 2000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   function handleclick(post) {
-    setSelectedPost(post)
+    setSelectedPost(post);
     setshowpopup(true);
   }
 
@@ -45,14 +42,12 @@ const {setleaderboardata} = useContext(AppContext)
           >
             {/* User Info */}
             <div className="flex items-center gap-4 mb-4 relative">
-              {/* Avatar */}
               <img
                 src={item.userId?.avatar || "https://via.placeholder.com/50"}
                 alt="avatar"
                 className="w-12 h-12 rounded-full border-2 border-gray-600 object-cover"
               />
 
-              {/* User Info */}
               <div>
                 <h2 className="text-white font-semibold text-lg flex items-center gap-2">
                   <i className="ri-user-3-line text-blue-400"></i>
@@ -93,22 +88,48 @@ const {setleaderboardata} = useContext(AppContext)
             </div>
 
             {/* Footer */}
-            <div className="flex justify-between items-center text-gray-400 text-sm">
-              <span className="flex items-center gap-1">
+            <div className="flex flex-col items-center text-gray-400  text-md">
+              <span className="flex items-center gap-1 mb-4">
                 <i className="ri-time-line"></i>
                 {new Date(item.createdAt).toLocaleString()}
               </span>
-              <div className="flex gap-4">
-                <button className="flex items-center gap-1 hover:text-blue-400 transition">
-                  <i className="ri-share-forward-line"></i> Share
-                </button>
-                <button className="flex items-center gap-1 hover:text-red-400 transition">
-                  <i className="ri-heart-line"></i> Like
-                </button>
-                <button className="flex items-center gap-1 hover:text-green-400 transition">
-                  <i className="ri-chat-3-line"></i> Comment
-                </button>
-              </div>
+
+              {/* Arrow Icon */}
+              <button
+                onClick={() =>
+                  setArrowPost((prev) =>
+                    prev && prev._id === item._id ? null : item
+                  )
+                }
+                className="flex items-center justify-center w-10 h-10 bg-[#2D2D2D] rounded-full hover:bg-white hover:text-black duration-300  transition"
+              >
+                <i
+                  className={`cursor-pointer ri-arrow-down-s-line text-xl ${
+                    arrowPost && arrowPost._id === item._id ? "rotate-180" : ""
+                  } transition-transform`}
+                ></i>
+              </button>
+
+              {/* Message Box with Animation */}
+              <AnimatePresence>
+                {arrowPost && arrowPost._id === item._id && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-3 text-[16px] leading-8 text-white px-4 py-2 text-start"
+                  >
+                    <h1 className="text-2xl mb-3">
+                      <span>
+                        <i className="text-[20px] text-blue-500 ri-chat-1-line"></i>
+                      </span>{" "}
+                      Caption
+                    </h1>
+                    {item.message || "No message available"}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         ))
@@ -116,60 +137,55 @@ const {setleaderboardata} = useContext(AppContext)
         <p className="text-center text-gray-400">No posts found 🚀</p>
       )}
 
- {showpopup && selectedPost && (
-  <Modalrapper isOpen={showpopup} onClose={() => setshowpopup(false)}>
-    <div className="scrollbarpost bg-[#1F1F1F] p-6 rounded-xl overflow-auto text-white h-170 w-170 space-y-3">
-      {selectedPost.compId.quizdatacards.map((item, index) => (
-        <div key={index} className="p-4  rounded-lg ">
-          
-          {/* Question */}
-          <h1 className="text-white font-semibold text-lg mb-4">
-            {index + 1}. {item.question}
-          </h1>
+      {/* Popup Modal */}
+      {showpopup && selectedPost && (
+        <Modalrapper isOpen={showpopup} onClose={() => setshowpopup(false)}>
+          <div className="scrollbarpost bg-[#1F1F1F] p-6 rounded-xl overflow-auto text-white h-170 w-170 space-y-3">
+            {selectedPost.compId.quizdatacards.map((item, index) => (
+              <div key={index} className="p-4 rounded-lg">
+                {/* Question */}
+                <h1 className="text-white font-semibold text-lg mb-4">
+                  {index + 1}. {item.question}
+                </h1>
 
-          {/* Options */}
-          <div className="space-y-2">
-            {item.options.map((option, idx) => {
-              const isCorrect = selectedPost.compId.correctedAnswer.includes(option);
-              const isWrong = selectedPost.compId.WrongAnswer.includes(option);
-              const isRealAnswer = option === item.answer; // real correct answer from quiz
+                {/* Options */}
+                <div className="space-y-2">
+                  {item.options.map((option, idx) => {
+                    const isCorrect =
+                      selectedPost.compId.correctedAnswer.includes(option);
+                    const isWrong =
+                      selectedPost.compId.WrongAnswer.includes(option);
+                    const isRealAnswer = option === item.answer;
 
-              return (
-                <div
-                  key={idx}
-                  className={`flex items-center justify-between p-3 rounded-lg transition-all duration-300 
-                    ${
-                      isCorrect || isRealAnswer
-                        ? "bg-green-700"
-                        : ""
-                    }
-                    ${isWrong ? "bg-red-700" : ""}
-                    ${
-                      !isCorrect && !isWrong && !isRealAnswer
-                        ? "bg-[#2D2D2D] "
-                        : ""
-                    }
-                  `}
-                >
-                  <p className="text-white font-medium">{option}</p>
-                  
-                  {/* Icon logic */}
-                  {isCorrect || isRealAnswer ? (
-                    <i className="ri-check-line text-white text-xl"></i>
-                  ) : null}
-                  {isWrong && <i className="ri-close-line text-white text-xl"></i>}
+                    return (
+                      <div
+                        key={idx}
+                        className={`flex items-center justify-between p-3 rounded-lg transition-all duration-300 
+                          ${isCorrect || isRealAnswer ? "bg-green-700" : ""}
+                          ${isWrong ? "bg-red-700" : ""}
+                          ${
+                            !isCorrect && !isWrong && !isRealAnswer
+                              ? "bg-[#2D2D2D]"
+                              : ""
+                          }
+                        `}
+                      >
+                        <p className="text-white font-medium">{option}</p>
+                        {isCorrect || isRealAnswer ? (
+                          <i className="ri-check-line text-white text-xl"></i>
+                        ) : null}
+                        {isWrong && (
+                          <i className="ri-close-line text-white text-xl"></i>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-        </div>
-      ))}
-    </div>
-  </Modalrapper>
-)}
-
-
-
+        </Modalrapper>
+      )}
     </div>
   );
 };

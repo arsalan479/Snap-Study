@@ -9,6 +9,10 @@ const postdata = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "usercompetiondata",
   },
+  message:{
+    type:String,
+    require:true
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

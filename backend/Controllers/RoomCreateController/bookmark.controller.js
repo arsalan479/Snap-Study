@@ -3,6 +3,7 @@ import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
 import Bookmark from "../../Models/UserRooms/bookmark.model.js";
 import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
 import post from "../../Models/UserRooms/compPoststore.js";
+import { validationResult } from "express-validator";
 
 export const bookmark = async (req, res) => {
   const userId = decodedToken(req);
@@ -118,8 +119,18 @@ export const competionpost = async (req, res) => {
   try {
     const userId = decodedToken(req);
     const { compId } = req.params;
+    const {message} = req.body
 
-    if (!userId || !compId) {
+    const error = validationResult(req)
+    
+    if(!error.isEmpty()){
+      return res.status(400).json({
+        message:"validation error",
+        err:error.array()
+      })
+    }
+
+    if (!userId || !compId || !message) {
       return res.status(400).json({
         message: "id is not found",
       });
@@ -147,6 +158,7 @@ export const competionpost = async (req, res) => {
     const postdatacreate = await post.create({
       userId,
       compId,
+      message
     });
 
     return res.status(200).json({ find: response, create: postdatacreate });
@@ -221,3 +233,4 @@ export const userpost = async(req,res)=>{
  }
 
 }
+
