@@ -197,3 +197,27 @@ export const deletecompPost = async (req, res) => {
     });
   }
 };
+
+export const userpost = async(req,res)=>{
+
+ try {
+   const userId = decodedToken(req)
+  const {compId} = req.params
+
+  if(!userId || !compId){
+    return res.status(400).json({
+      message:"id's is missing"
+    })
+  }
+
+  const response = await post.find({userId,compId})
+
+  return res.status(200).json(response)
+
+ } catch (error) {
+  return res.status(500).json({
+    message:error.message
+  })  
+ }
+
+}

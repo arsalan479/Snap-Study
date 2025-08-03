@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import Modalrapper from "../../Components/WebComponents/Modalrapper";
 import Settings from "../../Components/WebComponents/Setting";
+import { AppContext } from "../../Context/QuizCardsContext";
 
 const LeaderBoard = () => {
   const [postdata, setpostdata] = useState([]);
   const [showpopup, setshowpopup] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
-
+const {setleaderboardata} = useContext(AppContext)
 
   useEffect(() => {
     const fetchpostcomp = async () => {
       try {
         const res = await axiosinstance.get("/api/room/compdatafetch");
-        console.log(res.data);
         setpostdata(res.data);
+
+        //forcontext
+        setleaderboardata(res.data)
+
       } catch (err) {
         console.log(err);
       }

@@ -21,7 +21,7 @@ const QuizCardsContext = ({children}) => {
     setSaveQuizCard,
     isProcessing,
     setisProcessing,
-   
+    
   }}
   >
 
