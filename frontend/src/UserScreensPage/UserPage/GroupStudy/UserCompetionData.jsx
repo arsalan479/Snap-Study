@@ -11,6 +11,8 @@ const UserCompetionData = () => {
   const [compdata, setCompData] = useState([]);
   const [modelopen, setmodelopen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [isShared, setIsShared] = useState(false); 
+
 
   const opendeletemodel = (id) => {
     setSelectedId(id);
@@ -67,7 +69,10 @@ const UserCompetionData = () => {
         loading:"post uploading...",
         success:"post uploaded Successfully",
       }
-    );
+    )
+    if(res.status === 200){
+      setIsShared(true)
+    }
   } catch (error) {
   toast.error(error.response.data.message)
   }
@@ -108,98 +113,110 @@ const UserCompetionData = () => {
                 <i className="ri-delete-bin-6-line"></i>
               </button>
 
-              <button
-                onClick={() => getpostdata(item._id)}
-                className="bg-white text-black p-2 rounded-full capitalize cursor-pointer"
-              >
-                share{" "}
-                <span>
-                  <i class="ri-share-forward-line"></i>
-                </span>
-              </button>
+               <button
+      onClick={() => getpostdata(item._id)}
+      className="px-3 py-2 hover:bg-blue-500 cursor-pointer transition-all text-white bg-[#474545] rounded-full"
+    >
+      {isShared ? (
+        <i className="ri-eye-line"></i> // Eye icon if shared
+      ) : (
+        <i class="ri-share-forward-line"></i> // Delete icon if not shared
+      )}
+    </button>
             </div>
 
             {/* Main Content */}
             <div className="flex flex-col-reverse lg:flex-row justify-between items-center  lg:items-center">
-              {/* Scrollable Questions */}
-              <div className="compquiz overflow-y-auto max-h-[400px] w-full lg:w-[65%] space-y-4 pr-2">
-                {item.quizdatacards.map((q, index) => {
-                  const userAnswer = item.WrongAnswer?.[index];
-                  const correctAnswer = q.answer;
-                  const wasWrong =
-                    userAnswer !== undefined && userAnswer !== correctAnswer;
+  {/* Scrollable Questions */}
+  <div className="compquiz overflow-y-auto max-h-[400px] w-full lg:w-[65%] space-y-4 pr-2">
+    {item.quizdatacards.map((q, index) => {
+      const userWrongAnswers = item.WrongAnswer || [];
+      const userCorrectAnswers = item.correctedAnswer || [];
+      const correctAnswer = q.answer;
 
-                  return (
-                    <div
-                      key={q._id}
-                      className="bg-[#3b3b3b] p-4 rounded-2xl shadow space-y-2"
-                    >
-                      <p className="font-medium text-white">
-                        Q{index + 1}: {q.question}
-                      </p>
+      return (
+        <div
+          key={q._id}
+          className="bg-[#3b3b3b] p-4 rounded-2xl shadow space-y-2"
+        >
+          <p className="font-medium text-white">
+            Q{index + 1}: {q.question}
+          </p>
 
-                      <ul className="list-disc pl-5 text-white">
-                        {q.options.map((opt, idx) => (
-                          <li
-                            key={idx}
-                            className={`${
-                              opt === correctAnswer
-                                ? "text-green-500 font-semibold"
-                                : wasWrong && opt === userAnswer
-                                  ? "text-red-500"
-                                  : ""
-                            }`}
-                          >
-                            {opt}
-                          </li>
-                        ))}
-                      </ul>
+          <ul className="list-disc pl-5 text-white">
+            {q.options.map((opt, idx) => {
+              const isCorrect = userCorrectAnswers.includes(opt);
+              const isWrong = userWrongAnswers.includes(opt);
 
-                      {wasWrong && (
-                        <div className="text-sm">
-                          <p className="text-red-400">
-                            Your Answer: <strong>{userAnswer}</strong>
-                          </p>
-                          <p className="text-green-400">
-                            Correct Answer: <strong>{correctAnswer}</strong>
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+              return (
+                <li
+                  key={idx}
+                  className={`${
+                    isCorrect
+                      ? "text-green-500 font-semibold"
+                      : isWrong
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                >
+                  {opt}
+                </li>
+              );
+            })}
+          </ul>
 
-              {/* Progress */}
-              <div className="w-40 flex-shrink-0">
-                <CircularProgressbar
-                  value={(item.score / item.total) * 100}
-                  text={`${item.score}/${item.total}`}
-                  styles={buildStyles({
-                    textColor: "#fff",
-                    pathColor: "#5227FF",
-                    trailColor: "#e0e0e0",
-                  })}
-                />
-                <h1 className="text-center text-white mt-2 text-md font-medium">
-                  <i className="ri-trophy-line"></i> Your Score :
-                  {Math.round((item.score / item.total) * 100)}%
-                </h1>
-                <div className="flex justify-center mt-1">
-                  <p className="text-sm font-semibold text-yellow-400 text-center">
-                    {(() => {
-                      const percentage = (item.score / item.total) * 100;
-
-                      if (percentage >= 90) return "🌟 Outstanding!";
-                      if (percentage >= 80) return "🎯 Excellent!";
-                      if (percentage >= 60) return "👍 Good Job!";
-                      if (percentage >= 40) return "📝 Keep Practicing!";
-                      return "🚧 Needs Improvement";
-                    })()}
-                  </p>
-                </div>
-              </div>
+          {/* Wrong answer hone par neeche correct bhi show karo */}
+          {q.options.some((opt) => userWrongAnswers.includes(opt)) && (
+            <div className="text-sm">
+              <p className="text-red-400">
+                Your Answer:{" "}
+                <strong>
+                  {userWrongAnswers.find((ans) => q.options.includes(ans))}
+                </strong>
+              </p>
+              <p className="text-green-400">
+                Correct Answer: <strong>{correctAnswer}</strong>
+              </p>
             </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+
+  {/* Progress */}
+  <div className="w-40 flex-shrink-0">
+    <CircularProgressbar
+      value={(item.score / item.total) * 100}
+      text={`${item.score}/${item.total}`}
+      styles={buildStyles({
+        textColor: "#fff",
+        pathColor: "#5227FF",
+        trailColor: "#e0e0e0",
+      })}
+    />
+    <h1 className="text-center text-white mt-2 text-md font-medium">
+      <i className="ri-trophy-line"></i> Your Score :
+      {Math.round((item.score / item.total) * 100)}%
+    </h1>
+    <div className="flex justify-center mt-1">
+      <p className="text-sm font-semibold text-yellow-400 text-center">
+        {(() => {
+          const percentage = (item.score / item.total) * 100;
+
+          if (percentage >= 90) return "🌟 Outstanding!";
+          if (percentage >= 80) return "🎯 Excellent!";
+          if (percentage >= 60) return "👍 Good Job!";
+          if (percentage >= 40) return "📝 Keep Practicing!";
+          return "🚧 Needs Improvement";
+        })()}
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
           </div>
         ))
       )}
