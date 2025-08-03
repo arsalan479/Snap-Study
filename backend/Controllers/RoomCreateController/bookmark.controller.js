@@ -18,7 +18,7 @@ export const bookmark = async (req, res) => {
     const result = await quizcardmodel.findOne(
       {
         UserLoginId: userId,
-        "Cards._id": cardId
+        "Cards._id": cardId,
       },
       {
         "Cards.$": 1,
@@ -42,7 +42,7 @@ export const bookmark = async (req, res) => {
       });
     }
 
-    const card = result.Cards[0];           
+    const card = result.Cards[0];
 
     const createBookmark = await Bookmark.create({
       userId,
@@ -53,7 +53,6 @@ export const bookmark = async (req, res) => {
       message: "Card bookmarked successfully",
       data: createBookmark,
     });
-
   } catch (error) {
     return res.status(500).json({
       message: `Something went wrong: ${error.message}`,
@@ -62,7 +61,6 @@ export const bookmark = async (req, res) => {
 };
 
 export const bookmarkdelete = async (req, res) => {
-  
   const userId = decodedToken(req);
   const { bookmarkId } = req.params;
   try {
@@ -89,8 +87,7 @@ export const bookmarkdelete = async (req, res) => {
 };
 
 export const fetchbookmark = async (req, res) => {
-
-    const userId = decodedToken(req);
+  const userId = decodedToken(req);
 
   if (!userId) {
     return res.status(400).json({
@@ -111,45 +108,54 @@ export const fetchbookmark = async (req, res) => {
       data: response,
     });
   } catch (error) {
-return res.status(500).json({
-  message: error.message,
-});  
-}
-}
-
-export const competionpost = async(req,res)=>{
-
-try {
-  
-  const userId = decodedToken(req);
-  const {compId} = req.params
-
-  if(!userId || !compId){
-    return res.status(400).json({
-      message:"id is not found"
-    })
+    return res.status(500).json({
+      message: error.message,
+    });
   }
+};
 
-  const response = await competiondata.find({_id:compId});
+export const competionpost = async (req, res) => {
+  try {
+    const userId = decodedToken(req);
+    const { compId } = req.params;
+
+    if (!userId || !compId) {
+      return res.status(400).json({
+        message: "id is not found",
+      });
+    }
+
+    const existingpost = await post.findOne({ userId, compId });
+
+    if (existingpost) {
+      return res.status(409).json({
+        success: false,
+        message: "You have already shared this post!",
+      });
+    }
+
+    const response = await competiondata.find({ _id: compId });
+
+    if (!response) {
+      return res.status(404).json({
+        success: false,
+        message: "Competition not found",
+      });
+    }
+
 
     const postdatacreate = await post.create({
       userId,
-      compId
-    })
+      compId,
+    });
 
-
-
-  return res.status(200).json({find:response , create:postdatacreate})
-
-
-} catch (error) {
-  return res.status(500).json({
-    message:error.message
-  })  
-}
-
-
-}
+    return res.status(200).json({ find: response, create: postdatacreate });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 export const compdatafetch = async (req, res) => {
   try {
@@ -162,30 +168,32 @@ export const compdatafetch = async (req, res) => {
     const posts = await post
       .find({})
       .populate({ path: "userId", select: "displayName email avatar" })
-      .populate({ path: "compId", select: "topicName levels score total quizdatacards" }) 
-      .sort({ createdAt: -1 }); 
+      .populate({
+        path: "compId",
+        select:
+          "topicName levels score total quizdatacards correctedAnswer WrongAnswer",
+      })
+      .sort({ createdAt: -1 });
 
-  
     return res.status(200).json(posts);
-
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-export const deletecompPost = async(req,res)=>{
+export const deletecompPost = async (req, res) => {
   try {
-    const {compcardId} = req.params
-  const userId = decodedToken(req)
+    const { compcardId } = req.params;
+    const userId = decodedToken(req);
 
-  const response = await post.deleteOne({userId,compId:compcardId})
+    const response = await post.deleteOne({ userId, compId: compcardId });
 
-  return res.status(200).json({
-    message:response
-  })
+    return res.status(200).json({
+      message: response,
+    });
   } catch (error) {
     return res.status(500).json({
-      message:error.message
-    })
+      message: error.message,
+    });
   }
-}
+};

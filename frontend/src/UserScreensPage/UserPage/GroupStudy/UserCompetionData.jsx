@@ -60,14 +60,17 @@ const UserCompetionData = () => {
   };
 
   const getpostdata = async (dataId) => {
-    const res = await toast.promise(
+  try {
+      const res = await toast.promise(
       axiosinstance.post(`/api/room/competionpost/${dataId}`),
       {
         loading:"post uploading...",
         success:"post uploaded Successfully",
-        error:"Try again later"
       }
     );
+  } catch (error) {
+  toast.error(error.response.data.message)
+  }
   };
 
   return (

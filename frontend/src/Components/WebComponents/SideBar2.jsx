@@ -12,7 +12,7 @@ import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
 import LeaderBoard from "../../UserScreensPage/UserPage/LeaderBoard";
 
 const SideBar2 = () => {
-  const [activeLink, setActiveLink] = useState("Quiz Generate");
+  const [activeLink, setActiveLink] = useState("LeaderBoard");
   const [activeSubject, setActiveSubject] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [quizGenerateSubject, setQuizGenerateSubject] = useState(null);
@@ -21,7 +21,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["Quiz Generate", "All Users", "Competion","LeaderBoard"];
+  const navItems = ["LeaderBoard","Quiz Generate", "All Users", "Competion"];
   const libraryItems = ["Competion Data", "BookMark","Upload Files"];
 
   const renderSection = () => {

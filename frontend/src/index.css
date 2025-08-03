@@ -14,7 +14,9 @@ color: #fff;
 .subjectsidebar::-webkit-scrollbar{
   display: none;
 }
-
+.scrollbarpost::-webkit-scrollbar{
+  display: none;
+}
 
 
 :root {
