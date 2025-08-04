@@ -14,6 +14,8 @@ import UserRoute from "./Routes/UserRoute";
 import { Toaster } from "react-hot-toast";
 import "remixicon/fonts/remixicon.css";
 import AdminRoute from "./Routes/AdminRoute";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function App() {

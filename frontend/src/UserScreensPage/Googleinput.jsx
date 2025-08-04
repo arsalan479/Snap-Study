@@ -16,7 +16,7 @@ const Googleinput = () => {
   const [password, setpassword] = useState("");
   const [comparepassword, setcomparepassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
-  const [validationerrors, setvalidationerrors] = useState([]);
+
   // const recaptchaRef = useRef(null);
 
   const toogleyepassword = () => {
@@ -50,12 +50,14 @@ const Googleinput = () => {
           email,
           displayName,
           password,
+          confirmPassword:comparepassword
         }),
         {
           loading: "Register User...",
           success: "User Register Successfully!",
         }
       );
+
 
       const data = registrationRes.data;
 
@@ -67,6 +69,7 @@ const Googleinput = () => {
 
       // recaptchaRef.current.reset(); // Optional: Reset reCAPTCHA after success
     } catch (err) {
+      console.log(err)
       const errors = err.response?.data?.errors;
       const message = err.response?.data?.message;
 
@@ -167,8 +170,8 @@ const Googleinput = () => {
             <input
               type={eyepassword ? "text" : "password"}
               name="password"
-              value={password}
-              onChange={(e) => setpassword(e.target.value)}
+              value={comparepassword}
+              onChange={(e) => setcomparepassword(e.target.value)}
               required
               className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
               placeholder="********"

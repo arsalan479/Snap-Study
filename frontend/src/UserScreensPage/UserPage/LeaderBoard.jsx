@@ -122,7 +122,7 @@ const LeaderBoard = () => {
                   >
                     <h1 className="text-2xl mb-3">
                       <span>
-                        <i className="text-[20px] text-blue-500 ri-chat-1-line"></i>
+                        <i className="text-[20px] text-[#3468f5] ri-chat-1-line"></i>
                       </span>{" "}
                       Caption
                     </h1>

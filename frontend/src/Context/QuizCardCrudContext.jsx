@@ -25,6 +25,17 @@ export const QuizCardCrudContext = ({ children }) => {
       }
     };
 
+  useEffect(() => {
+    fetchQuizCards();
+    const intervalId = setInterval(()=>{
+      fetchQuizCards()
+    },3000)
+
+    return ()=> clearInterval(intervalId)
+
+  }, []);
+
+    
 const deleteSpecificQuizCard = async (cardId) => {
   try {
     const response = await toast.promise(
@@ -96,16 +107,7 @@ const cardDelete = async (objId) => {
   }
 };
 
-  useEffect(() => {
-    fetchQuizCards();
-    const intervalId = setInterval(()=>{
-      fetchQuizCards()
-    },3000)
-
-    return ()=> clearInterval(intervalId)
-
-  }, []);
-
+ 
   return (
     <QuizCardContext.Provider
       value={{

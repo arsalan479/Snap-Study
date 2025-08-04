@@ -108,8 +108,8 @@ const Navbar = ({ isSidebarOpen }) => {
 {user && user.credits !== undefined && (
   <>
     <div>
-      <div className="mr-3 cursor-pointer py-3 rounded-2xl ">
-        <h1><span><i className="ri-coin-fill"></i></span> {user.credits} </h1>
+      <div className="mr-3 cursor-pointer px-3 py-2 rounded-2xl bg-[#2D2D2D]">
+        <h1><span><i className="text-[#3468f5] fa-solid fa-coins"></i></span> {user.credits} </h1>
       </div>
     </div>
 

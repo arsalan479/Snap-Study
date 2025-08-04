@@ -14,8 +14,8 @@ import { setonline } from "../../Utils/setonline.js";
 
 export const googleregisterinput = async (req, res) => {
   try {
-    const { email, displayName, password } = req.body;
-    const result = await googleinputuser({ email, displayName, password });
+    const { email, displayName, password, confirmPassword } = req.body;
+    const result = await googleinputuser({ email, displayName, password,confirmPassword });
     return res.status(200).json({
       result,
       message: result.message,
@@ -37,7 +37,7 @@ export const googleregisterinput = async (req, res) => {
       });
     }
     return res.status(500).json({
-      message: "Internal server error",
+      message: error.message,
       success: false,
     });
   }

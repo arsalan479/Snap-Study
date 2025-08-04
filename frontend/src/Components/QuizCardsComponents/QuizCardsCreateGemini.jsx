@@ -12,6 +12,7 @@ const QuizCardsCreateGemini = () => {
   useEffect(() => {
 
     const quizcardcreate = async () => {
+      
       if (!ExtractText) return;
       setisProcessing(true);
 

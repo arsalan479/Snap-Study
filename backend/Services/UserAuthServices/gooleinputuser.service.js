@@ -6,7 +6,7 @@ import { getEmailAvatar } from "../../Utils/randomlyavatar.js";
 
 export const googleinputuser = async (userData) => {
   try {
-    const { email, displayName, password } = userData;
+    const { email, displayName, password, confirmPassword } = userData;
 
     if (!email) {
       throw new Error("Email is required");
@@ -22,7 +22,13 @@ export const googleinputuser = async (userData) => {
     ).toString();
     const genereatedIdcrypto = crypto.randomUUID().toString();
 
+    
+    if(password !== confirmPassword){
+      throw new Error("password and confirmPassword is not match")
+    }
+
     const passwordhash = await hashedpassword(password);
+
     const avatar = getEmailAvatar(email);
     const newUser = new UserOne({
       email,
