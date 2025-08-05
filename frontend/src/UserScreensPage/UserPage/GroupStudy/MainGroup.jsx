@@ -193,133 +193,133 @@ const MainGroup = () => {
           <button
             disabled={isSubmitting}
             onClick={submitquizdata}
-            className={`px-8 py-3 rounded-2xl transition-colors
+            className={`px-5 py-3 rounded-2xl transition-colors
     ${
       isSubmitting
-        ? "bg-gray-400 text-white cursor-not-allowed"
-        : "bg-red-400  cursor-pointer text-white"
+        ? "bg-gray-500 text-white cursor-not-allowed"
+        : "bg-white  cursor-pointer text-black"
     }
   `}
           >
-            {isSubmitting ? "Already Submitted" : "Submit Quiz"}
+            {isSubmitting ? (<>Already Submitted <span><i className="text-lg ri-checkbox-circle-line"></i></span> </>) : (<>Submit Quiz <span><i className="text-lg ri-send-plane-line"></i></span> </>)}
           </button>
 
-          <button
+       <button
             disabled={datasavebtn}
             onClick={quizcompdatasave}
-            className={`${datasavebtn ? "bg-gray-800 cursor-not-allowed text-white" : "bg-red-500 cursor-pointer text-white"} py-3 rounded-2xl cursor-pointer`}
+            className={`${datasavebtn ? "bg-gray-500 cursor-not-allowed text-white" : "bg-[#fff] cursor-pointer text-black"} px-5 ml-5 py-3 rounded-2xl cursor-pointer mb-5 mt-6`}
           >
-            {datasavebtn ? "Already submitting" : "sumbit data"}
+            {datasavebtn ? (<span className="cursor-not-allowed">Already Save Competion Data <i className="ml-1 ri-checkbox-circle-line"></i></span>) : (<>Save Competion Data <span><i className="ml-1 ri-save-line"></i></span></>)}
           </button>
         </div>
       )}
 
-       <div className=" p-6 rounded-2xl">
-
-
-  {scoreData && (
-    <>
-      {/* 📊 Progress Bar on Top */}
-      <div className="flex flex-col items-center justify-center mb-8">
-        <div className="w-40 h-40">
-          <CircularProgressbar
-            value={(scoreData.score / scoreData.total) * 100}
-            text={`${scoreData.score}/${scoreData.total}`}
-            styles={buildStyles({
-              textColor: "#fff",
-              pathColor: "#5227FF",
-              trailColor: "#e0e0e0",
-            })}
-          />
-        </div>
-         <h1 className="text-center text-white mt-2 text-md font-medium">
-                  <i className="ri-trophy-line"></i> Your Score :
-                  {Math.round((scoreData.score / scoreData.total) * 100)}%
-                </h1>
-        <p className="text-center text-white font-semibold mt-4">
-          {(() => {
-            const percentage = (scoreData.score / scoreData.total) * 100;
-            if (percentage >= 90) return "🌟 Outstanding!";
-            if (percentage >= 80) return "🎯 Excellent!";
-            if (percentage >= 60) return "👍 Good Job!";
-            if (percentage >= 40) return "📝 Keep Practicing!";
-            return "🚧 Needs Improvement";
-          })()}
-        </p>
-      </div>
-
-      {/* 🟫 Main Brown Section with Two Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px] overflow-hidden">
-        
-        {/* ❌ Incorrect Answers */}
-        <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
-          <h2 className="text-center text-red-300 font-semibold text-lg mb-4">
-            ❌ Incorrect Answers
-          </h2>
-          {scoreData.result.filter((item) => !item.isCorrect).length === 0 ? (
-            <p className="text-center text-gray-300">All answers correct ✅</p>
-          ) : (
-            <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
-              {scoreData.result
-                .filter((item) => !item.isCorrect)
-                .map((item, idx) => (
-                  <div
-                    key={idx}
-                    className=" p-3 rounded-md text-white"
-                  >
-                    <p className="font-medium mb-1">Q{idx + 1} {item.question}</p>
-                    <p>
-                      Your Answer:{" "}
-                      <span className="text-red-400 ">
-                        {item.selectedAnswer || "No Answer"}
-                      </span>
-                    </p>
-                    <p  >
-                      Correct Answer:{" "}
-                      <span className="text-green-400 ">
-                        {item.correctAnswer}
-                      </span>
-                    </p>
-                  </div>
-                ))}
+      <div className=" p-6 rounded-2xl">
+        {scoreData && (
+          <>
+            {/* 📊 Progress Bar on Top */}
+            <div className="flex flex-col items-center justify-center mb-8">
+              <div className="w-40 h-40">
+                <CircularProgressbar
+                  value={(scoreData.score / scoreData.total) * 100}
+                  text={`${scoreData.score}/${scoreData.total}`}
+                  styles={buildStyles({
+                    textColor: "#fff",
+                    pathColor: "#3468f5",
+                    trailColor: "#e0e0e0",
+                  })}
+                />
+              </div>
+              <h1 className="text-center text-white mt-2 text-md font-medium">
+                <i className="ri-trophy-line"></i> Your Score :
+                {Math.round((scoreData.score / scoreData.total) * 100)}%
+              </h1>
+              <p className="text-center text-white font-semibold mt-4">
+                {(() => {
+                  const percentage = (scoreData.score / scoreData.total) * 100;
+                  if (percentage >= 90) return "🌟 Outstanding!";
+                  if (percentage >= 80) return "🎯 Excellent!";
+                  if (percentage >= 60) return "👍 Good Job!";
+                  if (percentage >= 40) return "📝 Keep Practicing!";
+                  return "🚧 Needs Improvement";
+                })()}
+              </p>
             </div>
-          )}
-        </div>
 
-        {/* ✅ Correct Answers */}
-        <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
-          <h2 className="text-center text-green-400 font-semibold text-lg mb-4">
-            ✅ Correct Answers
-          </h2>
-          {scoreData.result.filter((item) => item.isCorrect).length === 0 ? (
-            <p className="text-center text-gray-300">No correct answers</p>
-          ) : (
-            <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
-              {scoreData.result
-                .filter((item) => item.isCorrect)
-                .map((item, idx) => (
-                  <div
-                    key={idx}
-                    className=" p-3 rounded-md   text-white"
-                  >
-                    <p className="font-medium mb-1">Q{idx + 1} {item.question}</p>
-                    <p>
-                      Correct Answer:{" "}
-                      <span className="text-green-400 ">
-                        {item.correctAnswer}
-                      </span>
-                    </p>
+            {/* 🟫 Main Brown Section with Two Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px] overflow-hidden">
+              {/* ❌ Incorrect Answers */}
+              <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
+                <h2 className="text-center text-red-300 font-semibold text-lg mb-4">
+                  ❌ Incorrect Answers
+                </h2>
+                {scoreData.result.filter((item) => !item.isCorrect).length ===
+                0 ? (
+                  <p className="text-center text-gray-300">
+                    All answers correct ✅
+                  </p>
+                ) : (
+                  <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
+                    {scoreData.result
+                      .filter((item) => !item.isCorrect)
+                      .map((item, idx) => (
+                        <div key={idx} className=" p-3 rounded-md text-white">
+                          <p className="font-medium mb-1">
+                            Q{idx + 1} {item.question}
+                          </p>
+                          <p>
+                            Your Answer:{" "}
+                            <span className="text-red-400 ">
+                              {item.selectedAnswer || "No Answer"}
+                            </span>
+                          </p>
+                          <p>
+                            Correct Answer:{" "}
+                            <span className="text-green-400 ">
+                              {item.correctAnswer}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
                   </div>
-                ))}
+                )}
+              </div>
+
+              {/* ✅ Correct Answers */}
+              <div className=" bg-[#2D2D2D] p-4 rounded-2xl">
+                <h2 className="text-center text-green-400 font-semibold text-lg mb-4">
+                  ✅ Correct Answers
+                </h2>
+                {scoreData.result.filter((item) => item.isCorrect).length ===
+                0 ? (
+                  <p className="text-center text-gray-300">
+                    No correct answers
+                  </p>
+                ) : (
+                  <div className="compquiz space-y-4 overflow-auto h-100 bg-[#3b3b3b] p-4 rounded-2xl">
+                    {scoreData.result
+                      .filter((item) => item.isCorrect)
+                      .map((item, idx) => (
+                        <div key={idx} className=" p-3 rounded-md   text-white">
+                          <p className="font-medium mb-1">
+                            Q{idx + 1} {item.question}
+                          </p>
+                          <p>
+                            Correct Answer:{" "}
+                            <span className="text-green-400 ">
+                              {item.correctAnswer}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
+          </>
+        )}
+           
       </div>
-    </>
-  )}
-</div>
-
-
       
     </div>
   );

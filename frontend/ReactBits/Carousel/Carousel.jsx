@@ -5,7 +5,6 @@ import { axiosinstance } from "../../src/AxiosInstance/axios";
 import toast from "react-hot-toast";
 import jsPDF from "jspdf";
 
-
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
@@ -127,10 +126,6 @@ export default function QuizCardsCarousel({
     }
   };
 
-
-
-
-
   return (
     <div
       ref={containerRef}
@@ -185,24 +180,23 @@ export default function QuizCardsCarousel({
               }}
               transition={effectiveTransition}
             >
-<div className="flex items-center justify-between p-4 w-full">
-  <div className="bg-[var(--bg2)] px-2 py-2 rounded-full inline-block">
-    <ExplainQuiz
-      question={card.question}
-      options={card.options}
-      answer={card.answer}
-    />
-  </div>
+              <div className="flex items-center justify-between p-4 w-full">
+                <div className="bg-[var(--bg2)] px-2 py-2 rounded-full inline-block">
+                  <ExplainQuiz
+                    question={card.question}
+                    options={card.options}
+                    answer={card.answer}
+                  />
+                </div>
 
-  <button
-    onClick={() => bookmark(card.id)}
-    className="text-2xl rounded-full text-yellow-400 cursor-pointer ml-4"
-  title="bookmark"
-  >
-    <i className="ri-star-fill"></i>
-  </button>
- 
-</div>
+                <button
+                  onClick={() => bookmark(card.id)}
+                  className="text-2xl rounded-full text-white cursor-pointer ml-4"
+                  title="bookmark"
+                >
+                  <i class="ri-bookmark-fill"></i>{" "}
+                </button>
+              </div>
 
               <div className="p-5">
                 <div className="mb-1 font-black text-lg text-white">

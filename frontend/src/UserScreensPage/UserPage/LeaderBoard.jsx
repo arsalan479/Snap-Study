@@ -13,7 +13,19 @@ const LeaderBoard = () => {
     const fetchpostcomp = async () => {
       try {
         const res = await axiosinstance.get("/api/room/compdatafetch");
-        setpostdata(res.data);
+
+        // sort data by score (descending)
+        const sortedData = res.data.sort(
+          (a, b) => b.compId?.score - a.compId?.score
+        );
+
+        // add rank to each user
+        const rankedData = sortedData.map((item, index) => ({
+          ...item,
+          rank: index + 1,
+        }));
+
+        setpostdata(rankedData);
       } catch (err) {
         console.log(err);
       }
@@ -38,8 +50,23 @@ const LeaderBoard = () => {
         postdata.map((item) => (
           <div
             key={item._id}
-            className="bg-[#1F1F1F] p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300"
+            className="bg-[#1F1F1F] p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 relative"
           >
+            {/* Rank Badge */}
+            <span
+              className={`absolute -top-3 -left-3 px-4 py-2 rounded-full font-semibold text-sm ${
+                item.rank === 1
+                  ? "bg-[#C7902D] text-black"
+                  : item.rank === 2
+                    ? "bg-gray-400 text-black"
+                    : item.rank === 3
+                      ? "bg-[#8B2607] text-black"
+                      : "bg-[#696969] text-black"
+              }`}
+            >
+              <i class="ri-medal-line"></i> {item.rank}
+            </span>
+
             {/* User Info */}
             <div className="flex items-center gap-4 mb-4 relative">
               <img
@@ -64,7 +91,7 @@ const LeaderBoard = () => {
                 <button
                   onClick={() => handleclick(item)}
                   title="View Attempt"
-                  className="bg-white text-black text-xs sm:text-sm md:text-base px-2 sm:px-3 py-2 rounded-full cursor-pointer flex items-center gap-1"
+                  className="bg-[#2D2D2D] hover:bg-white hover:text-black duration-300 text-white text-xs sm:text-sm md:text-base px-2 sm:px-3 py-2 rounded-full cursor-pointer flex items-center gap-1"
                 >
                   <i className="ri-eye-line"></i>
                 </button>

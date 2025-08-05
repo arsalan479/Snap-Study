@@ -137,7 +137,7 @@ const FetchquizCard = ({ quizcards: propQuizCards, subject, title }) => {
                   <div className="flex justify-center mt-8">
                     <QuizCardsCarousel
                       cards={QuizSet.cards}
-                      baseWidth={350}
+                      baseWidth={650}
                       round={false}
                       onDeleteCard={showSpecificDeleteConfirm}
                     />

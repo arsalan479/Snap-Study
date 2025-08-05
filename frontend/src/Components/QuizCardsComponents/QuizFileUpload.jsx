@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { AppContext } from "../../Context/QuizCardsContext.jsx";
-import loadingGIF from "../../assets/WebsiteLogo/loading.gif";
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-
-
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 
 const QuizFileUpload = () => {
   const [file, setFile] = useState(null);
@@ -70,19 +67,16 @@ const QuizFileUpload = () => {
         }
       );
 
-      if(response.status === 200){
-         console.log(response)
-        //forcontext 
+      if (response.status === 200) {
+        console.log(response);
+        //forcontext
         setFileUrl(response.data.result.file.fileUrl);
       }
-
-
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error)
-    
+      console.log(error);
+
       setProcessing(false);
-    
     } finally {
       setLoading(false);
     }
@@ -123,15 +117,23 @@ const QuizFileUpload = () => {
           ) : (
             <>
               <div className="mb-4 bg-[#33384C] rounded-full w-13 h-13 flex justify-center items-center">
-                <FileUploadOutlinedIcon style={{fontSize:34,color:"#2750f7"}}/>
+                <FileUploadOutlinedIcon
+                  style={{ fontSize: 34, color: "#2750f7" }}
+                />
               </div>
               <span className="font-semibold text-[1.9vw] tracking-tight capitalize">
-                Upload Source 
+                Upload Source
               </span>
-              <span className=" text-[1.5vw] text-[#808284]">Drag & drop or <span className="cursor-pointer text-[#2750f7]">choose file</span> to upload</span>
-            <span className="tracking-tight text-[#808284] relative top-15 text-[1.5vw] font-semibold">Supported file types:  .png, .jpg, .jpeg</span>
-
-
+              <span className=" text-[1.5vw] text-[#808284]">
+                Drag & drop or{" "}
+                <span className="cursor-pointer text-[#2750f7]">
+                  choose file
+                </span>{" "}
+                to upload
+              </span>
+              <span className="tracking-tight text-[#808284] relative top-15 text-[1.5vw] font-semibold">
+                Supported file types: .png, .jpg, .jpeg
+              </span>
             </>
           )}
         </label>
@@ -147,11 +149,15 @@ const QuizFileUpload = () => {
         }`}
       >
         {processing || loading ? (
-          <span className="flex items-center gap-2">
-            Uploading...
-          </span>
+          <span className="flex items-center gap-2">Uploading...</span>
         ) : (
-          "Upload Image"
+          <>
+            {" "}
+            Upload Image{" "}
+            <span>
+              <FileUploadOutlinedIcon className="w-2 h-2" />
+            </span>
+          </>
         )}
       </button>
     </div>

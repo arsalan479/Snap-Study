@@ -31,7 +31,21 @@ color: #fff;
   
   }
   
-
+.ant-modal-confirm .ant-modal-confirm-btns .ant-btn+.ant-btn{
+  border:none; 
+  border-radius: 30px;
+  padding: 18px 17px;
+  color:black
+}
+.ant-modal-confirm .ant-modal-confirm-btns .ant-btn+.ant-btn:hover{
+  color:black !important;
+}
+/* .ant-btn-color-default{
+  padding: 18px 45px !important;
+}
+.ant-btn-color-default:hover{
+  padding: 18px 45px !important;
+} */
 @media (max-width: 800px) {
   .img {
     display: none;

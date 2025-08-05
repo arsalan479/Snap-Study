@@ -159,7 +159,7 @@ const Home = () => {
             sentence="True Focus"
             manualMode={false}
             blurAmount={5}
-            borderColor="#5227FF"
+            borderColor="#3468f5"
             animationDuration={0.5}
             pauseBetweenAnimations={1}
           />

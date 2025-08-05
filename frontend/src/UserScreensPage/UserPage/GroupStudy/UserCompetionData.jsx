@@ -250,14 +250,26 @@ const UserCompetionData = () => {
                   text={`${item.score}/${item.total}`}
                   styles={buildStyles({
                     textColor: "#fff",
-                    pathColor: "#5227FF",
+                    pathColor: "#3468f5",
                     trailColor: "#e0e0e0",
                   })}
                 />
+
                 <h1 className="text-center text-white mt-2 text-md font-medium">
-                  <i className="ri-trophy-line"></i> Your Score :
+                  <i className="ri-trophy-line"></i> Your Score :{" "}
                   {Math.round((item.score / item.total) * 100)}%
                 </h1>
+
+                {/* Custom message */}
+                <p className="text-center text-sm text-gray-300 mt-1">
+                  {(() => {
+                    const percentage = (item.score / item.total) * 100;
+                    if (percentage >= 90) return "🎉 Excellent Performance!";
+                    if (percentage >= 70) return "👍 Good Job!";
+                    if (percentage >= 50) return "🙂 Keep Practicing!";
+                    return "⚠️ Needs Improvement.";
+                  })()}
+                </p>
               </div>
             </div>
           </div>
