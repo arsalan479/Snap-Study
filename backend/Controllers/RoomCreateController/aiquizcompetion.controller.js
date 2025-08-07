@@ -4,6 +4,7 @@ import { aicompetationprompt } from "../../Utils/GeminiPrompts/prompt.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
 import { deductCredits } from "../../Utils/creditssubtraction.js";
+import post from "../../Models/UserRooms/compPoststore.js";
 
 export const aitopicsendtext = async (req, res) => {
   try {
@@ -177,6 +178,11 @@ export const qicompdatadelete = async (req, res) => {
         message: "data not found",
       });
     }
+
+    await Promise.all([
+      post.deleteMany({userId,compId:cardId})
+    ])
+
 
     return res.status(200).json({
       message: "data deleted successfully",
