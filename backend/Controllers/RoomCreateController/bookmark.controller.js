@@ -6,6 +6,7 @@ import post from "../../Models/UserRooms/compPoststore.js";
 import { validationResult } from "express-validator";
 
 export const bookmark = async (req, res) => {
+  
   const userId = decodedToken(req);
   const { cardId } = req.params;
 
@@ -47,7 +48,8 @@ export const bookmark = async (req, res) => {
 
     const createBookmark = await Bookmark.create({
       userId,
-      cards: [card],
+      cardId:card._id,
+      cards: [card]
     });
 
     return res.status(201).json({

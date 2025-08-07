@@ -59,6 +59,7 @@ app.use('/auth',verfifyrecaptcharoute)
 
 
 app.use('/api/quiz',quizcardsroutes)
+
 app.use('/api/quiz/crud',quizcardeditdeletefetch)
 
 

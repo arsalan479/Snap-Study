@@ -1,7 +1,11 @@
 import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
 import QuizFileData from "../../Models/QuizCarsSystemModel/quizcardfile.model.js";
-import quizcardfilemodel from '../../Models/QuizCarsSystemModel/quizcardfile.model.js';
-import { AlldeleteUserQuizCards,deleteEntireQuizCardDocument, deleteSpecificQuizCard,} from "../../Services/EditDeleteFetch/deletecardsystem.service.js";
+import Bookmark from "../../Models/UserRooms/bookmark.model.js";
+import {
+  AlldeleteUserQuizCards,
+  deleteEntireQuizCardDocument,
+  deleteSpecificQuizCard,
+} from "../../Services/EditDeleteFetch/deletecardsystem.service.js";
 import { fetchdatacardquiz } from "../../Services/EditDeleteFetch/fetchdata.service.js";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 
@@ -95,6 +99,18 @@ export const CardDelete = async (req, res) => {
 
     const result = await deleteEntireQuizCardDocument(userId, objId);
 
+    if (!result) {
+      return res.status(400).json("something went wrong");
+    }
+    const cardIdsToDelete = result.deletedDocument.Cards.map(
+      (card) => card._id
+    );
+
+    await Bookmark.deleteMany({
+      userId,
+      cardId: { $in: cardIdsToDelete },
+      });
+
     return res.status(200).json({
       message: "card successfully deleted",
       deleteDocument: result.deletedDocument,
@@ -141,29 +157,25 @@ export const QuizTitleupdate = async (req, res) => {
   }
 };
 
-export const filefetch = async(req,res)=>{
-  
-  
+export const filefetch = async (req, res) => {
   try {
     const userId = decodedToken(req);
 
-    if(!userId){
+    if (!userId) {
       return res.status(400).json({
-        message:"id is missing"
-      })
+        message: "id is missing",
+      });
     }
-    
-    const response = await QuizFileData.find({UserLoginId:userId})
+
+    const response = await QuizFileData.find({ UserLoginId: userId });
 
     return res.status(200).json({
-      message:"file fetched successfully",
-      data:response
-    })
-
+      message: "file fetched successfully",
+      data: response,
+    });
   } catch (error) {
     return res.status(500).json({
-      message:error.message
-    })
+      message: error.message,
+    });
   }
-
-}
+};
