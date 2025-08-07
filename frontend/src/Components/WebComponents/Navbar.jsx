@@ -121,7 +121,7 @@ const Navbar = ({ isSidebarOpen }) => {
           </div>
         )}
       </div>
-      <i className="ri-notification-2-line mr-5 text-2xl mb-1 rounded-full cursor-pointer"></i>
+      <i className="ri-notification-2-line mr-5 text-2xl mb-1 text-[#fff] rounded-full cursor-pointer"></i>
     </div>
   </>
 )}
