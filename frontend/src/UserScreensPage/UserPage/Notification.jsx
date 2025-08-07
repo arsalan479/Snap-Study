@@ -4,8 +4,8 @@ import { axiosinstance } from "../../AxiosInstance/axios";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
 import toast from "react-hot-toast";
-import useSocket from "../../Utils/socketio";
 import HorizontalRuleTwoToneIcon from '@mui/icons-material/HorizontalRuleTwoTone';
+import useSocket from "../../AxiosInstance/socketio";
 
 const Notification = () => {
   const { receiveId, userfetch ,setNotificationCount,setreceiversIds} = useContext(FlashContext);

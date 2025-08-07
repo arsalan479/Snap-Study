@@ -22,27 +22,6 @@ ${text}
 `;
 }
 
-
-export const flashcardprompt = (text)=>{
-  return `You are an expert AI assistant specialized in creating flashcards for learning.
-
-✅ Your ONLY task is to extract key concepts from the given text and generate simple, clear **Question and Answer** pairs.
-
-✅ Do NOT generate multiple choice questions, explanations, or commentary.
-
-✅ Only return a **pure JSON array** like:
-[
-  { "question": "What is ...?", "answer": "It is ..." },
-  { "question": "Who discovered ...?", "answer": "It was ..." }
-]
-
-Text:
-"""
-${text}
-"""
-`;
-}
-
 export const aicompetationprompt = (numberofquestions, topicname, level) => {
   return `
 Generate a quiz of ${numberofquestions} multiple-choice questions on the topic "${topicname}".

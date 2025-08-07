@@ -10,7 +10,7 @@ import { axiosinstance } from "../../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { FlashContext } from "../../Context/FlashCardsContext";
-import useSocket from "../../Utils/socketio";
+import useSocket from "../../AxiosInstance/socketio.js";
 
 
 export default function BasicTable() {

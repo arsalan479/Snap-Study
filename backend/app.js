@@ -5,8 +5,6 @@ import githubauthroute from './Routes/UserAuthRoutes/githubauth.route.js';
 import googleinputmagicroute from './Routes/UserAuthRoutes/googlemagic.route.js';
 import adminauthroute from './Routes/AdminAuthRoutes/adminauth.route.js';
 import verfifyrecaptcharoute from './Routes/VerifyUserReCapcha/verifyrecaptcha.route.js';
-import fileuploadroute from './Routes/FileUploadCloudRoutes/fileupload.route.js';
-import editdeletesystem from './Routes/FileUploadCloudRoutes/editdeletesystem.route.js'
 import quizcardsroutes from './Routes/QuizCardRoutes/quizcard.route.js';
 import quizcardeditdeletefetch from './Routes/QuizCardRoutes/quizcardeditdeletefetch.route.js'
 import userdetails from './Routes/UserAuthRoutes/userdetails.route.js'
@@ -57,12 +55,8 @@ app.use('/auth/magic',googleinputmagicroute);
 app.use('/auth',verfifyrecaptcharoute)
 
 
-//fileuploadrouteoncloud
-app.use('/api/file',fileuploadroute)
 
 
-//edit and delete system
-app.use('/editdelete',editdeletesystem)
 
 app.use('/api/quiz',quizcardsroutes)
 app.use('/api/quiz/crud',quizcardeditdeletefetch)
