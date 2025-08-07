@@ -12,7 +12,7 @@ const Settings = () => {
       case "plans":
         return <Plans/>
       case "settings":
-        return <GeneralSetting/>;
+        return <GeneralSetting  />;
       case "password":
         return <UserPasswordUpdate/>
       default:
