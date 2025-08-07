@@ -2,8 +2,11 @@ import { validationResult } from "express-validator";
 import { decodedToken } from "../../Utils/decodedtoken.js";
 import { comparepasssword, hashedpassword } from "../../Utils/hashpassword.js";
 import Userone from "../../Models/UserOneScehma/UserOne.model.js";
-import Stripe from "stripe";
-import { decode } from "jsonwebtoken";
+import post from "../../Models/UserRooms/compPoststore.js";
+import Bookmark from "../../Models/UserRooms/bookmark.model.js";
+import quizcardmodel from "../../Models/QuizCarsSystemModel/quizcard.model.js";
+import QuizFileData from "../../Models/QuizCarsSystemModel/quizcardfile.model.js";
+import competiondata from "../../Models/UserRooms/quizcompdata.model.js";
 
 export const passwordUpdate = async (req, res) => {
   const errors = validationResult(req);
@@ -108,23 +111,30 @@ export const useraccountdelete = async (req, res) => {
 
     const response = await Userone.findByIdAndDelete(userId);
 
-    const cookieclear = res.clearCookie("token");
-
     if (!response) {
       return res.status(401).json({
         message: "something wrong",
       });
     }
 
+    await Promise.all([
+      post.deleteMany({ userId }),
+      Bookmark.deleteMany({ userId }),
+      quizcardmodel.deleteMany({ UserLoginId: userId }),
+      QuizFileData.deleteMany({ UserLoginId: userId }),
+      competiondata.deleteMany({ userId }),
+    ]);
+
+    
+
+    res.clearCookie("token");
+    
     return res.status(200).json({
-      message: "account deleted successfully",
-      response,
-    });
+      message: "account and all related data deleted successfully",
+       });
   } catch (error) {
     return res.status(500).json({
       messag: error.message,
     });
   }
 };
-
-
