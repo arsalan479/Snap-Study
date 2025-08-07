@@ -9,12 +9,10 @@ import TrueFocus from "../../../ReactBits/TrueFocus/TrueFocus";
 import Groups3TwoToneIcon from "@mui/icons-material/Groups3TwoTone";
 import QueryBuilderTwoToneIcon from "@mui/icons-material/QueryBuilderTwoTone";
 import ShareTwoToneIcon from "@mui/icons-material/ShareTwoTone";
-import Ballpit from "../../../ReactBits/Ballpit/Ballpit";
 import classImage from "../../assets/WebsiteLogo/class.png";
 import TextPressure from "../../../ReactBits/TextPressure/TextPressure";
 import ArrowOutwardTwoToneIcon from "@mui/icons-material/ArrowOutwardTwoTone";
 import studyimage from "../../assets/WebsiteLogo/audio.png";
-import FallingText from "../../../ReactBits/FallingText/FallingText";
 import price from "../../assets/WebsiteLogo/price.png";
 import DoneTwoToneIcon from "@mui/icons-material/DoneTwoTone";
 import { useLocation } from "react-router-dom";
@@ -76,16 +74,7 @@ const Home = () => {
         } transition-all duration-300`}
       >
         <section className="relative h-screen w-full flex justify-center items-center overflow-hidden">
-          {/* Ballpit in the background
-          <Ballpit
-            count={170}
-            gravity={0.5}
-            friction={0.9975}
-            wallBounce={0.95}
-            followCursor={true}
-            colors={[0xffffff, 0x5227ff, 0x222222]}
-            className="absolute inset-0 z-0"
-          /> */}
+         
 
           {/* Text in center */}
           <ShinyText
