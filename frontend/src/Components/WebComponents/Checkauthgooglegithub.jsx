@@ -65,9 +65,9 @@ const Checkauthgooglegithub = () => {
 
       <p className='text-[var(--text)] text-sm md:text-[1.3vw] text-center mt-7'>
         By continuing, you agree to Snap Study's 
-        <span className='text-[var(--Accent)] border-b mx-1'>Terms</span> 
+        <span className='text-[var(--primary)] border-b mx-1'>Terms</span> 
         and 
-        <span className='text-[var(--Accent)] border-b mx-1'>Privacy Policy</span>.
+        <span className='text-[var(--primary)] border-b mx-1'>Privacy Policy</span>.
       </p>
     </div>
   </div>

@@ -94,19 +94,19 @@ const Bookmark = () => {
         </div>
       </Modal>
 
-      <div className="mx-auto px-4 h-[80vh]">
+      <div className="mx-auto px-4 h-[70vh]">
         {bookmarkdata.length === 0 ? (
-          <div className="flex justify-center items-center h-full">
-            <div className="flex flex-col items-center text-2xl font-semibold text-gray-400">
-              <p>
-                Nothing to see here
-                <span>
-                  <HorizontalRuleTwoToneIcon />
-                </span>
-                yet
-              </p>
-            </div>
+          <div className="flex justify-center items-center h-full min-h-[450px]">
+          <div className="flex flex-col items-center">
+            <p className="text-center font-semibold text-2xl text-gray-400">
+              Nothing to see here
+              <span>
+                <HorizontalRuleTwoToneIcon />
+              </span>
+              yet
+            </p>
           </div>
+        </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {bookmarkdata.map((item, value) =>

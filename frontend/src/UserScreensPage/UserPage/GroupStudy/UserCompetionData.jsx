@@ -137,7 +137,7 @@ const UserCompetionData = () => {
       {compdata.length === 0 ? (
         <div className="flex justify-center items-center h-full min-h-[450px]">
           <div className="flex flex-col items-center">
-            <p className="text-center font-semibold text-2xl text-white">
+            <p className="text-center font-semibold text-2xl text-gray-400">
               Nothing to see here
               <span>
                 <HorizontalRuleTwoToneIcon />

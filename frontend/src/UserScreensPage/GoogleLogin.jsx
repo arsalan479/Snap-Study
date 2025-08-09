@@ -159,16 +159,16 @@ const GoogleLogin = () => {
         </div> */}
         <button
           type="submit"
-          className="font-semibold w-full mt-4 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] text-white font-medium py-3 rounded-[15px] transition-all duration-200"
+          className=" w-full capitalize mt-4 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] text-white font-medium py-3 rounded-[15px] transition-all duration-200"
         >
-          Continue
+          Continue with email 
         </button>
 
         <div className="flex justify-center gap-40 mt-4">
           <p className=" text-sm text-center">
             <span
               onClick={forgetpasswordbyId}
-              className="text-[var(--Accent)] cursor-pointer hover:underline "
+              className="text-[var(--primary)] cursor-pointer hover:underline "
             >
               Forget Password
             </span>
@@ -177,7 +177,7 @@ const GoogleLogin = () => {
           <p className="text-sm text-center text-gray-400">
             Don’t have an account?{" "}
              <Link to={"/googleregister"}>
-              <span className="text-[var(--Accent)] cursor-pointer hover:underline">
+              <span className="text-[var(--primary)] cursor-pointer hover:underline">
                 Sign up
               </span>
              </Link>

@@ -1,14 +1,12 @@
 import React, { useState, useRef } from "react";
-// import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-// import keysImage from '../assets/LoginImages/banner.png';
 import { Link } from "react-router-dom";
-import CurvedLoop from '../../ReactBits/CurvedLoop/CurvedLoop.jsx';
 import Bannerlogindesign from "../Utils/Bannerlogindesign.jsx";
 
-// const sitekeyV2 = "6LczM1orAAAAANHnVgjcrv65_juy5_xacZ7Sl8dw"; // Replace with your actual site key
+const sitekeyV2 = "6LczM1orAAAAANHnVgjcrv65_juy5_xacZ7Sl8dw"; // Replace with your actual site key
 
 const Googleinput = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +15,7 @@ const Googleinput = () => {
   const [comparepassword, setcomparepassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
 
-  // const recaptchaRef = useRef(null);
+  const recaptchaRef = useRef(null);
 
   const toogleyepassword = () => {
     seteyepassword((prev) => !prev);
@@ -26,38 +24,37 @@ const Googleinput = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const token = recaptchaRef.current?.getValue();
+    const token = recaptchaRef.current?.getValue();
 
-    // if (!token) {
-    //   toast.error("Please complete the reCAPTCHA.");
-    //   return;
-    // }
+    if (!token) {
+      toast.error("Please complete the reCAPTCHA.");
+      return;
+    }
 
     try {
       //   // Step 1: Verify reCAPTCHA token
-      //   const captchaVerifyRes = await axiosinstance.post(
-      //     "/auth/verify-captcha-V2",
-      //     { token }
-      //   );
+      const captchaVerifyRes = await axiosinstance.post(
+        "/auth/verify-captcha-V2",
+        { token }
+      );
 
-      //   if (!captchaVerifyRes.data.success) {
-      //     toast.error("reCAPTCHA verification failed.");
-      //     return;
-      //   }
+      if (!captchaVerifyRes.data.success) {
+        toast.error("reCAPTCHA verification failed.");
+        return;
+      }
 
       const registrationRes = await toast.promise(
         axiosinstance.post("/auth/magic/register", {
           email,
           displayName,
           password,
-          confirmPassword:comparepassword
+          confirmPassword: comparepassword,
         }),
         {
           loading: "Register User...",
           success: "User Register Successfully!",
         }
       );
-
 
       const data = registrationRes.data;
 
@@ -67,13 +64,13 @@ const Googleinput = () => {
         }, 2000);
       }
 
-      // recaptchaRef.current.reset(); // Optional: Reset reCAPTCHA after success
+      recaptchaRef.current.reset(); // Optional: Reset reCAPTCHA after success
     } catch (err) {
-      console.log(err)
+      console.log(err);
       const errors = err.response?.data?.errors;
       const message = err.response?.data?.message;
 
-      // recaptchaRef.current?.reset(); // Reset on error too
+      recaptchaRef.current?.reset(); // Reset on error too
 
       if (Array.isArray(errors)) {
         errors.forEach((errors) => toast.error(errors.msg));
@@ -86,7 +83,7 @@ const Googleinput = () => {
   return (
     <div className="h-screen flex bg-black">
       {/* Left Image Section — hidden on screens smaller than lg */}
-      <Bannerlogindesign/>
+      <Bannerlogindesign />
 
       {/* Right Form Section */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
@@ -188,12 +185,16 @@ const Googleinput = () => {
               )}
             </button>
           </div>
+
+          <div className="mb-4 ">
+            <ReCAPTCHA sitekey={sitekeyV2} ref={recaptchaRef} />
+          </div>
           {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-white text-black cursor-pointer py-3 rounded-2xl  transition duration-200 "
           >
-            Register on SnapStudy 
+            Register on SnapStudy
           </button>
 
           {/* Footer */}
@@ -210,7 +211,6 @@ const Googleinput = () => {
           </p>
         </form>
       </div>
-
     </div>
   );
 };
