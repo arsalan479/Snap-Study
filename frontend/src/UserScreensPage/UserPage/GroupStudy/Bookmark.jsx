@@ -94,11 +94,11 @@ const Bookmark = () => {
         </div>
       </Modal>
 
-      <div className="mx-auto px-4 h-[70vh]">
+      <div className="mx-auto px-4 ">
         {bookmarkdata.length === 0 ? (
           <div className="flex justify-center items-center h-full min-h-[450px]">
           <div className="flex flex-col items-center">
-            <p className="text-center font-semibold text-2xl text-gray-400">
+            <p className="text-center capitalize font-semibold text-2xl text-gray-400">
               Nothing to see here
               <span>
                 <HorizontalRuleTwoToneIcon />

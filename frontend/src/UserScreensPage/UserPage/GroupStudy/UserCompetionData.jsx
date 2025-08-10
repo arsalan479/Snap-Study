@@ -137,7 +137,7 @@ const UserCompetionData = () => {
       {compdata.length === 0 ? (
         <div className="flex justify-center items-center h-full min-h-[450px]">
           <div className="flex flex-col items-center">
-            <p className="text-center font-semibold text-2xl text-gray-400">
+            <p className="text-center capitalize font-semibold text-2xl text-gray-400">
               Nothing to see here
               <span>
                 <HorizontalRuleTwoToneIcon />
@@ -153,7 +153,7 @@ const UserCompetionData = () => {
             className="rounded-2xl bg-[#2D2D2D] p-6 space-y-4 shadow-md"
           >
             <div className="flex justify-between items-center">
-              <h2 className="capitalize text-xl font-semibold text-white">
+              <h2 className="capitalize text-xl  text-white">
                 <i className="ri-message-3-line"></i> {item.topicName}{" "}
                 <span>
                   <HorizontalRuleTwoToneIcon /> {item.levels} mode{" "}
@@ -198,7 +198,7 @@ const UserCompetionData = () => {
                       key={q._id}
                       className="bg-[#3b3b3b] p-4 rounded-2xl shadow space-y-2"
                     >
-                      <p className="font-medium text-white">
+                      <p className=" text-white">
                         Q{index + 1}: {q.question}
                       </p>
                       <ul className="list-disc pl-5 text-white">
@@ -211,7 +211,7 @@ const UserCompetionData = () => {
                               key={idx}
                               className={`${
                                 isCorrect
-                                  ? "text-green-500 font-semibold"
+                                  ? "text-green-500 "
                                   : isWrong
                                     ? "text-red-500"
                                     : ""
@@ -255,7 +255,7 @@ const UserCompetionData = () => {
                   })}
                 />
 
-                <h1 className="text-center text-white mt-2 text-md font-medium">
+                <h1 className="text-center text-white mt-2 text-md ">
                   <i className="ri-trophy-line"></i> Your Score :{" "}
                   {Math.round((item.score / item.total) * 100)}%
                 </h1>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../AxiosInstance/axios";
 import Modalrapper from "../../Components/WebComponents/Modalrapper";
 import { motion, AnimatePresence } from "framer-motion";
+import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
+
 
 const LeaderBoard = () => {
   const [postdata, setpostdata] = useState([]);
@@ -54,14 +56,14 @@ const LeaderBoard = () => {
           >
             {/* Rank Badge */}
             <span
-              className={`absolute -top-3 -left-3 px-4 py-2 rounded-full font-semibold text-sm ${
+              className={`absolute -top-3 -left-3 px-4 py-2 rounded-full  text-sm ${
                 item.rank === 1
-                  ? "bg-[#C7902D] text-black"
+                  ? "bg-[blue] text-white"
                   : item.rank === 2
-                    ? "bg-gray-400 text-black"
+                    ? "bg-gray-400 text-white"
                     : item.rank === 3
-                      ? "bg-[#8B2607] text-black"
-                      : "bg-[#696969] text-black"
+                      ? "bg-[#8B2607] text-white"
+                      : "bg-[#696969] text-white"
               }`}
             >
               <i class="ri-medal-line"></i> {item.rank}
@@ -76,7 +78,7 @@ const LeaderBoard = () => {
               />
 
               <div>
-                <h2 className="text-white font-semibold text-lg flex items-center gap-2">
+                <h2 className="text-white  text-lg flex items-center gap-2">
                   <i className="ri-user-3-line text-blue-400"></i>
                   {item.userId?.displayName}
                 </h2>
@@ -100,17 +102,18 @@ const LeaderBoard = () => {
 
             {/* Competition Info */}
             <div className="bg-[#2D2D2D] p-4 rounded-xl mb-4">
-              <h3 className="text-xl text-white font-bold flex items-center gap-2">
-                <i className="ri-trophy-line text-yellow-400"></i>
+              <h3 className="capitalize text-xl text-white  flex items-center gap-2">
+                <i className="text-yellow-500 ri-hashtag"></i>
                 {item.compId?.topicName}
               </h3>
-              <p className="text-gray-300 mt-1 flex items-center gap-2">
+              <p className="text-gray-300 capitalize mt-1 flex items-center gap-2">
                 <i className="ri-bar-chart-2-line text-green-400"></i>
                 Level: {item.compId?.levels}
               </p>
               <p className="text-gray-300 flex items-center gap-2">
-                <i className="ri-star-line text-orange-400"></i>
-                Score: {item.compId?.score}/{item.compId?.total}
+                <i className="text-red-400 ri-flag-line"></i> 
+                Score: {item.compId?.score}/
+                {item.compId?.total}
               </p>
             </div>
 
@@ -161,7 +164,7 @@ const LeaderBoard = () => {
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-400">No posts found 🚀</p>
+        <p className="text-center text-gray-400 font-semibold text-2xl flex justify-center items-center h-[60vh] w-full capitalize">Nothing to see here <HorizontalRuleTwoToneIcon/> post</p>
       )}
 
       {/* Popup Modal */}
@@ -171,7 +174,7 @@ const LeaderBoard = () => {
             {selectedPost.compId.quizdatacards.map((item, index) => (
               <div key={index} className="p-4 rounded-lg">
                 {/* Question */}
-                <h1 className="text-white font-semibold text-lg mb-4">
+                <h1 className="text-white  text-lg mb-4">
                   {index + 1}. {item.question}
                 </h1>
 
@@ -197,7 +200,7 @@ const LeaderBoard = () => {
                           }
                         `}
                       >
-                        <p className="text-white font-medium">{option}</p>
+                        <p className="text-white ">{option}</p>
                         {isCorrect || isRealAnswer ? (
                           <i className="ri-check-line text-white text-xl"></i>
                         ) : null}
