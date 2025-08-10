@@ -12,7 +12,6 @@ import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
 import LeaderBoard from "../../UserScreensPage/UserPage/LeaderBoard";
 
 const SideBar2 = () => {
-  
   const [activeLink, setActiveLink] = useState("LeaderBoard");
   const [activeSubject, setActiveSubject] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -22,14 +21,16 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["LeaderBoard","Quiz Generate", "All Users", "Competion"];
-  const libraryItems = ["Competion Data", "BookMark","Upload Files"];
+  const navItems = ["LeaderBoard", "Quiz Generate", "All Users", "Competion"];
+  const libraryItems = ["Competion Data", "BookMark", "Upload Files"];
 
   const renderSection = () => {
     if (activeLink === "Quiz Generate") {
       return (
         <div>
-          <SubjectSelect onSelectSubject={(subject) => setQuizGenerateSubject(subject)} />
+          <SubjectSelect
+            onSelectSubject={(subject) => setQuizGenerateSubject(subject)}
+          />
           {quizGenerateSubject && (
             <div className="mt-10">
               <MainQuizCardFile subject={quizGenerateSubject} />
@@ -49,26 +50,26 @@ const SideBar2 = () => {
       );
     }
 
-    if(activeLink === "All Users"){
-      return <FreindsList/>
+    if (activeLink === "All Users") {
+      return <FreindsList />;
     }
 
-    if(activeLink === "Competion"){
-      return <MainGroup/>
+    if (activeLink === "Competion") {
+      return <MainGroup />;
     }
 
-    if(activeLink === "Competion Data"){
-      return <UserCompetionData/>
+    if (activeLink === "Competion Data") {
+      return <UserCompetionData />;
     }
 
-    if(activeLink === "BookMark"){
-      return <Bookmark/>
+    if (activeLink === "BookMark") {
+      return <Bookmark />;
     }
-    if(activeLink === "Upload Files"){
-      return <UploadFiles/>
+    if (activeLink === "Upload Files") {
+      return <UploadFiles />;
     }
-    if(activeLink === "LeaderBoard"){
-      return <LeaderBoard/>
+    if (activeLink === "LeaderBoard") {
+      return <LeaderBoard />;
     }
 
     return (
@@ -91,6 +92,8 @@ const SideBar2 = () => {
             />
           </div>
         </div>
+
+
 
         <nav className="flex-1 px-4 mt-7">
           {/* Main Nav */}

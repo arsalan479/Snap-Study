@@ -56,17 +56,17 @@ const LeaderBoard = () => {
           >
             {/* Rank Badge */}
             <span
-              className={`absolute -top-3 -left-3 px-4 py-2 rounded-full  text-sm ${
+              className={`absolute -top-3 -left-3  px-4 py-2 rounded-full  text-sm ${
                 item.rank === 1
-                  ? "bg-[blue] text-white"
+                  ? "bg-[#d6ba1b] text-white"
                   : item.rank === 2
-                    ? "bg-gray-400 text-white"
+                    ? "bg-[#535252] text-white"
                     : item.rank === 3
                       ? "bg-[#8B2607] text-white"
-                      : "bg-[#696969] text-white"
+                      : "bg-[#535252] text-black"
               }`}
             >
-              <i class="ri-medal-line"></i> {item.rank}
+              <i class="ri-medal-2-fill"></i> {item.rank}
             </span>
 
             {/* User Info */}
