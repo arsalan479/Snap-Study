@@ -54,25 +54,24 @@ const UserOneSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  status: { 
+  status: {
     type: String,
-     enum: ["online", "offline","away"], 
-     default: "offline" 
-    },
-    credits:{
-      type:Number,
-      default:50
-    },
-    Plans: {
-      type: String,
-      enum: ["SnapStudy Free", "SnapStudy Plus"],
-      default: "SnapStudy Free",
-    },
+    enum: ["online", "offline", "away"],
+    default: "offline",
+  },
+  credits: {
+    type: Number,
+    default: 50,
+  },
+  Plans: {
+    type: String,
+    enum: ["SnapStudy Free", "SnapStudy Plus"],
+    default: "SnapStudy Free",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-
 });
 
 //create index jis se db ko user dhnodne me asani hogi login karte wqt jese booke ka index number dekhte he hum or us index page pe chale jate hen ac he work karta he yeb bhi.
