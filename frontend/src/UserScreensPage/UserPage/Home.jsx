@@ -3,15 +3,9 @@ import Navbar from "../../Components/WebComponents/Navbar";
 import SideBar from "../../Components/WebComponents/SideBar";
 import ShinyText from "../../../ReactBits/ShinyText/ShinyText";
 import RotatingText from "../../../ReactBits/RotatingText/RotatingText";
-import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.jpg";
-import groupstudyimage from "../../assets/WebsiteLogo/group study.png";
-import TrueFocus from "../../../ReactBits/TrueFocus/TrueFocus";
-import Groups3TwoToneIcon from "@mui/icons-material/Groups3TwoTone";
-import QueryBuilderTwoToneIcon from "@mui/icons-material/QueryBuilderTwoTone";
-import ShareTwoToneIcon from "@mui/icons-material/ShareTwoTone";
+import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.png";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
-import FallingText from '../../../ReactBits/FallingText/FallingText'
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -42,22 +36,21 @@ const Home = () => {
     }
   }, [location]);
 
-
-   useEffect(() => {
+  useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const error = searchParams.get('error');
-    const message = searchParams.get('message');
-  
+    const error = searchParams.get("error");
+    const message = searchParams.get("message");
+
     const msgToShow = message || error;
-  
+
     if (msgToShow) {
       toast.error(msgToShow);
-  
+
       // Clean the URL
-      window.history.replaceState({}, '', window.location.pathname);
+      window.history.replaceState({}, "", window.location.pathname);
     }
   }, []);
-  
+
   return (
     <div>
       <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -69,8 +62,6 @@ const Home = () => {
         } transition-all duration-300`}
       >
         <section className="relative h-screen w-full flex justify-center items-center overflow-hidden">
-         
-
           {/* Text in center */}
           <ShinyText
             className="text-[9vw] tracking-tighter "
@@ -99,9 +90,10 @@ const Home = () => {
             </span>
           </h1>
 
-          <p className="pl-20 pt-1 text-[1.7vw] leading-6 pr-20 tracking-tight">
-            Just enter your topic Image, and SnapStudy instantly generates
-            interactive cards — perfect for revision and self-practice!
+          <p className="pl-20 pt-1 text-[1.6vw] leading-6 pr-20 t">
+            Upload your notes as images and let AI transform them into
+            interactive quiz cards. Learn smarter, revise faster, and compete
+            with friends all in one platform.
           </p>
           <div className="flex justify-center mt-8">
             <div className="w-[70vw] h-[40vw]">
@@ -114,14 +106,58 @@ const Home = () => {
           </div>
         </section>
 
+        
+<section className="h-screen w-full bg-black mt-10 text-white ">
+  <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    
+    {/* Left Side - Content */}
+    <div>
+      <h1 className="text-5xl font-semibold mb-8">How It Works</h1>
 
-<section className="h-screen w-full bg-yellow-400">
+      {/* Step 1 */}
+      <div className="flex items-start mb-8">
+        <i className="ri-camera-line text-4xl text-[var(--primary)]"></i>
+        <div className="ml-4">
+          <h2 className="text-3xl">Upload Your Notes</h2>
+          <p className="mt-2 text-md">
+            Snap a photo of your notes (JPG, PNG, JPEG) <br /> and upload.
+          </p>
+        </div>
+      </div>
 
+      {/* Step 2 */}
+      <div className="flex items-start mb-8">
+        <i className="ri-bard-line text-4xl text-[var(--primary)]"></i>
+        <div className="ml-4">
+          <h2 className="text-3xl">AI Creates Quiz Cards</h2>
+          <p className="mt-2 text-md">
+            AI instantly generates question cards from your uploaded notes.
+          </p>
+        </div>
+      </div>
+
+      {/* Step 3 */}
+      <div className="flex items-start">
+        <i className="ri-brain-line text-4xl text-[var(--primary)]"></i>
+        <div className="ml-4">
+          <h2 className="text-3xl ">Learn & Compete</h2>
+          <p className="mt-2 text-md">
+            Save your quiz cards or test your knowledge in competition mode.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Right Side - Image Placeholder */}
+    <div className="flex justify-center">
+      <div className="w-full h-96 bg-gray-700 flex items-center justify-center rounded-xl">
+        <span className="text-gray-300 text-xl">[ Dummy Image Here ]</span>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-       
-
-        
       </main>
     </div>
   );
