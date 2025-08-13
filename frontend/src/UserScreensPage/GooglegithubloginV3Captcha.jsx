@@ -63,7 +63,7 @@ const GooglegithubloginV3Captcha = () => {
           className="authbtn flex items-center justify-center gap-2 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] transition-colors duration-200 w-full mt-4 rounded-[15px] text-white  py-3"
           onClick={loginWithGoogle}
         >
-          <img src={googlepng} className="w-7 h-7 object-cover" alt="Google" />
+          <img src={googlepng} className="w-5 h-5 object-cover" alt="Google" />
           Continue With Google
         </button>
       </div>

@@ -3,7 +3,7 @@ import Navbar from "../../Components/WebComponents/Navbar";
 import SideBar from "../../Components/WebComponents/SideBar";
 import ShinyText from "../../../ReactBits/ShinyText/ShinyText";
 import RotatingText from "../../../ReactBits/RotatingText/RotatingText";
-import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.png";
+import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.jpg";
 import groupstudyimage from "../../assets/WebsiteLogo/group study.png";
 import TrueFocus from "../../../ReactBits/TrueFocus/TrueFocus";
 import Groups3TwoToneIcon from "@mui/icons-material/Groups3TwoTone";
@@ -11,6 +11,7 @@ import QueryBuilderTwoToneIcon from "@mui/icons-material/QueryBuilderTwoTone";
 import ShareTwoToneIcon from "@mui/icons-material/ShareTwoTone";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import FallingText from '../../../ReactBits/FallingText/FallingText'
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -113,90 +114,10 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="h-auto w-full">
-          <div className="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto px-5">
-            <div className="md:w-1/2 w-full md:mb-0 md:pr-12 flex flex-col items-center justify-center text-center md:text-left md:items-start">
-              <h1 className="tracking-tight text-[3.3vw] mb-3 leading-11">
-                Collaborate Better With <br /> Group Study
-              </h1>
-              <p className="text-[1.6vw] tracking-tight leading-6">
-                Studying is more effective and more fun when done together.
-                SnapStudy’s Group Study feature lets you create or join
-                interactive study groups, share AI-generated quiz cards, and
-                collaborate on topics in real time. Discuss, challenge, and
-                learn from peers — all in one seamless platform!
-              </p>
-            </div>
 
-            <div className="md:w-1/2 w-full flex justify-center items-center mt-8 md:mt-0">
-              <div className="w-full ml-8 max-w-xs md:max-w-md">
-                <img
-                  src={groupstudyimage}
-                  className="h-auto w-full object-cover rounded-2xl shadow-lg"
-                  alt="Group Study"
-                />
-              </div>
-            </div>
-          </div>
-          <TrueFocus
-            sentence="True Focus"
-            manualMode={false}
-            blurAmount={5}
-            borderColor="#3468f5"
-            animationDuration={0.5}
-            pauseBetweenAnimations={1}
-          />
+<section className="h-screen w-full bg-yellow-400">
 
-          <div className="mt-8 flex flex-col tracking-tight md:flex-row justify-center gap-6 md:gap-8 py-10 px-4">
-            {/* Card 1 */}
-            <div className="bg-[var(--bg2)] rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg leading-6 mb-2">
-                <span className="mr-2">
-                  <Groups3TwoToneIcon />
-                </span>
-                Create or Join Groups
-              </h2>
-              <ul>
-                <li className="text-sm text-justify">
-                  Start your own study group or join an existing one with just a
-                  click. Stay connected with classmates and friends
-                </li>
-              </ul>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-[var(--primary)]  rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg leading-6 mb-2">
-                <span className="mr-2">
-                  <QueryBuilderTwoToneIcon />
-                </span>
-                Real-time Collaboration
-              </h2>
-              <ul>
-                <li className="text-sm text-justify">
-                  Discuss topics, solve questions, and collaborate on revisions
-                  in real time — from anywhere.
-                </li>
-              </ul>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-[var(--bg2)] rounded-2xl p-6 w-full max-w-sm text-start shadow">
-              <h2 className="text-lg mb-2">
-                <span className="mr-2">
-                  <ShareTwoToneIcon />
-                </span>
-                Share Quiz Cards
-              </h2>
-              <ul>
-                <li className="text-sm text-justify">
-                  Share your AI-generated quiz cards with the group instantly.
-                  Practice together and challenge each other interactively.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+</section>
 
        
 

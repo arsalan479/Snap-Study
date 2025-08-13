@@ -170,7 +170,6 @@ export const getnotificaion = async (req, res) => {
 
 export const decline = async (req, res) => {
   try {
-
     const { notificationcurrentId } = req.params;
 
     if (!notificationcurrentId) {
@@ -187,12 +186,12 @@ export const decline = async (req, res) => {
       });
     }
 
+    await Notification.deleteOne({ requestId: notificationcurrentId });
+
     return res.status(200).json({
       message: "declined successfully",
       result,
     });
-
-
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -200,31 +199,27 @@ export const decline = async (req, res) => {
   }
 };
 
+export const acceptrequest = async (req, res) => {
+  try {
+    const { senderId } = req.params;
 
-export const acceptrequest = async(req,res)=>{
-try {
-  
-  const {senderId} = req.params;
+    if (!senderId) {
+      return res.status(400).json({
+        message: "senderId is not found",
+      });
+    }
 
-  if(!senderId){
-    return res.status(400).json({
-      message:"senderId is not found"
-    })
+    const response = await FriendRequest.findById(senderId).populate(
+      "senderId",
+      "status"
+    );
+
+    return res.status(200).json({
+      response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
   }
-
-  const response = await FriendRequest.findById(senderId).populate("senderId",'status')
-
-
-
-  return res.status(200).json({
-    response
-  })
-
-
-} catch (error) {
-  return res.status(500).json({
-    message:error.message
-  })  
-}
-}
-
+};

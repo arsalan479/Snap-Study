@@ -3,6 +3,7 @@ import { axiosinstance } from "../../AxiosInstance/axios";
 import LoopTwoToneIcon from "@mui/icons-material/LoopTwoTone";
 import VolumeUpSharpIcon from '@mui/icons-material/VolumeUpSharp';
 import StopCircleSharpIcon from "@mui/icons-material/StopCircleSharp";
+import toast from "react-hot-toast";
 
 const ExplainQuiz = ({ question, options, answer }) => {
   const [loading, setLoading] = useState(false);
@@ -58,11 +59,11 @@ const ExplainQuiz = ({ question, options, answer }) => {
       if (explanation) {
         speak(explanation);
       } else {
-        alert("No explanation found.");
+        toast.error("Server Error please try on after 5 minutes");
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to get explanation.");
+      toast.error("Server Error please try on after 5 minutes");
     } finally {
       setLoading(false);
     }

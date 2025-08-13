@@ -150,9 +150,9 @@ const SideBar2 = () => {
                         }}
                         className={`py-2 mt-1 px-3 duration-300 ${
                           activeSubject === subject ? "bg-[var(--bg2)]" : ""
-                        } text-white hover:bg-[var(--bg2)] font-medium rounded-[6px] tracking-tight cursor-pointer text-[1.6vw]`}
+                        } text-white capitalize hover:bg-[var(--bg2)] font-medium rounded-[10px] tracking-tight cursor-pointer text-[1.3vw]`}
                       >
-                        {subject.charAt(0).toUpperCase() + subject.slice(1)}
+                        <span><i className="ri-book-open-line"></i></span> {subject.charAt(0).toUpperCase() + subject.slice(1)}
                       </div>
                     ))
                   ) : (
