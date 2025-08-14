@@ -6,6 +6,8 @@ import RotatingText from "../../../ReactBits/RotatingText/RotatingText";
 import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.png";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
+import poweredquiz from "../../assets/WebsiteLogo/poweredquiz.png";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -106,58 +108,93 @@ const Home = () => {
           </div>
         </section>
 
-        
-<section className="h-screen w-full bg-black mt-10 text-white ">
-  <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-    
-    {/* Left Side - Content */}
-    <div>
-      <h1 className="text-5xl font-semibold mb-8">How It Works</h1>
+        <section className="h-screen w-full bg-black mt-10 text-white ">
+          <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            {/* Left Side - Content */}
+            <div>
+              <h1 className="text-5xl font-semibold mb-8">How It Works</h1>
 
-      {/* Step 1 */}
-      <div className="flex items-start mb-8">
-        <i className="ri-camera-line text-4xl text-[var(--primary)]"></i>
-        <div className="ml-4">
-          <h2 className="text-3xl">Upload Your Notes</h2>
-          <p className="mt-2 text-md">
-            Snap a photo of your notes (JPG, PNG, JPEG) <br /> and upload.
-          </p>
-        </div>
-      </div>
+              {/* Step 1 */}
+              <div className="flex items-start mb-8">
+                <i className="ri-camera-line text-4xl text-[var(--primary)]"></i>
+                <div className="ml-4">
+                  <h2 className="text-3xl">Upload Your Notes</h2>
+                  <p className="mt-2 text-md">
+                    Snap a photo of your notes (JPG, PNG, JPEG) <br /> and
+                    upload.
+                  </p>
+                </div>
+              </div>
 
-      {/* Step 2 */}
-      <div className="flex items-start mb-8">
-        <i className="ri-bard-line text-4xl text-[var(--primary)]"></i>
-        <div className="ml-4">
-          <h2 className="text-3xl">AI Creates Quiz Cards</h2>
-          <p className="mt-2 text-md">
-            AI instantly generates question cards from your uploaded notes.
-          </p>
-        </div>
-      </div>
+              {/* Step 2 */}
+              <div className="flex items-start mb-8">
+                <i className="ri-bard-line text-4xl text-[var(--primary)]"></i>
+                <div className="ml-4">
+                  <h2 className="text-3xl">AI Creates Quiz Cards</h2>
+                  <p className="mt-2 text-md">
+                    AI instantly generates question cards from your uploaded
+                    notes.
+                  </p>
+                </div>
+              </div>
 
-      {/* Step 3 */}
-      <div className="flex items-start">
-        <i className="ri-brain-line text-4xl text-[var(--primary)]"></i>
-        <div className="ml-4">
-          <h2 className="text-3xl ">Learn & Compete</h2>
-          <p className="mt-2 text-md">
-            Save your quiz cards or test your knowledge in competition mode.
-          </p>
-        </div>
-      </div>
-    </div>
+              {/* Step 3 */}
+              <div className="flex items-start">
+                <i className="ri-brain-line text-4xl text-[var(--primary)]"></i>
+                <div className="ml-4">
+                  <h2 className="text-3xl ">Learn & Compete</h2>
+                  <p className="mt-2 text-md">
+                    Save your quiz cards or test your knowledge in competition
+                    mode.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-    {/* Right Side - Image Placeholder */}
-    <div className="flex justify-center">
-      <div className="w-full h-96 bg-gray-700 flex items-center justify-center rounded-xl">
-        <span className="text-gray-300 text-xl">[ Dummy Image Here ]</span>
-      </div>
-    </div>
+            {/* Right Side - Image Placeholder */}
+            <div className="flex justify-center">
+              <div className="w-full h-96 bg-gray-700 flex items-center justify-center rounded-xl">
+                <span className="text-gray-300 text-xl">
+                  [ Dummy Image Here ]
+                </span>
+              </div>
+            </div>
+          </div>
 
-  </div>
-</section>
+          <div className="pt-15">
+            <h1 className="text-center pt-10 text-4xl">
+              Features <HorizontalRuleTwoToneIcon /> Quiz Card Generator
+            </h1>
 
+            {/* Two Column Layout */}
+            <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 px-10">
+              {/* Left Side - Content */}
+              <div>
+                <h1 className="pt-20 text-3xl  flex gap-2">
+                  <i className="text-[var(--primary)] ri-megaphone-line"></i>
+                   Your Quiz Powered by AI
+                </h1>
+                <p className="pt-4 pr-4 text-md">
+                  Select your subject, upload topic notes, and let AI create
+                  quiz cards for you. Save, bookmark, or get them read aloud
+                  with text-to-speech for effortless learning.
+                </p>
+              </div>
+
+              {/* Right Side - Image */}
+              <div className="w-full h-full">
+                <img
+                  src={poweredquiz}
+                  className="w-full h-full "
+                  alt="Quiz Card Generator Preview"
+                />
+              </div>
+            </div>
+
+
+          </div>
+          
+        </section>
       </main>
     </div>
   );
