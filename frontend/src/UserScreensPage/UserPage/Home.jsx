@@ -6,8 +6,8 @@ import RotatingText from "../../../ReactBits/RotatingText/RotatingText";
 import quizcardimage from "../../assets/WebsiteLogo/quizcardimage.png";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
-import HorizontalRuleTwoToneIcon from "@mui/icons-material/HorizontalRuleTwoTone";
-import poweredquiz from "../../assets/WebsiteLogo/poweredquiz.png";
+import quizfeature from "../../assets/WebsiteLogo/quizfeature.png";
+import quizcardimage2 from "../../assets/WebsiteLogo/quizcardimage2.png";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -112,7 +112,9 @@ const Home = () => {
           <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Side - Content */}
             <div>
-              <h1 className="text-5xl font-semibold mb-8">How It <span className="text-[var(--primary)]">Works</span></h1>
+              <h1 className="text-5xl font-semibold mb-8">
+                How It <span className="text-[var(--primary)]">Works</span>
+              </h1>
 
               {/* Step 1 */}
               <div className="flex items-start mb-8">
@@ -154,59 +156,68 @@ const Home = () => {
             {/* Right Side - Image Placeholder */}
             <div className="f">
               <div className="w-full h-96 bg-gray-700 flex items-center justify-center rounded-xl">
-                  <img src={quizcardimage} className="w-full h-full overflow-hidden object-cover rounded-xl " alt="" />
+                <img
+                  src={quizcardimage}
+                  className="w-full h-full overflow-hidden object-cover rounded-xl "
+                  alt=""
+                />
               </div>
             </div>
           </div>
-          
         </section>
 
+        <section className="w-full h-auto py-[10vw]">
+          <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Left Content */}
+            <div>
+              <h1 className="text-4xl tracking-tight  mb-5 flex items-center gap-2">
+                <i className="text-[var(--primary)] ri-megaphone-line"></i>
+                Your Quiz Powered by AI
+              </h1>
+              <p className="text-md leading-relaxed">
+                Select your subject, upload topic notes, and let AI create quiz
+                cards for you. Save, bookmark, or get them read aloud with
+                text-to-speech for effortless learning.
+              </p>
+            </div>
 
-<section className="w-full h-auto  flex py-[10vw]">
-  <div className="container mx-auto px-6">
+            {/* Right Image */}
+            <div className="w-full h-84  flex items-center justify-center rounded-xl overflow-hidden">
+              <img
+                src={quizfeature}
+                className="w-full h-full object-cover"
+                alt="Quiz Feature Preview"
+              />
+            </div>
+          </div>
+        </section>
 
-    {/* Section Heading */}
-    <h1 className="text-center text-4xl md:text-5xl font-bold text-white mb-12">
-      Our <span className="text-[var(--primary)]">Features</span>
-    </h1>
+        <section className="w-full h-auto ">
+          <div className="container  mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Left side */}
+            <div className="w-full h-84 flex items-center justify-center overflow-hidden">
+              <img
+                src={quizcardimage2}
+                className="w-full h-full object-cover"
+                alt="Quiz Feature Preview"
+              />
+            </div>
 
-    {/* Features Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-      
-      {/* Card 1 - Quiz Card Generator */}
-      <div className="bg-[#1F1F1F] rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300">
-        <div className="flex items-center mb-4">
-          <i className="ri-bard-line text-5xl text-[var(--primary)]"></i>
-          <h2 className="ml-4 text-2xl font-semibold text-white">
-            Quiz Card Generator
-          </h2>
-        </div>
-        <p className="text-gray-500 text-lg">
-          Upload your notes and let AI transform them into interactive quiz cards.
-          Save, bookmark, or listen with text-to-speech for smarter learning.
-        </p>
-      </div>
+            {/* Right side */}
 
-      {/* Card 2 - Competition Mode */}
-      <div className="bg-[#1F1F1F] rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300">
-        <div className="flex items-center mb-4">
-          <i className="ri-brain-line text-5xl text-[var(--primary)]"></i>
-          <h2 className="ml-4 text-2xl font-semibold text-white">
-            Competition Mode
-          </h2>
-        </div>
-        <p className="text-gray-500 text-lg">
-          Challenge yourself with AI-generated MCQs, track your score, and
-          climb the leaderboard in real-time against other learners.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
+            <div>
+              <h1 className="text-4xl tracking-tight mb-5 flex items-center gap-2">
+                <i className="text-[var(--primary)] ri-megaphone-line"></i>
+                Climb the Leaderboard{" "}
+              </h1>
+              <p className="text-md leading-relaxed">
+                Choose a topic, set difficulty, and answer MCQs generated from
+                your notes. Submit your answers, see your score instantly, and
+                compete for top positions on the leaderboard.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
