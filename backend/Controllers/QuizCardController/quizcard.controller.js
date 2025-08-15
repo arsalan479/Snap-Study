@@ -10,11 +10,9 @@ export const quizfileupload = async (req, res) => {
     const response = await handleQuizFileUploadService(req);
     return res.status(200).json({
       result: response,
-    })
-
+    });
   } catch (error) {
-
-  if (error.message === "Insufficient credits") {
+    if (error.message === "Insufficient credits") {
       return res.status(500).json({
         message:
           "You have no credits left. Please wait until your credits are refreshed.",
@@ -106,8 +104,7 @@ Correct Answer: ${answer}
       explanation,
     });
   } catch (err) {
-    console.error("Error in quizCardExplain:", err);
+    console.error(err);
     res.status(500).json({ error: "Failed to generate explanation." });
   }
 };
-

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import quizfeature from "../../assets/WebsiteLogo/quizfeature.png";
 import quizcardimage2 from "../../assets/WebsiteLogo/quizcardimage2.png";
+import FallingText from "../../../ReactBits/FallingText/FallingText";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -166,11 +167,11 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="w-full h-auto py-[10vw]">
+        <section className="w-full h-auto pt-[6vw] pb-[4vw]">
           <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Left Content */}
             <div>
-              <h1 className="text-4xl tracking-tight  mb-5 flex items-center gap-2">
+              <h1 className="text-4xl tracking-tight mb-5 flex items-center gap-2">
                 <i className="text-[var(--primary)] ri-megaphone-line"></i>
                 Your Quiz Powered by AI
               </h1>
@@ -182,7 +183,7 @@ const Home = () => {
             </div>
 
             {/* Right Image */}
-            <div className="w-full h-84  flex items-center justify-center rounded-xl overflow-hidden">
+            <div className="w-full h-84 flex items-center justify-center rounded-xl overflow-hidden">
               <img
                 src={quizfeature}
                 className="w-full h-full object-cover"
@@ -192,8 +193,8 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="w-full h-auto ">
-          <div className="container  mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <section className="w-full h-auto pb-[4vw]">
+          <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Left side */}
             <div className="w-full h-84 flex items-center justify-center overflow-hidden">
               <img
@@ -204,11 +205,10 @@ const Home = () => {
             </div>
 
             {/* Right side */}
-
             <div>
               <h1 className="text-4xl tracking-tight mb-5 flex items-center gap-2">
                 <i className="text-[var(--primary)] ri-megaphone-line"></i>
-                Climb the Leaderboard{" "}
+                Climb the Leaderboard
               </h1>
               <p className="text-md leading-relaxed">
                 Choose a topic, set difficulty, and answer MCQs generated from
@@ -218,6 +218,14 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        <section className="w-full h-screen bg-amber-300">
+          <div>
+
+          </div>
+        </section>
+
+        
       </main>
     </div>
   );
