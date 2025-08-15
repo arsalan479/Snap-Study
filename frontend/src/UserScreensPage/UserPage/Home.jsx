@@ -108,11 +108,11 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="h-screen w-full bg-black mt-10 text-white ">
+        <section className="h-auto w-full bg-black mt-10 text-white ">
           <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Side - Content */}
             <div>
-              <h1 className="text-5xl font-semibold mb-8">How It Works</h1>
+              <h1 className="text-5xl font-semibold mb-8">How It <span className="text-[var(--primary)]">Works</span></h1>
 
               {/* Step 1 */}
               <div className="flex items-start mb-8">
@@ -152,49 +152,61 @@ const Home = () => {
             </div>
 
             {/* Right Side - Image Placeholder */}
-            <div className="flex justify-center">
+            <div className="f">
               <div className="w-full h-96 bg-gray-700 flex items-center justify-center rounded-xl">
-                <span className="text-gray-300 text-xl">
-                  [ Dummy Image Here ]
-                </span>
+                  <img src={quizcardimage} className="w-full h-full overflow-hidden object-cover rounded-xl " alt="" />
               </div>
             </div>
-          </div>
-
-          <div className="pt-15">
-            <h1 className="text-center pt-10 text-4xl">
-              Features <HorizontalRuleTwoToneIcon /> Quiz Card Generator
-            </h1>
-
-            {/* Two Column Layout */}
-            <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 px-10">
-              {/* Left Side - Content */}
-              <div>
-                <h1 className="pt-20 text-3xl  flex gap-2">
-                  <i className="text-[var(--primary)] ri-megaphone-line"></i>
-                   Your Quiz Powered by AI
-                </h1>
-                <p className="pt-4 pr-4 text-md">
-                  Select your subject, upload topic notes, and let AI create
-                  quiz cards for you. Save, bookmark, or get them read aloud
-                  with text-to-speech for effortless learning.
-                </p>
-              </div>
-
-              {/* Right Side - Image */}
-              <div className="w-full h-full">
-                <img
-                  src={poweredquiz}
-                  className="w-full h-full "
-                  alt="Quiz Card Generator Preview"
-                />
-              </div>
-            </div>
-
-
           </div>
           
         </section>
+
+
+<section className="w-full h-auto  flex py-[10vw]">
+  <div className="container mx-auto px-6">
+
+    {/* Section Heading */}
+    <h1 className="text-center text-4xl md:text-5xl font-bold text-white mb-12">
+      Our <span className="text-[var(--primary)]">Features</span>
+    </h1>
+
+    {/* Features Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      
+      {/* Card 1 - Quiz Card Generator */}
+      <div className="bg-[#1F1F1F] rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300">
+        <div className="flex items-center mb-4">
+          <i className="ri-bard-line text-5xl text-[var(--primary)]"></i>
+          <h2 className="ml-4 text-2xl font-semibold text-white">
+            Quiz Card Generator
+          </h2>
+        </div>
+        <p className="text-gray-500 text-lg">
+          Upload your notes and let AI transform them into interactive quiz cards.
+          Save, bookmark, or listen with text-to-speech for smarter learning.
+        </p>
+      </div>
+
+      {/* Card 2 - Competition Mode */}
+      <div className="bg-[#1F1F1F] rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300">
+        <div className="flex items-center mb-4">
+          <i className="ri-brain-line text-5xl text-[var(--primary)]"></i>
+          <h2 className="ml-4 text-2xl font-semibold text-white">
+            Competition Mode
+          </h2>
+        </div>
+        <p className="text-gray-500 text-lg">
+          Challenge yourself with AI-generated MCQs, track your score, and
+          climb the leaderboard in real-time against other learners.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
       </main>
     </div>
   );
