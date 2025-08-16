@@ -1,4 +1,4 @@
-import { React,useState,createContext } from "react";
+import { React,useState,createContext, useCallback } from "react";
 
 export const AppContext = createContext();
 
@@ -9,7 +9,17 @@ const QuizCardsContext = ({children}) => {
   const [SaveQuizCard, setSaveQuizCard] = useState(null)
   const [isProcessing, setisProcessing] = useState(false)
 
-  return( <AppContext.Provider 
+// Add reset function
+  const resetQuizState = useCallback(() => {
+    setFileUrl(null);
+    setExtractText(null);
+    setcards([]);
+    setSaveQuizCard(null);
+    setisProcessing(false);
+  }, []);
+
+  return( 
+  <AppContext.Provider 
   value={{
     FileUrl,
     setFileUrl,
@@ -21,7 +31,7 @@ const QuizCardsContext = ({children}) => {
     setSaveQuizCard,
     isProcessing,
     setisProcessing,
-    
+    resetQuizState
   }}
   >
 

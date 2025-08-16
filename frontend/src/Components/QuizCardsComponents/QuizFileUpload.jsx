@@ -68,9 +68,9 @@ const QuizFileUpload = () => {
       );
 
       if (response.status === 200) {
-        console.log(response);
         //forcontext
         setFileUrl(response.data.result.file.fileUrl);
+        
       }
     } catch (error) {
       toast.error(error.response.data.message || error.response.data.error);

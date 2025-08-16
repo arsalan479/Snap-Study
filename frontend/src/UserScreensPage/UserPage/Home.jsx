@@ -243,6 +243,29 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        <section className="w-full h-auto">
+          <div className="h-100 flex justify-center items-center pt-20">
+            <FallingText
+              text={`Smartly generated questions from your own notes. Learn with quizzes, not boring text. Compete with peers instantly Keep your learning structured.`}
+              highlightWords={[
+                "quizzes",
+                "Compete",
+                "learning",
+                "notes",
+                "questions"
+              ]}
+              highlightClass="highlighted"
+              trigger="hover"
+              backgroundColor="transparent"
+              wireframes={false}
+              gravity={0.56}
+              fontSize="2rem"
+              mouseConstraintStiffness={0.9}
+            />
+          </div>
+        </section>
+        
       </main>
     </div>
   );
