@@ -220,7 +220,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="w-full h-auto pt-15 flex ">
+        <section className="w-full h-auto pt-12 flex ">
           <div className="text-center w-full">
             <h1 className="text-4xl">
               <span>
