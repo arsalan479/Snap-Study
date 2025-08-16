@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import quizfeature from "../../assets/WebsiteLogo/quizfeature.png";
 import quizcardimage2 from "../../assets/WebsiteLogo/quizcardimage2.png";
+import savehistory from "../../assets/WebsiteLogo/savehistory.jpg";
 import FallingText from "../../../ReactBits/FallingText/FallingText";
 
 const Home = () => {
@@ -219,13 +220,29 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="w-full h-screen bg-amber-300">
-          <div>
+        <section className="w-full h-auto pt-15 flex ">
+          <div className="text-center w-full">
+            <h1 className="text-4xl">
+              <span>
+                <i className="text-[var(--primary)] ri-folder-5-line"></i>
+              </span>{" "}
+              All Your Learning Organized and Accessible
+            </h1>
+            <p className="px-20 pt-3 text-[1.6vw] leading-6">
+              Keep track of your saved quiz cards and competitions. Your private
+              history ensures you can revisit topics anytime, subject-wise.
+            </p>
 
+            {/* Image Container */}
+            <div className="flex justify-center mt-6">
+              <img
+                src={savehistory}
+                className="w-[800px] h-[450px] object-cover rounded-2xl"
+                alt="Save History Preview"
+              />
+            </div>
           </div>
         </section>
-
-        
       </main>
     </div>
   );
