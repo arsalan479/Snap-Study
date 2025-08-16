@@ -33,7 +33,8 @@ const ProtectedRoute = ({ children }) => {
         if (status === 401) {
           toast.error("Your session has been revoked (blacklisted token).");
         } else if (status === 403) {
-          toast.error("Unauthorized. Please login again.");
+          // toast.error("Unauthorized. Please login again.");
+          navigate('/snapstudylogin')
         } else {
           toast.error("Authentication error.");
         }
@@ -49,9 +50,9 @@ const ProtectedRoute = ({ children }) => {
         });
 
         // Delay redirect slightly to show toast
-        setTimeout(() => {
-          navigate("/", { replace: true });
-        }, 1000);
+        // setTimeout(() => {
+        //   navigate("/", { replace: true });
+        // }, 1000);
       });
   }, [authState.checked, navigate]);
 

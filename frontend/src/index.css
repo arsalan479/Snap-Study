@@ -17,7 +17,9 @@ color: #fff;
 .scrollbarpost::-webkit-scrollbar{
   display: none;
 }
-
+.css-1uip4h5-MuiTableCell-root.MuiTableCell-body{
+  color: white !important;
+}
 
 :root {
     --background: #000;
