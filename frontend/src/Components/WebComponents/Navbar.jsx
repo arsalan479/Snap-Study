@@ -6,15 +6,13 @@ import toast from "react-hot-toast";
 import Settings from "./Setting";
 import Modalrapper from "./Modalrapper";
 import { FlashContext } from "../../Context/FlashCardsContext";
-import Notification from "../../UserScreensPage/UserPage/Notification";
 
-const Navbar = ({ isSidebarOpen }) => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const [user, setuser] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [shownotify, setshownotify] = useState(false);
-  const [notifylength, setnotifylength] = useState(null);
   const { setuserfetch } = useContext(FlashContext);
 
   // ✅ Fetch user details
@@ -36,25 +34,7 @@ const Navbar = ({ isSidebarOpen }) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // ✅ Fetch notifications
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response = await axiosinstance.get("/api/room/getnotify");
-        if (response.status === 200) {
-          setnotifylength(response.data.response.length);
-        }
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    };
-
-    fetchNotifications();
-    const intervalId = setInterval(fetchNotifications, 10000); // 🔄 every 10s
-    return () => clearInterval(intervalId);
-  }, []);
-
-  // ✅ Logout
+ 
   const logoutuser = async () => {
     try {
       const response = await axiosinstance.get("/auth/magic/logout");
@@ -69,9 +49,7 @@ const Navbar = ({ isSidebarOpen }) => {
   };
 
   const handleSettingsClick = () => setShowSettings(true);
-  const handleNotificationClick = () => setshownotify(true);
 
-  // ✅ Dropdown menu items
   const items = [
     {
       key: "1",
@@ -98,13 +76,11 @@ const Navbar = ({ isSidebarOpen }) => {
 
   return (
     <>
-      {/* ✅ Fixed Navbar */}
       <header
         className={`fixed top-0 z-50 w-full right-0 h-16 flex items-center justify-end px-8 text-white transition-all duration-300`}
       >
         {user && user.credits !== undefined && (
           <>
-            {/* ✅ User credits */}
             <div>
               <div className="mr-3 cursor-pointer px-3 py-2 rounded-2xl bg-[#2D2D2D]">
                 <h1>
@@ -115,22 +91,9 @@ const Navbar = ({ isSidebarOpen }) => {
                 </h1>
               </div>
             </div>
-
-            {/* ✅ Notifications */}
-            <div className="relative" onClick={handleNotificationClick}>
-              <div className="absolute top-0 -left-1 cursor-pointer">
-                {notifylength > 0 && (
-                  <div className="bg-red-500 text-white relative flex items-center justify-center rounded-full w-4 h-4 text-xs">
-                    {notifylength}
-                  </div>
-                )}
-              </div>
-              <i className="ri-notification-2-line mr-5 text-2xl mb-1 text-[#fff] rounded-full cursor-pointer"></i>
-            </div>
           </>
         )}
 
-        {/* ✅ Avatar / Login */}
         <div>
           {user ? (
             <Dropdown
@@ -161,19 +124,16 @@ const Navbar = ({ isSidebarOpen }) => {
         </div>
       </header>
 
-      {/* ✅ Settings Modal */}
       {showSettings && (
-        <Modalrapper isOpen={showSettings} onClose={() => setShowSettings(false)}>
+        <Modalrapper
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
+        >
           <Settings />
         </Modalrapper>
       )}
 
-      {/* ✅ Notifications Modal */}
-      {shownotify && (
-        <Modalrapper isOpen={shownotify} onClose={() => setshownotify(false)}>
-          <Notification />
-        </Modalrapper>
-      )}
+      
     </>
   );
 };

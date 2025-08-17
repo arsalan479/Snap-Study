@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import MainQuizCardFile from "../../UserScreensPage/QuizCardSystem/MainQuizCardFile";
 import QuizCardHistory from "../../Components/UserDashboard/UserDashboardCards";
 import SubjectSelect from "../../Components/SubjectSelect";
-import FreindsList from "../../UserScreensPage/UserPage/FreindsList";
 import MainGroup from "../../UserScreensPage/UserPage/GroupStudy/MainGroup";
 import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCompetionData";
 import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";

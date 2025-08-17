@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import snaplogo from "../../assets/WebsiteLogo/snapstudylogo.png";
 import ArrowBackTwoToneIcon from "@mui/icons-material/ArrowBackTwoTone";
 import ArrowOutwardTwoToneIcon from "@mui/icons-material/ArrowOutwardTwoTone";
-import SyncAltTwoToneIcon from "@mui/icons-material/SyncAltTwoTone";
 
 const SideBar = ({ isOpen, toggleSidebar }) => {
   return (
     <>
       {/* Logo and menu toggle - Fixed outside sidebar */}
-      <div className="fixed top-3 left-3  z-50 flex items-center gap-10">
+      <div className="fixed top-3 left-3 z-50 flex items-center gap-30">
         <div className="w-10 h-10">
           <img
             src={snaplogo}
@@ -21,7 +20,7 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
           onClick={toggleSidebar}
           className="text-[var(--text)] cursor-pointer"
         >
-          <SyncAltTwoToneIcon style={{ fontSize: 25 }} />
+          <i className="text-xl ri-sidebar-fold-line"></i>
         </button>
       </div>
 

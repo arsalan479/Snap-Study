@@ -1,13 +1,6 @@
 import { Router } from "express";
 import {body} from 'express-validator'
-import {
-  acceptrequest,
-  decline,
-  fetchalluser,
-  freindsearch,
-  getnotificaion,
-  sendrequest,
-} from "../../Controllers/RoomCreateController/createroom.controller.js";
+
 import {
   aitopicsendtext,
   quizcompdatafetch,
@@ -27,17 +20,6 @@ import {
 
 const route = Router();
 
-route.get("/fetchuser", fetchalluser);
-
-route.get("/friendsearch", freindsearch);
-
-route.post("/sendrequest", sendrequest);
-
-route.get("/getnotify", getnotificaion);
-
-route.delete("/decline/:notificationcurrentId", decline);
-
-route.get("/acceptrequest/:senderId", acceptrequest);
 
 route.post(
   "/sendcomp",
