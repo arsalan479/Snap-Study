@@ -12,6 +12,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import toast from "react-hot-toast";
 
 // Custom ProgressBar Component
 const ProgressBar = ({ label, value, total, color }) => {
@@ -84,6 +85,23 @@ const UsersData = () => {
     response();
   }, []);
 
+  const userdelete = async (userId) => {
+    try {
+      const res = await toast.promise(
+        axiosinstance.delete(`/admin/userdelete/${userId}`),
+        {
+          loading: "user deleting...",
+          success: "user delete successfully",
+        }
+      );
+      if (res.status === 200) {
+        setuserdata((prev) => prev.filter((user) => user._id !== userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Counts
   const totalUsers = userdata.length;
   const githubUsers = userdata.filter(
@@ -150,34 +168,53 @@ const UsersData = () => {
       </Box>
 
       {/* Users Table */}
-      <TableContainer component={Paper} className="p-5">
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Plans</StyledTableCell>
-              <StyledTableCell>Credits</StyledTableCell>
-              <StyledTableCell>Created At</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {userdata.map((row, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell>{row.displayName}</StyledTableCell>
-                <StyledTableCell>{row.email}</StyledTableCell>
-                <StyledTableCell>{row.status}</StyledTableCell>
-                <StyledTableCell>{row.Plans}</StyledTableCell>
-                <StyledTableCell>{row.credits}</StyledTableCell>
-                <StyledTableCell>
-                  {new Date(row.createdAt).toLocaleDateString()}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+     <TableContainer component={Paper} className="p-5">
+  <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <TableHead>
+      <TableRow>
+        <StyledTableCell>Name</StyledTableCell>
+        <StyledTableCell>Email</StyledTableCell>
+        <StyledTableCell>Status</StyledTableCell>
+        <StyledTableCell>Plans</StyledTableCell>
+        <StyledTableCell>Credits</StyledTableCell>
+        <StyledTableCell>Created At</StyledTableCell>
+        <StyledTableCell>Action</StyledTableCell>
+      </TableRow>
+    </TableHead>
+
+    <TableBody>
+      {userdata.length === 0 ? (
+        <TableRow>
+          <TableCell sx={{color:"#99A19F",fontSize:25}} colSpan={7} align="center">
+           <span><i className="text-[var(--primary)] ri-bubble-chart-line"></i></span> No record found
+          </TableCell>
+        </TableRow>
+      ) : (
+        userdata.map((row) => (
+          <StyledTableRow key={row._id}>
+            <StyledTableCell>{row.displayName}</StyledTableCell>
+            <StyledTableCell>{row.email}</StyledTableCell>
+            <StyledTableCell>{row.status}</StyledTableCell>
+            <StyledTableCell>{row.Plans}</StyledTableCell>
+            <StyledTableCell>{row.credits}</StyledTableCell>
+            <StyledTableCell>
+              {new Date(row.createdAt).toLocaleDateString()}
+            </StyledTableCell>
+            <StyledTableCell>
+              <button
+                onClick={() => userdelete(row._id)}
+                className="bg-red-500 px-6 py-3 rounded-md cursor-pointer text-white"
+              >
+                Delete
+              </button>
+            </StyledTableCell>
+          </StyledTableRow>
+        ))
+      )}
+    </TableBody>
+  </Table>
+</TableContainer>
+
     </>
   );
 };
