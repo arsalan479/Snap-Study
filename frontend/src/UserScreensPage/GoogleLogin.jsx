@@ -2,20 +2,17 @@ import { React, useState, useRef } from "react";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// import ReCAPTCHA from 'react-google-recaptcha';
 
 const GoogleLogin = () => {
-  // const sitekeyV2 = "6LczM1orAAAAANHnVgjcrv65_juy5_xacZ7Sl8dw"; // Replace with your actual site key
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
+  const navigate = useNavigate()
 
 
-
-  // const recaptchaRef = useRef(null);
 
   const tooglepassword = () => {
     seteyepassword((prev) => !prev);
@@ -24,24 +21,9 @@ const GoogleLogin = () => {
   const submithandler = async (e) => {
     e.preventDefault();
 
-    //     const token = recaptchaRef.current?.getValue();
-
-    // if (!token) {
-    //   toast.error("Please complete the reCAPTCHA.")
-    //   return;
-    // }
+    
     try {
-      // Step 1: Verify reCAPTCHA token
-      // const captchaVerifyRes = await axiosinstance.post(
-      //   "/auth/verify-captcha-V2",
-      //   { token }
-      // );
-
-      // if (!captchaVerifyRes.data.success) {
-      //   setError("reCAPTCHA verification failed.");
-      //   return;
-      // }
-
+     
       if (!email && !password) {
         toast.error("Email and Password are required");
         return;
@@ -84,6 +66,8 @@ const GoogleLogin = () => {
           toast.error(data.message);
         } else {
           toast.error(data.message || "Something went wrong. Try again.");
+          console.log(data.message)
+          navigate('/googleOTP')
         }
       } else {
         toast.error("Network error. Try again.");
@@ -101,7 +85,6 @@ const GoogleLogin = () => {
         }
       );
     } catch (error) {
-      // console.error('Forgot Password Error:', error);
       if (error.response) {
         const { status, data } = error.response;
 
@@ -153,15 +136,12 @@ const GoogleLogin = () => {
           </span>
         </div>
 
-        {/* Google reCAPTCHA  */}
-        {/* <div className="mb-6">
-          <ReCAPTCHA sitekey={sitekeyV2} ref={recaptchaRef} />
-        </div> */}
+       
         <button
           type="submit"
           className=" w-full capitalize mt-4 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] text-white font-medium py-3 rounded-[15px] transition-all duration-200"
         >
-          Continue with email 
+         <span><i className="text-[var(--primary)] ri-mail-line"></i></span>  Continue with email 
         </button>
 
         <div className="flex justify-center gap-40 mt-4">
