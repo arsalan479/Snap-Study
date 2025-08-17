@@ -10,6 +10,7 @@ import quizfeature from "../../assets/WebsiteLogo/quizfeature.png";
 import quizcardimage2 from "../../assets/WebsiteLogo/quizcardimage2.png";
 import savehistory from "../../assets/WebsiteLogo/savehistory.jpg";
 import FallingText from "../../../ReactBits/FallingText/FallingText";
+import confetti  from 'canvas-confetti'
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -54,6 +55,33 @@ const Home = () => {
       window.history.replaceState({}, "", window.location.pathname);
     }
   }, []);
+
+
+const handlecelebrate = ()=>{
+ var colors = ["#bb0000", "#ffffff"];
+    var end = Date.now() + 15 * 1000;
+
+    (function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors,
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors,
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame); // ✅ ab frame define ho gaya
+      }
+    })();
+}
 
   return (
     <div>
@@ -265,7 +293,11 @@ const Home = () => {
             />
           </div>
         </section>
-        
+
+       <section className="w-full h-screen flex justify-center items-center bg-black">
+        <button onClick={handlecelebrate} className="bg-white px-10 text-black py-4 rounded-2xl cursor-pointer">Alert</button>
+        </section> 
+      
       </main>
     </div>
   );

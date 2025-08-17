@@ -32,6 +32,7 @@ const MainGroup = () => {
         setdatashow(response.data.response);
         setscoreData(null);
         setisSubmitting(false);
+        setdatasavebtn(false)
         setuseranswer({});
       }
     } catch (error) {
@@ -176,6 +177,7 @@ const MainGroup = () => {
                 <input
                   type="radio"
                   name={`question-${index}`}
+                  checked={useranswer[index] === value}
                   value={value}
                   onChange={() =>
                     setuseranswer((prev) => ({ ...prev, [index]: value }))

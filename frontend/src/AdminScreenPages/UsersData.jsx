@@ -11,8 +11,8 @@ import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import toast from "react-hot-toast";
+import { Modal } from "antd";
 
 // Custom ProgressBar Component
 const ProgressBar = ({ label, value, total, color }) => {
@@ -33,9 +33,9 @@ const ProgressBar = ({ label, value, total, color }) => {
         sx={{
           height: 10,
           borderRadius: 5,
-          backgroundColor: "#333", // progress track ka color
+          backgroundColor: "#333", // progress track
           "& .MuiLinearProgress-bar": {
-            backgroundColor: color, // progress bar ka color
+            backgroundColor: color, // progress bar
           },
         }}
       />
@@ -70,9 +70,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const UsersData = () => {
   const [userdata, setuserdata] = useState([]);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
+  // Fetch all users
   useEffect(() => {
-    const response = async () => {
+    const fetchUsers = async () => {
       try {
         const response = await axiosinstance.get("/admin/alluserdata");
         if (response.status === 200) {
@@ -80,18 +83,33 @@ const UsersData = () => {
         }
       } catch (error) {
         console.log(error);
+        toast.error("Failed to fetch users.");
       }
     };
-    response();
+    fetchUsers();
   }, []);
 
+  // Open Delete Modal
+  const opendeletemodel = (id) => {
+    setSelectedId(id);
+    setDeleteModalOpen(true);
+  };
+
+  // Close Delete Modal
+  const closedeletemodel = () => {
+    setDeleteModalOpen(false);
+    setSelectedId(null);
+  };
+
+  // Delete User
   const userdelete = async (userId) => {
     try {
       const res = await toast.promise(
         axiosinstance.delete(`/admin/userdelete/${userId}`),
         {
-          loading: "user deleting...",
-          success: "user delete successfully",
+          loading: "Deleting user...",
+          success: "User deleted successfully",
+          error: "Failed to delete user",
         }
       );
       if (res.status === 200) {
@@ -99,6 +117,8 @@ const UsersData = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      closedeletemodel(); // close modal after action
     }
   };
 
@@ -168,53 +188,96 @@ const UsersData = () => {
       </Box>
 
       {/* Users Table */}
-     <TableContainer component={Paper} className="p-5">
-  <Table sx={{ minWidth: 700 }} aria-label="customized table">
-    <TableHead>
-      <TableRow>
-        <StyledTableCell>Name</StyledTableCell>
-        <StyledTableCell>Email</StyledTableCell>
-        <StyledTableCell>Status</StyledTableCell>
-        <StyledTableCell>Plans</StyledTableCell>
-        <StyledTableCell>Credits</StyledTableCell>
-        <StyledTableCell>Created At</StyledTableCell>
-        <StyledTableCell>Action</StyledTableCell>
-      </TableRow>
-    </TableHead>
+      <TableContainer component={Paper} className="p-5">
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Plans</StyledTableCell>
+              <StyledTableCell>Credits</StyledTableCell>
+              <StyledTableCell>Created At</StyledTableCell>
+              <StyledTableCell>Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
 
-    <TableBody>
-      {userdata.length === 0 ? (
-        <TableRow>
-          <TableCell sx={{color:"#99A19F",fontSize:25}} colSpan={7} align="center">
-           <span><i className="text-[var(--primary)] ri-bubble-chart-line"></i></span> No record found
-          </TableCell>
-        </TableRow>
-      ) : (
-        userdata.map((row) => (
-          <StyledTableRow key={row._id}>
-            <StyledTableCell>{row.displayName}</StyledTableCell>
-            <StyledTableCell>{row.email}</StyledTableCell>
-            <StyledTableCell>{row.status}</StyledTableCell>
-            <StyledTableCell>{row.Plans}</StyledTableCell>
-            <StyledTableCell>{row.credits}</StyledTableCell>
-            <StyledTableCell>
-              {new Date(row.createdAt).toLocaleDateString()}
-            </StyledTableCell>
-            <StyledTableCell>
-              <button
-                onClick={() => userdelete(row._id)}
-                className="bg-red-500 px-6 py-3 rounded-md cursor-pointer text-white"
-              >
-                Delete
-              </button>
-            </StyledTableCell>
-          </StyledTableRow>
-        ))
-      )}
-    </TableBody>
-  </Table>
-</TableContainer>
+          <TableBody>
+            {userdata.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  sx={{ color: "#99A19F", fontSize: 25 }}
+                  colSpan={7}
+                  align="center"
+                >
+                  <span>
+                    <i className="text-[var(--primary)] ri-bubble-chart-line"></i>
+                  </span>{" "}
+                  No record found
+                </TableCell>
+              </TableRow>
+            ) : (
+              userdata.map((row) => (
+                <StyledTableRow key={row._id}>
+                  <StyledTableCell>{row.displayName}</StyledTableCell>
+                  <StyledTableCell>{row.email}</StyledTableCell>
+                  <StyledTableCell>{row.status}</StyledTableCell>
+                  <StyledTableCell>{row.Plans}</StyledTableCell>
+                  <StyledTableCell>{row.credits}</StyledTableCell>
+                  <StyledTableCell>
+                    {new Date(row.createdAt).toLocaleDateString()}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <button
+                      onClick={() => opendeletemodel(row._id)}
+                      className="bg-[#2D2D2D] hover:bg-red-500 duration-300 flex items-center gap-1 px-3.5 py-3 rounded-full cursor-pointer text-white"
+                    >
+                      <span>
+                        <i className="ri-delete-bin-6-line"></i>
+                      </span>
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
+      {/* Delete Modal */}
+      <Modal
+        open={deleteModalOpen}
+        onCancel={closedeletemodel}
+        footer={null}
+        closable={false}
+        className="p-0 custom-modal-style"
+        centered
+      >
+        <div className="text-white">
+          <h1 className="text-[19px] tracking-tight">
+            <i className="ri-error-warning-line text-yellow-300"></i> Remove
+            User Permission
+          </h1>
+          <p className="text-gray-300 mt-2 tracking-tight text-[15px]">
+            Are you sure you want to delete this user? This action cannot be
+            undone.
+          </p>
+          <div className="flex justify-end gap-2 mt-4">
+            <button
+              onClick={closedeletemodel}
+              className="bg-[#4b4b4b] text-white px-10 py-2 rounded-full cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => userdelete(selectedId)}
+              className="bg-white text-black px-10 py-2 rounded-full cursor-pointer"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
