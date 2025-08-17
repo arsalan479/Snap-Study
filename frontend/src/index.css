@@ -82,7 +82,26 @@ color: #fff;
     font-size: 3vw !important; /* Larger text for small screens */
   }
  
- 
+ .mainheading{
+  font-size: 7vw;
+  padding-bottom: 10px;
+ }
+ .howwork{
+  text-align: center;
+  font-size: 10vw;
+ }
+ .rotatintext{
+  display: none;
+ }
+ .mainpara{
+  font-size: 4vw !important;
+  padding:0 10px;
+ }
+ .paras{
+    font-size: 4vw !important;
+  padding:0 10px;
+  padding-top: 20px;
+ }
 }
 
 .home:hover .arrow {

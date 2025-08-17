@@ -10,14 +10,13 @@ import quizfeature from "../../assets/WebsiteLogo/quizfeature.png";
 import quizcardimage2 from "../../assets/WebsiteLogo/quizcardimage2.png";
 import savehistory from "../../assets/WebsiteLogo/savehistory.jpg";
 import FallingText from "../../../ReactBits/FallingText/FallingText";
-import confetti  from 'canvas-confetti'
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [userName, setUserName] = useState("");
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const location = useLocation();
@@ -57,36 +56,11 @@ const Home = () => {
   }, []);
 
 
-const handlecelebrate = ()=>{
- var colors = ["#bb0000", "#ffffff"];
-    var end = Date.now() + 15 * 1000;
-
-    (function frame() {
-      confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: colors,
-      });
-      confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: colors,
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame); // ✅ ab frame define ho gaya
-      }
-    })();
-}
 
   return (
     <div>
-      <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Navbar isSidebarOpen={isSidebarOpen} />
+      <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       <main
         className={`${
@@ -101,11 +75,11 @@ const handlecelebrate = ()=>{
           />
         </section>
 
-        <section className="text-center pt-5 h-screen w-full">
-          <h1 className="text-[3.5vw] flex justify-center tracking-tight items-center">
+        <section className="text-center pt-5 h-auto py-20 p-10 w-full">
+          <h1 className="mainheading text-[3.5vw] flex justify-center tracking-tight items-center">
             Create AI-Powered Quiz Cards For
             <span>
-              <div className="ml-2">
+              <div className="ml-2 rotatintext">
                 <RotatingText
                   texts={["Scoring", "Student", "Winning", "Success"]}
                   mainClassName="px-2 sm:px-2 md:px-3 tracking-tight bg-[var(--primary)]  font-extrabold overflow-hidden  justify-center rounded-lg"
@@ -122,13 +96,13 @@ const handlecelebrate = ()=>{
             </span>
           </h1>
 
-          <p className="pl-20 pt-1 text-[1.6vw] leading-6 pr-20 t">
+          <p className="mainpara pl-20 pt-1 text-[1.6vw] leading-6 pr-20 ">
             Upload your notes as images and let AI transform them into
             interactive quiz cards. Learn smarter, revise faster, and compete
             with friends all in one platform.
           </p>
           <div className="flex justify-center mt-8">
-            <div className="w-[70vw] h-[40vw]">
+            <div className="w-200 h-125">
               <img
                 src={quizcardimage}
                 className=" w-full rounded-2xl h-full object-cover"
@@ -142,7 +116,7 @@ const handlecelebrate = ()=>{
           <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Side - Content */}
             <div>
-              <h1 className="text-5xl font-semibold mb-8">
+              <h1 className="howwork text-5xl font-semibold mb-8">
                 How It <span className="text-[var(--primary)]">Works</span>
               </h1>
 
@@ -150,7 +124,7 @@ const handlecelebrate = ()=>{
               <div className="flex items-start mb-8">
                 <i className="ri-camera-line text-4xl text-[var(--primary)]"></i>
                 <div className="ml-4">
-                  <h2 className="text-3xl">Upload Your Notes</h2>
+                  <h2 className="mainheading text-3xl">Upload Your Notes</h2>
                   <p className="mt-2 text-md">
                     Snap a photo of your notes (JPG, PNG, JPEG) <br /> and
                     upload.
@@ -162,7 +136,7 @@ const handlecelebrate = ()=>{
               <div className="flex items-start mb-8">
                 <i className="ri-bard-line text-4xl text-[var(--primary)]"></i>
                 <div className="ml-4">
-                  <h2 className="text-3xl">AI Creates Quiz Cards</h2>
+                  <h2 className="mainheading text-3xl">AI Creates Quiz Cards</h2>
                   <p className="mt-2 text-md">
                     AI instantly generates question cards from your uploaded
                     notes.
@@ -174,7 +148,7 @@ const handlecelebrate = ()=>{
               <div className="flex items-start">
                 <i className="ri-brain-line text-4xl text-[var(--primary)]"></i>
                 <div className="ml-4">
-                  <h2 className="text-3xl ">Learn & Compete</h2>
+                  <h2 className="mainheading text-3xl ">Learn & Compete</h2>
                   <p className="mt-2 text-md">
                     Save your quiz cards or test your knowledge in competition
                     mode.
@@ -196,11 +170,11 @@ const handlecelebrate = ()=>{
           </div>
         </section>
 
-        <section className="w-full h-auto pt-[6vw] pb-[4vw]">
+        <section className="w-full h-auto pt-[10vw] pb-[4vw]">
           <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Left Content */}
             <div>
-              <h1 className="text-4xl tracking-tight mb-5 flex items-center gap-2">
+              <h1 className="mainheading text-4xl tracking-tight mb-5 flex items-center gap-2">
                 <i className="text-[var(--primary)] ri-megaphone-line"></i>
                 Your Quiz Powered by AI
               </h1>
@@ -235,7 +209,7 @@ const handlecelebrate = ()=>{
 
             {/* Right side */}
             <div>
-              <h1 className="text-4xl tracking-tight mb-5 flex items-center gap-2">
+              <h1 className="mainheading text-4xl tracking-tight mb-5 flex items-center gap-2">
                 <i className="text-[var(--primary)] ri-megaphone-line"></i>
                 Climb the Leaderboard
               </h1>
@@ -248,15 +222,15 @@ const handlecelebrate = ()=>{
           </div>
         </section>
 
-        <section className="w-full h-auto pt-12 flex ">
+        <section className="w-full h-auto pt-12 flex p-6 ">
           <div className="text-center w-full">
-            <h1 className="text-4xl">
+            <h1 className="mainheading text-4xl">
               <span>
                 <i className="text-[var(--primary)] ri-folder-5-line"></i>
               </span>{" "}
               All Your Learning Organized and Accessible
             </h1>
-            <p className="px-20 pt-3 text-[1.6vw] leading-6">
+            <p className="paras px-20 pt-3 text-[1.6vw] leading-6">
               Keep track of your saved quiz cards and competitions. Your private
               history ensures you can revisit topics anytime, subject-wise.
             </p>
@@ -272,8 +246,8 @@ const handlecelebrate = ()=>{
           </div>
         </section>
 
-        <section className="w-full h-auto">
-          <div className="h-100 flex justify-center items-center pt-20">
+        <section className="w-full h-100 p-7 py-20">
+          <div className="h-100 flex justify-center items-center ">
             <FallingText
               text={`Smartly generated questions from your own notes. Learn with quizzes, not boring text. Compete with peers instantly Keep your learning structured.`}
               highlightWords={[
@@ -294,9 +268,7 @@ const handlecelebrate = ()=>{
           </div>
         </section>
 
-       <section className="w-full h-screen flex justify-center items-center bg-black">
-        <button onClick={handlecelebrate} className="bg-white px-10 text-black py-4 rounded-2xl cursor-pointer">Alert</button>
-        </section> 
+    
       
       </main>
     </div>

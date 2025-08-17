@@ -10,6 +10,7 @@ import UserCompetionData from "../../UserScreensPage/UserPage/GroupStudy/UserCom
 import Bookmark from "../../UserScreensPage/UserPage/GroupStudy/Bookmark";
 import UploadFiles from "../../UserScreensPage/QuizCardSystem/UploadFiles";
 import LeaderBoard from "../../UserScreensPage/UserPage/LeaderBoard";
+import { Link } from "react-router-dom";
 
 const SideBar2 = () => {
   const [activeLink, setActiveLink] = useState("LeaderBoard");
@@ -21,7 +22,7 @@ const SideBar2 = () => {
     subject: activeSubject,
   });
 
-  const navItems = ["LeaderBoard", "Quiz Generate", "All Users", "Competion"];
+  const navItems = ["LeaderBoard", "Quiz Generate", "Competion"];
   const libraryItems = ["Competion Data", "BookMark", "Upload Files"];
 
   const renderSection = () => {
@@ -50,9 +51,9 @@ const SideBar2 = () => {
       );
     }
 
-    if (activeLink === "All Users") {
-      return <FreindsList />;
-    }
+    // if (activeLink === "All Users") {
+    //   return <FreindsList />;
+    // }
 
     if (activeLink === "Competion") {
       return <MainGroup />;
@@ -91,9 +92,12 @@ const SideBar2 = () => {
               alt="Logo"
             />
           </div>
+          <Link to={'/'}>
+            <span className="relative  text-gray-400 duration-300 top-7 cursor-pointer">
+              <i className="ri-arrow-left-s-line"></i> Back 
+            </span>
+          </Link>
         </div>
-
-
 
         <nav className="flex-1 px-4 mt-7">
           {/* Main Nav */}
@@ -152,7 +156,10 @@ const SideBar2 = () => {
                           activeSubject === subject ? "bg-[var(--bg2)]" : ""
                         } text-white capitalize hover:bg-[var(--bg2)] font-medium rounded-[10px] tracking-tight cursor-pointer text-[1.3vw]`}
                       >
-                        <span><i className="ri-book-open-line"></i></span> {subject.charAt(0).toUpperCase() + subject.slice(1)}
+                        <span>
+                          <i className="ri-book-open-line"></i>
+                        </span>{" "}
+                        {subject.charAt(0).toUpperCase() + subject.slice(1)}
                       </div>
                     ))
                   ) : (

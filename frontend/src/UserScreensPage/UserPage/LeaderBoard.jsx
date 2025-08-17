@@ -145,14 +145,14 @@
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="mt-3 text-[16px] leading-8 text-white px-4 py-2 text-start"
-                    >
-                      <h1 className="text-2xl mb-3">
-                        <span>
-                          <i className="text-[20px] text-[#3468f5] ri-chat-1-line"></i>
-                        </span>{" "}
-                        Caption
-                      </h1>
+                      className="mt-3 text-[16px] leading-8 text-white px-4 py-2 text-center"
+                      >
+                        <h1 className="text-2xl mb-3">
+                          <span>
+                            <i className="text-[20px] text-[#3468f5] ri-chat-1-line"></i>
+                          </span>{" "}
+                          Caption
+                        </h1>
                       {item.message || "No message available"}
                     </motion.div>
                   )}
