@@ -58,13 +58,13 @@ const Navbar = () => {
     },
     {
       key: "2",
-      label: "Help",
+      label: <a href="https://github.com/arsalan479/Snap-Study" target="_blank">Help Center</a>,
       icon: <i className="ri-question-line"></i>,
     },
     {
       key: "3",
-      label: "Join our Discord",
-      icon: <i className="ri-discord-line"></i>,
+      label: <a href="https://x.com/ArsalanAli50024" target="_blank">Join our Twitter</a>,
+      icon: <i className="ri-twitter-x-line"></i>
     },
     {
       key: "5",

@@ -54,7 +54,7 @@ const SideBar = ({ isOpen, toggleSidebar }) => {
             </div>
 
             <div className="group flex items-center text-[var(--text)] text-[1.5vw] rounded-lg p-2 cursor-pointer hover:bg-[var(--bg2)]">
-              <span>Help Center</span>
+              <a href="https://github.com/arsalan479/Snap-Study" target="_blank" rel="noopener noreferrer">Help Center</a>
               <ArrowOutwardTwoToneIcon
                 style={{ fontSize: 17 }}
                 className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-px transition"
