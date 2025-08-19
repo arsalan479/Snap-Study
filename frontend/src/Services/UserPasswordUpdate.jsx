@@ -41,7 +41,7 @@ const UserPasswordUpdate = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto text-white p-8 rounded-xl shadow-md mt-10 space-y-6">
+    <div className="w-full max-w-lg mx-auto bg-[#1f1f1f] text-white p-8 rounded-xl  mt-10 space-y-6">
       <h2 className="text-2xl font-semibold text-center">Update Your Password</h2>
 
       <div className="space-y-4">

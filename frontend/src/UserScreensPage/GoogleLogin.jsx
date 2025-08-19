@@ -4,15 +4,11 @@ import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const GoogleLogin = () => {
-
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
-  const navigate = useNavigate()
-
-
+  const navigate = useNavigate();
 
   const tooglepassword = () => {
     seteyepassword((prev) => !prev);
@@ -21,9 +17,7 @@ const GoogleLogin = () => {
   const submithandler = async (e) => {
     e.preventDefault();
 
-    
     try {
-     
       if (!email && !password) {
         toast.error("Email and Password are required");
         return;
@@ -54,7 +48,6 @@ const GoogleLogin = () => {
 
       if (data.success && data.redirectURL) {
         setTimeout(() => {
-          
           window.location.href = data.redirectURL;
         }, 2000);
       }
@@ -66,8 +59,8 @@ const GoogleLogin = () => {
           toast.error(data.message);
         } else {
           toast.error(data.message || "Something went wrong. Try again.");
-          console.log(data.message)
-          navigate('/googleOTP')
+          if (data.message && data.message.includes("verified"))
+            return navigate("/googleOTP");
         }
       } else {
         toast.error("Network error. Try again.");
@@ -136,12 +129,14 @@ const GoogleLogin = () => {
           </span>
         </div>
 
-       
         <button
           type="submit"
           className=" w-full capitalize mt-4 cursor-pointer bg-[var(--button)] hover:bg-[var(--hover)] text-white font-medium py-3 rounded-[15px] transition-all duration-200"
         >
-         <span><i className="text-[var(--primary)] ri-mail-line"></i></span>  Continue with email 
+          <span>
+            <i className="text-[var(--primary)] ri-mail-line"></i>
+          </span>{" "}
+          Continue with email
         </button>
 
         <div className="flex justify-center gap-40 mt-4">
@@ -156,17 +151,14 @@ const GoogleLogin = () => {
 
           <p className="text-sm text-center text-gray-400">
             Don’t have an account?{" "}
-             <Link to={"/googleregister"}>
+            <Link to={"/googleregister"}>
               <span className="text-[var(--primary)] cursor-pointer hover:underline">
                 Sign up
               </span>
-             </Link>
+            </Link>
           </p>
         </div>
       </form>
-
-      
-      
     </div>
   );
 };
