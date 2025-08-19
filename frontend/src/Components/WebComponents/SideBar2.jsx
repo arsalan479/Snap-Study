@@ -17,6 +17,7 @@ const SideBar2 = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [quizGenerateSubject, setQuizGenerateSubject] = useState(null);
 
+
   const { uniqueSubjects, content: quizCardContent } = QuizCardHistory({
     subject: activeSubject,
   });
@@ -50,9 +51,6 @@ const SideBar2 = () => {
       );
     }
 
-    // if (activeLink === "All Users") {
-    //   return <FreindsList />;
-    // }
 
     if (activeLink === "Competion") {
       return <MainGroup />;
