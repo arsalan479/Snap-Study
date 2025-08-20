@@ -1,10 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { axiosinstance } from "../AxiosInstance/axios.js";
 import toast from "react-hot-toast";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import Bannerlogindesign from "../Utils/Bannerlogindesign.jsx";
-
 
 const Googleinput = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +11,6 @@ const Googleinput = () => {
   const [comparepassword, setcomparepassword] = useState("");
   const [eyepassword, seteyepassword] = useState(false);
 
- 
   const toogleyepassword = () => {
     seteyepassword((prev) => !prev);
   };
@@ -21,10 +18,7 @@ const Googleinput = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     try {
-     
-
       const registrationRes = await toast.promise(
         axiosinstance.post("/auth/magic/register", {
           email,
@@ -45,14 +39,9 @@ const Googleinput = () => {
           window.location.href = data.redirectURL;
         }, 2000);
       }
-
-      recaptchaRef.current.reset(); // Optional: Reset reCAPTCHA after success
     } catch (err) {
-      console.log(err);
       const errors = err.response?.data?.errors;
       const message = err.response?.data?.message;
-
-      recaptchaRef.current?.reset(); // Reset on error too
 
       if (Array.isArray(errors)) {
         errors.forEach((errors) => toast.error(errors.msg));
@@ -129,7 +118,6 @@ const Googleinput = () => {
               className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
               placeholder="********"
             />
-            
           </div>
 
           <div className="mb-6 relative">
@@ -145,13 +133,12 @@ const Googleinput = () => {
               className="w-full px-4 text-white py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
               placeholder="********"
             />
-          <div className="mt-4">
-            <input type="checkbox" onClick={toogleyepassword} name="" id="" />
-            <span className="ml-2">Show Password</span>
-          </div>
+            <div className="mt-4">
+              <input type="checkbox" onClick={toogleyepassword} name="" id="" />
+              <span className="ml-2">Show Password</span>
+            </div>
           </div>
 
-          
           {/* Submit Button */}
           <button
             type="submit"
